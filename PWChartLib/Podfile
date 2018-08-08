@@ -1,0 +1,9 @@
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+def pods
+
+ pod 'PWDataBridge'
+end
+target 'PWChartLib' do
+    pods
+end

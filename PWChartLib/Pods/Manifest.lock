@@ -1,0 +1,18 @@
+PODS:
+  - PWDataBridge (0.0.2):
+    - PWDataBridge/PWDataBridge (= 0.0.2)
+  - PWDataBridge/PWDataBridge (0.0.2)
+
+DEPENDENCIES:
+  - PWDataBridge
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - PWDataBridge
+
+SPEC CHECKSUMS:
+  PWDataBridge: ffee11c9fa052c6572a7d727ea28a03f1df242a8
+
+PODFILE CHECKSUM: 7c8e23e4b6087a8720e55d6d0d2a31deca204c65
+
+COCOAPODS: 1.5.3

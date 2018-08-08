@@ -1,0 +1,630 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		06B84BE3589CD8CFFF8A8E3F47F0692C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908E902E026C5C22904CF9014A5604AD /* Foundation.framework */; };
+		1A713A09E4B818E527043493B885FABF /* PWDataBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = E19E3151372C60BD71B69C2F1F463662 /* PWDataBridge.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		631BC27605B59D332B7F97763079ECD9 /* Pods-PWChartLib-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9306CA1B9B0E2114936315F41A17E5A0 /* Pods-PWChartLib-dummy.m */; };
+		823DA81F46D91D3592D9A07D550CCCE1 /* PWDataBridge-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FA08BF6C88D73FD783F189E76CC1C53D /* PWDataBridge-dummy.m */; };
+		A24176A12C8CC294005B6A235F9B6A12 /* PWBaseDataBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDC9B75D3B30080EB955A04C5848E74 /* PWBaseDataBridge.m */; };
+		B1B3F00AD9A1E83C34C1092B149A5D33 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC2C02191C153C1554B35DEE8B2D09D4 /* UIKit.framework */; };
+		D03969A6C69F2BDA7E7299918CCAD221 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BBC54FD51A577B501D5058E6DB94DDD /* Info.plist */; };
+		DB4399D8A10BA845E8227E6091CC3EAB /* PWBaseDataBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = F408B8953BE566FDEAF5D738D66E0D73 /* PWBaseDataBridge.h */; settings = {ATTRIBUTES = (Project, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6D0352A3E5B007A63773FA7D42066A69 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4CE744B6C01A536CEB9F877B64339CE1;
+			remoteInfo = "PWDataBridge-PWDataBridge";
+		};
+		FD1A2D7CE377A7E360DD4C31D398DB8E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 889FE79BAD3BA1232CC48F5B7EE95DEE;
+			remoteInfo = PWDataBridge;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0767F17F9184387BCE0434A7CAD078A1 /* Pods-PWChartLib-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-PWChartLib-resources.sh"; sourceTree = "<group>"; };
+		171C3AD1F7311B19C3806C44EEF5E9CA /* libPWDataBridge.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libPWDataBridge.a; path = libPWDataBridge.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1BBC54FD51A577B501D5058E6DB94DDD /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = PWDataBridge/PWDataBridge/Info.plist; sourceTree = "<group>"; };
+		22A5EBD743FB5463B3074517F0FA48D4 /* Pods-PWChartLib-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-PWChartLib-acknowledgements.plist"; sourceTree = "<group>"; };
+		25D0298E5F64460B4EADC2F42E0B36FB /* PWDataBridge.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = PWDataBridge.bundle; path = "PWDataBridge-PWDataBridge.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		41C08DC041B8C691338517C7D55A2BC3 /* Pods-PWChartLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PWChartLib.debug.xcconfig"; sourceTree = "<group>"; };
+		47F74E5156507F315A98FFF88D5E5953 /* libPods-PWChartLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-PWChartLib.a"; path = "libPods-PWChartLib.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		69AC31AA82617482835FBD772FBB4F7E /* PWDataBridge-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PWDataBridge-prefix.pch"; sourceTree = "<group>"; };
+		6B75DE2BA490BA6FDA4BD47AB579172B /* Pods-PWChartLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PWChartLib.release.xcconfig"; sourceTree = "<group>"; };
+		9084D332F165AF3D8AB0896F8C64B729 /* PWDataBridge.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PWDataBridge.xcconfig; sourceTree = "<group>"; };
+		908E902E026C5C22904CF9014A5604AD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		9306CA1B9B0E2114936315F41A17E5A0 /* Pods-PWChartLib-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-PWChartLib-dummy.m"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A103BA1FF25525293673654BBA35C39E /* ResourceBundle-PWDataBridge-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-PWDataBridge-Info.plist"; sourceTree = "<group>"; };
+		ABDC9B75D3B30080EB955A04C5848E74 /* PWBaseDataBridge.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PWBaseDataBridge.m; path = PWDataBridge/PWDataBridge/PWBaseDataBridge/PWBaseDataBridge.m; sourceTree = "<group>"; };
+		BC2C02191C153C1554B35DEE8B2D09D4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		E19E3151372C60BD71B69C2F1F463662 /* PWDataBridge.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PWDataBridge.h; path = PWDataBridge/PWDataBridge/PWDataBridge.h; sourceTree = "<group>"; };
+		EAF699EC37745C4D59CE73F3554338CF /* Pods-PWChartLib-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-PWChartLib-acknowledgements.markdown"; sourceTree = "<group>"; };
+		F408B8953BE566FDEAF5D738D66E0D73 /* PWBaseDataBridge.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PWBaseDataBridge.h; path = PWDataBridge/PWDataBridge/PWBaseDataBridge/PWBaseDataBridge.h; sourceTree = "<group>"; };
+		FA08BF6C88D73FD783F189E76CC1C53D /* PWDataBridge-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "PWDataBridge-dummy.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1C6BD8F3E2A66775621D3CD3CB060AD7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9C5FA3CD3A4A5FEB66E7CD4BFAB79DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				06B84BE3589CD8CFFF8A8E3F47F0692C /* Foundation.framework in Frameworks */,
+				B1B3F00AD9A1E83C34C1092B149A5D33 /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFD04397E9536613F16EA3401E6B961D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0EE33E686041E7F0C8B199992D3C9465 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				47F74E5156507F315A98FFF88D5E5953 /* libPods-PWChartLib.a */,
+				171C3AD1F7311B19C3806C44EEF5E9CA /* libPWDataBridge.a */,
+				25D0298E5F64460B4EADC2F42E0B36FB /* PWDataBridge.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		10DEDCB394BAA0C7FEDEBE330207B074 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				908E902E026C5C22904CF9014A5604AD /* Foundation.framework */,
+				BC2C02191C153C1554B35DEE8B2D09D4 /* UIKit.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		25C136F4B39D1435F7F13A45E4EDC293 /* PWDataBridge */ = {
+			isa = PBXGroup;
+			children = (
+				E19E3151372C60BD71B69C2F1F463662 /* PWDataBridge.h */,
+				83DA12B4D0E91280C7043E64BD7C6A46 /* PWDataBridge */,
+				6199ED0A892EC1C2F88D2293DE2FD700 /* Resources */,
+				2CD61B09A9C78E0152129B17953D1436 /* Support Files */,
+			);
+			name = PWDataBridge;
+			path = PWDataBridge;
+			sourceTree = "<group>";
+		};
+		2CD61B09A9C78E0152129B17953D1436 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				9084D332F165AF3D8AB0896F8C64B729 /* PWDataBridge.xcconfig */,
+				FA08BF6C88D73FD783F189E76CC1C53D /* PWDataBridge-dummy.m */,
+				69AC31AA82617482835FBD772FBB4F7E /* PWDataBridge-prefix.pch */,
+				A103BA1FF25525293673654BBA35C39E /* ResourceBundle-PWDataBridge-Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/PWDataBridge";
+			sourceTree = "<group>";
+		};
+		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				10DEDCB394BAA0C7FEDEBE330207B074 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6199ED0A892EC1C2F88D2293DE2FD700 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1BBC54FD51A577B501D5058E6DB94DDD /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
+				9D70075DD3946FA0CC9CE090E1554CCD /* Pods */,
+				0EE33E686041E7F0C8B199992D3C9465 /* Products */,
+				95419609AD25931ABCD3A30CF2838C46 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		83DA12B4D0E91280C7043E64BD7C6A46 /* PWDataBridge */ = {
+			isa = PBXGroup;
+			children = (
+				F408B8953BE566FDEAF5D738D66E0D73 /* PWBaseDataBridge.h */,
+				ABDC9B75D3B30080EB955A04C5848E74 /* PWBaseDataBridge.m */,
+			);
+			name = PWDataBridge;
+			sourceTree = "<group>";
+		};
+		95419609AD25931ABCD3A30CF2838C46 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				E1AC8AB5A12DDCBA3E9D789CF57E272A /* Pods-PWChartLib */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		9D70075DD3946FA0CC9CE090E1554CCD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				25C136F4B39D1435F7F13A45E4EDC293 /* PWDataBridge */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E1AC8AB5A12DDCBA3E9D789CF57E272A /* Pods-PWChartLib */ = {
+			isa = PBXGroup;
+			children = (
+				EAF699EC37745C4D59CE73F3554338CF /* Pods-PWChartLib-acknowledgements.markdown */,
+				22A5EBD743FB5463B3074517F0FA48D4 /* Pods-PWChartLib-acknowledgements.plist */,
+				9306CA1B9B0E2114936315F41A17E5A0 /* Pods-PWChartLib-dummy.m */,
+				0767F17F9184387BCE0434A7CAD078A1 /* Pods-PWChartLib-resources.sh */,
+				41C08DC041B8C691338517C7D55A2BC3 /* Pods-PWChartLib.debug.xcconfig */,
+				6B75DE2BA490BA6FDA4BD47AB579172B /* Pods-PWChartLib.release.xcconfig */,
+			);
+			name = "Pods-PWChartLib";
+			path = "Target Support Files/Pods-PWChartLib";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		980A2DD1901BBF5411C21A46A3BBDE13 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB4399D8A10BA845E8227E6091CC3EAB /* PWBaseDataBridge.h in Headers */,
+				1A713A09E4B818E527043493B885FABF /* PWDataBridge.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		4CE744B6C01A536CEB9F877B64339CE1 /* PWDataBridge-PWDataBridge */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 36D6F105903AEBB5C0F4244C8F195962 /* Build configuration list for PBXNativeTarget "PWDataBridge-PWDataBridge" */;
+			buildPhases = (
+				C3D231664C4125334135BBCD85440EC4 /* Sources */,
+				1C6BD8F3E2A66775621D3CD3CB060AD7 /* Frameworks */,
+				F592D43A85E6E55997313054A0294243 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "PWDataBridge-PWDataBridge";
+			productName = "PWDataBridge-PWDataBridge";
+			productReference = 25D0298E5F64460B4EADC2F42E0B36FB /* PWDataBridge.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+		6982A4E29E3FE9D1280508377019F390 /* Pods-PWChartLib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5144B96F0C6F6BCC2E0C22F2FE1E1254 /* Build configuration list for PBXNativeTarget "Pods-PWChartLib" */;
+			buildPhases = (
+				CF9E9BD3E57A2758D39702D37908160A /* Sources */,
+				DFD04397E9536613F16EA3401E6B961D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				91606FFF4501AB995785E80AD7184B6B /* PBXTargetDependency */,
+			);
+			name = "Pods-PWChartLib";
+			productName = "Pods-PWChartLib";
+			productReference = 47F74E5156507F315A98FFF88D5E5953 /* libPods-PWChartLib.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		889FE79BAD3BA1232CC48F5B7EE95DEE /* PWDataBridge */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 63DC47EDA24115A9C90D2FEC49C8D928 /* Build configuration list for PBXNativeTarget "PWDataBridge" */;
+			buildPhases = (
+				B525A438FFD98DC0DAEB4B06B3989EFE /* Sources */,
+				D9C5FA3CD3A4A5FEB66E7CD4BFAB79DB /* Frameworks */,
+				980A2DD1901BBF5411C21A46A3BBDE13 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ED9B7101F4DD2E6FE0A7A57F8BE2D889 /* PBXTargetDependency */,
+			);
+			name = PWDataBridge;
+			productName = PWDataBridge;
+			productReference = 171C3AD1F7311B19C3806C44EEF5E9CA /* libPWDataBridge.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 0EE33E686041E7F0C8B199992D3C9465 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6982A4E29E3FE9D1280508377019F390 /* Pods-PWChartLib */,
+				889FE79BAD3BA1232CC48F5B7EE95DEE /* PWDataBridge */,
+				4CE744B6C01A536CEB9F877B64339CE1 /* PWDataBridge-PWDataBridge */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F592D43A85E6E55997313054A0294243 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D03969A6C69F2BDA7E7299918CCAD221 /* Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B525A438FFD98DC0DAEB4B06B3989EFE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A24176A12C8CC294005B6A235F9B6A12 /* PWBaseDataBridge.m in Sources */,
+				823DA81F46D91D3592D9A07D550CCCE1 /* PWDataBridge-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3D231664C4125334135BBCD85440EC4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CF9E9BD3E57A2758D39702D37908160A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				631BC27605B59D332B7F97763079ECD9 /* Pods-PWChartLib-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		91606FFF4501AB995785E80AD7184B6B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PWDataBridge;
+			target = 889FE79BAD3BA1232CC48F5B7EE95DEE /* PWDataBridge */;
+			targetProxy = FD1A2D7CE377A7E360DD4C31D398DB8E /* PBXContainerItemProxy */;
+		};
+		ED9B7101F4DD2E6FE0A7A57F8BE2D889 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "PWDataBridge-PWDataBridge";
+			target = 4CE744B6C01A536CEB9F877B64339CE1 /* PWDataBridge-PWDataBridge */;
+			targetProxy = 6D0352A3E5B007A63773FA7D42066A69 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1EE19F5DD95931924296F637BF18BD8F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		3EFEA81C78993008A397C5B9AA18CDFF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 41C08DC041B8C691338517C7D55A2BC3 /* Pods-PWChartLib.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6E0B4799601CAF292429652262BCFF73 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9084D332F165AF3D8AB0896F8C64B729 /* PWDataBridge.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/PWDataBridge/PWDataBridge-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = PWDataBridge;
+				PRODUCT_NAME = PWDataBridge;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		704512EBA57A4CA9A497CB28CBDDE697 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9084D332F165AF3D8AB0896F8C64B729 /* PWDataBridge.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/PWDataBridge/PWDataBridge-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = PWDataBridge;
+				PRODUCT_NAME = PWDataBridge;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C1A8BB67C8F35C82931B31CA6D8C1B4E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9084D332F165AF3D8AB0896F8C64B729 /* PWDataBridge.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/PWDataBridge";
+				INFOPLIST_FILE = "Target Support Files/PWDataBridge/ResourceBundle-PWDataBridge-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = PWDataBridge;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		DD521CAE782A58B983F0E8A73DDD509B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9084D332F165AF3D8AB0896F8C64B729 /* PWDataBridge.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/PWDataBridge";
+				INFOPLIST_FILE = "Target Support Files/PWDataBridge/ResourceBundle-PWDataBridge-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = PWDataBridge;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		ED48EAC64A0050EE295EB28E8BFD43BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6B75DE2BA490BA6FDA4BD47AB579172B /* Pods-PWChartLib.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F4568DEE257655D290C2B9CEAB37C934 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1EE19F5DD95931924296F637BF18BD8F /* Debug */,
+				F4568DEE257655D290C2B9CEAB37C934 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		36D6F105903AEBB5C0F4244C8F195962 /* Build configuration list for PBXNativeTarget "PWDataBridge-PWDataBridge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C1A8BB67C8F35C82931B31CA6D8C1B4E /* Debug */,
+				DD521CAE782A58B983F0E8A73DDD509B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5144B96F0C6F6BCC2E0C22F2FE1E1254 /* Build configuration list for PBXNativeTarget "Pods-PWChartLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3EFEA81C78993008A397C5B9AA18CDFF /* Debug */,
+				ED48EAC64A0050EE295EB28E8BFD43BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		63DC47EDA24115A9C90D2FEC49C8D928 /* Build configuration list for PBXNativeTarget "PWDataBridge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				704512EBA57A4CA9A497CB28CBDDE697 /* Debug */,
+				6E0B4799601CAF292429652262BCFF73 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

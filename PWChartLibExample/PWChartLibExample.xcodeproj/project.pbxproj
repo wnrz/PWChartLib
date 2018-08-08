@@ -1,0 +1,576 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		92873319211AC7B100FB2771 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 92873318211AC7B100FB2771 /* AppDelegate.m */; };
+		9287331C211AC7B100FB2771 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9287331B211AC7B100FB2771 /* ViewController.m */; };
+		9287331F211AC7B100FB2771 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9287331D211AC7B100FB2771 /* Main.storyboard */; };
+		92873321211AC7B200FB2771 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92873320211AC7B200FB2771 /* Assets.xcassets */; };
+		92873324211AC7B200FB2771 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92873322211AC7B200FB2771 /* LaunchScreen.storyboard */; };
+		92873327211AC7B200FB2771 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92873326211AC7B200FB2771 /* main.m */; };
+		92873331211AC7B300FB2771 /* PWChartLibExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 92873330211AC7B300FB2771 /* PWChartLibExampleTests.m */; };
+		9287333C211AC7B300FB2771 /* PWChartLibExampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9287333B211AC7B300FB2771 /* PWChartLibExampleUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9287332D211AC7B200FB2771 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9287330C211AC7B100FB2771 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 92873313211AC7B100FB2771;
+			remoteInfo = PWChartLibExample;
+		};
+		92873338211AC7B300FB2771 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9287330C211AC7B100FB2771 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 92873313211AC7B100FB2771;
+			remoteInfo = PWChartLibExample;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		92873314211AC7B100FB2771 /* PWChartLibExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PWChartLibExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		92873317211AC7B100FB2771 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		92873318211AC7B100FB2771 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		9287331A211AC7B100FB2771 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		9287331B211AC7B100FB2771 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		9287331E211AC7B100FB2771 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		92873320211AC7B200FB2771 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		92873323211AC7B200FB2771 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		92873325211AC7B200FB2771 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		92873326211AC7B200FB2771 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9287332C211AC7B200FB2771 /* PWChartLibExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PWChartLibExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		92873330211AC7B300FB2771 /* PWChartLibExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWChartLibExampleTests.m; sourceTree = "<group>"; };
+		92873332211AC7B300FB2771 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		92873337211AC7B300FB2771 /* PWChartLibExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PWChartLibExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9287333B211AC7B300FB2771 /* PWChartLibExampleUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWChartLibExampleUITests.m; sourceTree = "<group>"; };
+		9287333D211AC7B300FB2771 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		92873311211AC7B100FB2771 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92873329211AC7B200FB2771 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92873334211AC7B300FB2771 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9287330B211AC7B100FB2771 = {
+			isa = PBXGroup;
+			children = (
+				92873316211AC7B100FB2771 /* PWChartLibExample */,
+				9287332F211AC7B300FB2771 /* PWChartLibExampleTests */,
+				9287333A211AC7B300FB2771 /* PWChartLibExampleUITests */,
+				92873315211AC7B100FB2771 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		92873315211AC7B100FB2771 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				92873314211AC7B100FB2771 /* PWChartLibExample.app */,
+				9287332C211AC7B200FB2771 /* PWChartLibExampleTests.xctest */,
+				92873337211AC7B300FB2771 /* PWChartLibExampleUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		92873316211AC7B100FB2771 /* PWChartLibExample */ = {
+			isa = PBXGroup;
+			children = (
+				92873317211AC7B100FB2771 /* AppDelegate.h */,
+				92873318211AC7B100FB2771 /* AppDelegate.m */,
+				9287331A211AC7B100FB2771 /* ViewController.h */,
+				9287331B211AC7B100FB2771 /* ViewController.m */,
+				9287331D211AC7B100FB2771 /* Main.storyboard */,
+				92873320211AC7B200FB2771 /* Assets.xcassets */,
+				92873322211AC7B200FB2771 /* LaunchScreen.storyboard */,
+				92873325211AC7B200FB2771 /* Info.plist */,
+				92873326211AC7B200FB2771 /* main.m */,
+			);
+			path = PWChartLibExample;
+			sourceTree = "<group>";
+		};
+		9287332F211AC7B300FB2771 /* PWChartLibExampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				92873330211AC7B300FB2771 /* PWChartLibExampleTests.m */,
+				92873332211AC7B300FB2771 /* Info.plist */,
+			);
+			path = PWChartLibExampleTests;
+			sourceTree = "<group>";
+		};
+		9287333A211AC7B300FB2771 /* PWChartLibExampleUITests */ = {
+			isa = PBXGroup;
+			children = (
+				9287333B211AC7B300FB2771 /* PWChartLibExampleUITests.m */,
+				9287333D211AC7B300FB2771 /* Info.plist */,
+			);
+			path = PWChartLibExampleUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		92873313211AC7B100FB2771 /* PWChartLibExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 92873340211AC7B300FB2771 /* Build configuration list for PBXNativeTarget "PWChartLibExample" */;
+			buildPhases = (
+				92873310211AC7B100FB2771 /* Sources */,
+				92873311211AC7B100FB2771 /* Frameworks */,
+				92873312211AC7B100FB2771 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PWChartLibExample;
+			productName = PWChartLibExample;
+			productReference = 92873314211AC7B100FB2771 /* PWChartLibExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9287332B211AC7B200FB2771 /* PWChartLibExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 92873343211AC7B300FB2771 /* Build configuration list for PBXNativeTarget "PWChartLibExampleTests" */;
+			buildPhases = (
+				92873328211AC7B200FB2771 /* Sources */,
+				92873329211AC7B200FB2771 /* Frameworks */,
+				9287332A211AC7B200FB2771 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9287332E211AC7B200FB2771 /* PBXTargetDependency */,
+			);
+			name = PWChartLibExampleTests;
+			productName = PWChartLibExampleTests;
+			productReference = 9287332C211AC7B200FB2771 /* PWChartLibExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		92873336211AC7B300FB2771 /* PWChartLibExampleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 92873346211AC7B300FB2771 /* Build configuration list for PBXNativeTarget "PWChartLibExampleUITests" */;
+			buildPhases = (
+				92873333211AC7B300FB2771 /* Sources */,
+				92873334211AC7B300FB2771 /* Frameworks */,
+				92873335211AC7B300FB2771 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				92873339211AC7B300FB2771 /* PBXTargetDependency */,
+			);
+			name = PWChartLibExampleUITests;
+			productName = PWChartLibExampleUITests;
+			productReference = 92873337211AC7B300FB2771 /* PWChartLibExampleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9287330C211AC7B100FB2771 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = "王宁";
+				TargetAttributes = {
+					92873313211AC7B100FB2771 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+					9287332B211AC7B200FB2771 = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = 92873313211AC7B100FB2771;
+					};
+					92873336211AC7B300FB2771 = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = 92873313211AC7B100FB2771;
+					};
+				};
+			};
+			buildConfigurationList = 9287330F211AC7B100FB2771 /* Build configuration list for PBXProject "PWChartLibExample" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9287330B211AC7B100FB2771;
+			productRefGroup = 92873315211AC7B100FB2771 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				92873313211AC7B100FB2771 /* PWChartLibExample */,
+				9287332B211AC7B200FB2771 /* PWChartLibExampleTests */,
+				92873336211AC7B300FB2771 /* PWChartLibExampleUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		92873312211AC7B100FB2771 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92873324211AC7B200FB2771 /* LaunchScreen.storyboard in Resources */,
+				92873321211AC7B200FB2771 /* Assets.xcassets in Resources */,
+				9287331F211AC7B100FB2771 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9287332A211AC7B200FB2771 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92873335211AC7B300FB2771 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		92873310211AC7B100FB2771 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9287331C211AC7B100FB2771 /* ViewController.m in Sources */,
+				92873327211AC7B200FB2771 /* main.m in Sources */,
+				92873319211AC7B100FB2771 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92873328211AC7B200FB2771 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92873331211AC7B300FB2771 /* PWChartLibExampleTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92873333211AC7B300FB2771 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9287333C211AC7B300FB2771 /* PWChartLibExampleUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9287332E211AC7B200FB2771 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 92873313211AC7B100FB2771 /* PWChartLibExample */;
+			targetProxy = 9287332D211AC7B200FB2771 /* PBXContainerItemProxy */;
+		};
+		92873339211AC7B300FB2771 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 92873313211AC7B100FB2771 /* PWChartLibExample */;
+			targetProxy = 92873338211AC7B300FB2771 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		9287331D211AC7B100FB2771 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9287331E211AC7B100FB2771 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		92873322211AC7B200FB2771 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				92873323211AC7B200FB2771 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9287333E211AC7B300FB2771 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		9287333F211AC7B300FB2771 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		92873341211AC7B300FB2771 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PWChartLibExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = QuoBusiness.PWChartLibExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		92873342211AC7B300FB2771 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PWChartLibExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = QuoBusiness.PWChartLibExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		92873344211AC7B300FB2771 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PWChartLibExampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = QuoBusiness.PWChartLibExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PWChartLibExample.app/PWChartLibExample";
+			};
+			name = Debug;
+		};
+		92873345211AC7B300FB2771 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PWChartLibExampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = QuoBusiness.PWChartLibExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PWChartLibExample.app/PWChartLibExample";
+			};
+			name = Release;
+		};
+		92873347211AC7B300FB2771 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PWChartLibExampleUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = QuoBusiness.PWChartLibExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PWChartLibExample;
+			};
+			name = Debug;
+		};
+		92873348211AC7B300FB2771 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PWChartLibExampleUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = QuoBusiness.PWChartLibExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PWChartLibExample;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9287330F211AC7B100FB2771 /* Build configuration list for PBXProject "PWChartLibExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9287333E211AC7B300FB2771 /* Debug */,
+				9287333F211AC7B300FB2771 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		92873340211AC7B300FB2771 /* Build configuration list for PBXNativeTarget "PWChartLibExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				92873341211AC7B300FB2771 /* Debug */,
+				92873342211AC7B300FB2771 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		92873343211AC7B300FB2771 /* Build configuration list for PBXNativeTarget "PWChartLibExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				92873344211AC7B300FB2771 /* Debug */,
+				92873345211AC7B300FB2771 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		92873346211AC7B300FB2771 /* Build configuration list for PBXNativeTarget "PWChartLibExampleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				92873347211AC7B300FB2771 /* Debug */,
+				92873348211AC7B300FB2771 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9287330C211AC7B100FB2771 /* Project object */;
+}
