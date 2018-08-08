@@ -17,8 +17,12 @@
     // Drawing code
 }
 */
+- (void)install{
+    [super install];
+    self.ztView = self;
+}
 
 - (NSInteger)dataNumber{
-    return fxConfig.fxDatas.count;
+    return _fxconfig.fxDatas.count;
 }
 @end

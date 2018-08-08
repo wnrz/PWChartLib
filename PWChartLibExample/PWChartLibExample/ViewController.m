@@ -27,6 +27,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)setBaseView:(ChartBaseView *)baseView{
+    _baseView = baseView;
+    baseView.showFrame = CGRectMake(0, 0, _baseView.frame.size.width, _baseView.frame.size.height);
+    baseView.enableTap = YES;
+    baseView.enableDrag = YES;
+}
+
 - (IBAction)changeSF:(id)sender{
     int num = _baseView.showFrame.size.width == _baseView.frame.size.width ? 2 : 1;
     _baseView.showFrame = CGRectMake(0, 0, _baseView.frame.size.width / num, _baseView.frame.size.height / num);

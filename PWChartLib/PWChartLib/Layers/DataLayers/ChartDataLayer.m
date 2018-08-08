@@ -10,6 +10,10 @@
 
 @implementation ChartDataLayer
 
+- (void)install{
+    [super install];
+}
+
 - (void)startDraw{
     [super startDraw];
 }

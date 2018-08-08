@@ -11,6 +11,7 @@
 @implementation ChartFormLayer
 
 - (void)install{
+    [super install];
     _verticalSeparateArr = @[@(0),@(1)];
     _horizontalSeparateArr = @[@(0),@(1)];
     _verticalSeparateDottedArr = @[@.25,@.5,@.75];

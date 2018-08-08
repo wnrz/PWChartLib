@@ -60,6 +60,8 @@
     _dataLayer = [[ChartDataLayer alloc] init];
     _dataLayer.baseConfig = _baseConfig;
     [self.layer addSublayer:_dataLayer];
+    
+    self.ztView = self;
 }
 
 - (void)dealloc{
@@ -119,15 +121,59 @@
     
 }
 
-- (void)setZtView:(ChartBaseView *)ztView{
-    _ztView = ztView;
-    if (![ztView isEqual:self]) {
-        self.baseConfig = ztView.baseConfig;
+- (NSInteger)dataNumber{
+    return 0;
+}
+
+- (void)setEnableTap:(BOOL)enableTap{
+    _enableTap = enableTap;
+    if (_enableTap) {
+        if (!_twoFingerPinch) {
+            _twoFingerPinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(twoFingerPinch:)];
+            [self addGestureRecognizer:_twoFingerPinch];
+        }
+        if (!_longGes) {
+            _longGes = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressedGesAction:)];
+            [_longGes setMinimumPressDuration:.5];
+            [self addGestureRecognizer:_longGes];
+        }
+        if (!_tapGes) {
+            _tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapPressedGesAction:)];
+            [self addGestureRecognizer:_tapGes];
+        }
+    }else{
+        if (_twoFingerPinch) {
+            [self removeGestureRecognizer:_twoFingerPinch];
+            _twoFingerPinch = nil;
+        }
+        if (_longGes) {
+            [self removeGestureRecognizer:_longGes];
+            _longGes = nil;
+        }
+        if (_tapGes) {
+            [self removeGestureRecognizer:_tapGes];
+            _tapGes = nil;
+        }
     }
 }
 
-- (NSInteger)dataNumber{
-    return 0;
+- (void)setEnableDrag:(BOOL)enableDrag{
+    _enableDrag = enableDrag;
+    if (_enableDrag) {
+        
+        if (!_panGes) {
+            _panGes = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesAction:)];
+            [_panGes setMinimumNumberOfTouches:1];
+            [_panGes setMaximumNumberOfTouches:1];
+            [_panGes setDelegate:self];
+            [self addGestureRecognizer:_panGes];
+        }
+    }else{
+        if (_panGes) {
+            [self removeGestureRecognizer:_panGes];
+            _panGes = nil;
+        }
+    }
 }
 
 
@@ -136,105 +182,9 @@
         return;
     }
     if (self.baseConfig.showCrossLine) {
-        CGPoint translatedPoint = [recognizer locationInView:self];
-        self.baseConfig.showCrossLinePoint = translatedPoint;
-        if (chartIsValidArr(self.ftViews)) {
-            NSArray *arr = [NSArray arrayWithArray:self.ftViews];
-            for (NSInteger i = 0 ; i < arr.count; i++) {
-                ChartBaseView *zb = self.ftViews[i];
-                CGPoint translatedPoint2 = [recognizer locationInView:zb];
-                zb.baseConfig.showCrossLinePoint = translatedPoint2;
-            }
-        }
-        if (![_ztView isEqual:self]) {
-            CGPoint translatedPoint2 = [recognizer locationInView:_ztView];
-            _ztView.baseConfig.showCrossLinePoint = translatedPoint2;
-        }
-        float startX = [ChartTools getStartX:self.showFrame total:self.baseConfig.currentShowNum];
-        self.baseConfig.showIndex = self.baseConfig.currentIndex + (self.baseConfig.showCrossLinePoint.x - self.showFrame.origin.x - startX) / (self.showFrame.size.width - startX * 2) * self.baseConfig.currentShowNum;
-        if (self.baseConfig.showIndex >= 0 && self.baseConfig.showIndex > [self dataNumber] - 1) {
-            self.baseConfig.showIndex = (NSInteger)[self dataNumber] - 1;
-        }else if (self.baseConfig.showIndex >= 0 && self.baseConfig.showIndex > self.baseConfig.currentIndex + self.baseConfig.currentShowNum - 1) {
-            self.baseConfig.showIndex = self.baseConfig.currentIndex + self.baseConfig.currentShowNum - 1;
-        }else if (self.baseConfig.showIndex < self.baseConfig.currentIndex){
-            self.baseConfig.showIndex = self.baseConfig.currentIndex;
-        }else if (self.baseConfig.showIndex < 0){
-            self.baseConfig.showIndex = 0;
-        }
-        [self setNeedsDisplay];
-        
-        if (chartIsValidArr(self.ftViews)) {
-            NSArray *arr = [NSArray arrayWithArray:self.ftViews];
-            for (NSInteger i = 0 ; i < arr.count; i++) {
-                ChartBaseView *zb = self.ftViews[i];
-                [zb.baseConfig SyncParameter:self.baseConfig];
-                [zb setNeedsDisplay];
-            }
-        }
-        if (![_ztView isEqual:self]) {
-            [_ztView.baseConfig SyncParameter:self.baseConfig];
-            [_ztView setNeedsDisplay];
-        }
+        [self showCrossLine:recognizer];
     }else{
-        //                NSLog(@"!!!");
-        CGPoint translatedPoint = [recognizer translationInView:self];
-        
-        float startX = self.showFrame.size.width / self.baseConfig.currentShowNum + 1;
-        startX = startX / 2;
-        float width = (self.showFrame.size.width - startX)/self.baseConfig.currentShowNum;
-        NSInteger num;
-        if (translatedPoint.x*translatedPoint.x > width* width) {
-            //                        NSLog(@"???");
-            if (translatedPoint.x < 0) {
-                num = translatedPoint.x/(self.showFrame.size.width/self.baseConfig.currentShowNum);
-                if (labs(num) < 1) {
-                    num = -1;
-                }
-                if (self.baseConfig.currentIndex - num + self.baseConfig.currentShowNum <= [self dataNumber]) {
-                    self.baseConfig.currentIndex = self.baseConfig.currentIndex - num;
-                    if (self.baseConfig.currentIndex > [self dataNumber] - self.baseConfig.currentShowNum) {
-                        self.baseConfig.currentIndex = (NSInteger)[self dataNumber] - self.baseConfig.currentShowNum;
-                    }
-                }
-                
-                
-            }else{
-                num = translatedPoint.x/((self.showFrame.size.width)/self.baseConfig.currentShowNum);
-                if (labs(num) < 1) {
-                    num = 1;
-                }
-                self.baseConfig.currentIndex = self.baseConfig.currentIndex - num;
-                if (self.baseConfig.currentIndex <= 0) {
-                    self.baseConfig.currentIndex = 0;
-                }
-            }
-            
-            self.baseConfig.showIndex = self.baseConfig.currentIndex + self.baseConfig.currentShowNum - 1;
-            if (self.baseConfig.showIndex >= 0 && self.baseConfig.showIndex > [self dataNumber] - 1) {
-                self.baseConfig.showIndex = (NSInteger)[self dataNumber] - 1;
-            }else if (self.baseConfig.showIndex >= 0 && self.baseConfig.showIndex > self.baseConfig.currentIndex + self.baseConfig.currentShowNum - 1) {
-                self.baseConfig.showIndex = self.baseConfig.currentIndex + self.baseConfig.currentShowNum - 1;
-            }else if (self.baseConfig.showIndex < self.baseConfig.currentIndex){
-                self.baseConfig.showIndex = self.baseConfig.currentIndex;
-            }else if (self.baseConfig.showIndex < 0){
-                self.baseConfig.showIndex = 0;
-            }
-            [recognizer setTranslation:CGPointMake(translatedPoint.x - num * width, 0) inView:self];
-            [self setNeedsDisplay];
-            
-            if (chartIsValidArr(self.ftViews)) {
-                NSArray *arr = [NSArray arrayWithArray:self.ftViews];
-                for (NSInteger i = 0 ; i < arr.count; i++) {
-                    ChartBaseView *zb = self.ftViews[i];
-                    [zb.baseConfig SyncParameter:self.baseConfig];
-                    [zb setNeedsDisplay];
-                }
-            }
-            if (![_ztView isEqual:self]) {
-                [_ztView.baseConfig SyncParameter:self.baseConfig];
-                [_ztView setNeedsDisplay];
-            }
-        }
+        [self hiddenCrossLine];
     }
 }
 
@@ -292,25 +242,17 @@
     }
     
     [recognizer setScale:1];
-    [self setNeedsDisplay];
     
     if (chartIsValidArr(self.ftViews)) {
         NSArray *arr = [NSArray arrayWithArray:self.ftViews];
         for (NSInteger i = 0 ; i < arr.count; i++) {
             ChartBaseView *zb = self.ftViews[i];
             [zb.baseConfig SyncParameter:self.baseConfig];
-            [zb setNeedsDisplay];
         }
     }
     if (![_ztView isEqual:self]) {
         [_ztView.baseConfig SyncParameter:self.baseConfig];
-        [_ztView setNeedsDisplay];
     }
-    
-    if (_delegate && [_delegate respondsToSelector:@selector(DrawViewPinched:end:)]) {
-        [_delegate DrawViewPinched:self end:recognizer.state == UIGestureRecognizerStateEnded];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"FXTChanged" object:self userInfo:nil];
 }
 
 - (void)tapPressedGesAction:(UILongPressGestureRecognizer *)recognizer{
@@ -322,16 +264,6 @@
     if(recognizer.state == UIGestureRecognizerStateBegan)
     {
         _baseConfig.showCrossLine =YES;
-        if (chartIsValidArr(_ftViews)) {
-            NSArray *arr = [NSArray arrayWithArray:_ftViews];
-            for (NSInteger i = 0 ; i < arr.count; i++) {
-                ChartBaseView *zb = _ftViews[i];
-                zb.baseConfig.showCrossLine = YES;
-            }
-        }
-        if (![_ztView isEqual:self]) {
-            _ztView.baseConfig.showCrossLine = YES;
-        }
     }
     else if(recognizer.state == UIGestureRecognizerStateChanged)
     {
@@ -340,74 +272,58 @@
     {
     }
     if (self.baseConfig.showCrossLine) {
-        float startX = self.ztView.showFrame.size.width / self.ztView.baseConfig.currentShowNum + 1;
-        startX = startX / 2;
-        CGPoint translatedPoint = [recognizer locationInView:self];
-        self.baseConfig.showCrossLinePoint = translatedPoint;
-        if (chartIsValidArr(self.ftViews)) {
-            NSArray *arr = [NSArray arrayWithArray:self.ftViews];
-            for (NSInteger i = 0 ; i < arr.count; i++) {
-                ChartBaseView *zb = self.ftViews[i];
-                CGPoint translatedPoint2 = [recognizer locationInView:zb];
-                zb.baseConfig.showCrossLinePoint = translatedPoint2;
-            }
-        }
-        if (![_ztView isEqual:self]) {
-            CGPoint translatedPoint2 = [recognizer locationInView:_ztView];
-            _ztView.baseConfig.showCrossLinePoint = translatedPoint2;
-        }
-        self.baseConfig.showIndex = self.ztView.baseConfig.currentIndex + (self.ztView.baseConfig.showCrossLinePoint.x - self.ztView.showFrame.origin.x) / (self.ztView.showFrame.size.width - startX) * self.ztView.baseConfig.currentShowNum;
-        if (self.baseConfig.showIndex >= 0 && self.baseConfig.showIndex > [self.ztView dataNumber] - 1) {
-            self.baseConfig.showIndex = (NSInteger)[self.ztView dataNumber] - 1;
-        }else if (self.baseConfig.showIndex >= 0 && self.baseConfig.showIndex > self.ztView.baseConfig.currentIndex + self.ztView.baseConfig.currentShowNum - 1) {
-            self.baseConfig.showIndex = self.ztView.baseConfig.currentIndex + self.ztView.baseConfig.currentShowNum - 1;
-        }else if (self.baseConfig.showIndex < self.ztView.baseConfig.currentIndex){
-            self.baseConfig.showIndex = self.ztView.baseConfig.currentIndex;
-        }else if (self.baseConfig.showIndex < 0){
-            self.baseConfig.showIndex = 0;
-        }
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"FXTTapped" object:self userInfo:[NSDictionary dictionaryWithObject:@"1" forKey:@"isShow"]];
-        
-        if (chartIsValidArr(self.ftViews)) {
-            NSArray *arr = [NSArray arrayWithArray:self.ftViews];
-            for (NSInteger i = 0 ; i < arr.count; i++) {
-                ChartBaseView *zb = self.ftViews[i];
-                [zb.baseConfig SyncParameter:self.baseConfig];
-                [zb setNeedsDisplay];
-            }
-        }
-        if (![_ztView isEqual:self]) {
-            [_ztView.baseConfig SyncParameter:self.baseConfig];
-            [_ztView setNeedsDisplay];
-        }
-        
+        [self showCrossLine:recognizer];
     }else{
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"FXTTapped" object:self userInfo:[NSDictionary dictionaryWithObject:@"0" forKey:@"isShow"]];
-        
-        if (chartIsValidArr(self.ftViews)) {
-            NSArray *arr = [NSArray arrayWithArray:self.ftViews];
-            for (NSInteger i = 0 ; i < arr.count; i++) {
-                ChartBaseView *zb = self.ftViews[i];
-                [zb.baseConfig SyncParameter:self.baseConfig];
-                [zb setNeedsDisplay];
-            }
-        }
-        if (![_ztView isEqual:self]) {
-            [_ztView.baseConfig SyncParameter:self.baseConfig];
-            [_ztView setNeedsDisplay];
+        [self hiddenCrossLine];
+    }
+}
+
+- (void)showCrossLine:(UIGestureRecognizer *)recognizer{
+    if (![self isEqual:self.ztView]) {
+        [self.ztView showCrossLine:recognizer];
+        return;
+    }
+    
+    CGPoint translatedPoint = [recognizer locationInView:self];
+    self.baseConfig.showCrossLinePoint = translatedPoint;
+    if (chartIsValidArr(self.ftViews)) {
+        NSArray *arr = [NSArray arrayWithArray:self.ftViews];
+        for (NSInteger i = 0 ; i < arr.count; i++) {
+            ChartBaseView *zb = self.ftViews[i];
+            CGPoint translatedPoint2 = [recognizer locationInView:zb];
+            zb.baseConfig.showCrossLinePoint = translatedPoint2;
+            zb.baseConfig.showCrossLine = YES;
         }
     }
-    [self setNeedsDisplay];
-    if (_delegate && [_delegate respondsToSelector:@selector(DrawViewTapped:end:)]) {
-        //        [_delegate DrawViewTapped:self end:recognizer.state == UIGestureRecognizerStateEnded];
-        [_delegate DrawViewTapped:self end:NO];
+    float startX = [ChartTools getStartX:self.showFrame total:self.baseConfig.currentShowNum];
+    self.baseConfig.showIndex = self.baseConfig.currentIndex + (self.baseConfig.showCrossLinePoint.x - self.showFrame.origin.x - startX) / (self.showFrame.size.width - startX * 2) * self.baseConfig.currentShowNum;
+    if (self.baseConfig.showIndex >= 0 && self.baseConfig.showIndex > [self dataNumber] - 1) {
+        self.baseConfig.showIndex = (NSInteger)[self dataNumber] - 1;
+    }else if (self.baseConfig.showIndex >= 0 && self.baseConfig.showIndex > self.baseConfig.currentIndex + self.baseConfig.currentShowNum - 1) {
+        self.baseConfig.showIndex = self.baseConfig.currentIndex + self.baseConfig.currentShowNum - 1;
+    }else if (self.baseConfig.showIndex < self.baseConfig.currentIndex){
+        self.baseConfig.showIndex = self.baseConfig.currentIndex;
+    }else if (self.baseConfig.showIndex < 0){
+        self.baseConfig.showIndex = 0;
+    }
+    
+    if (chartIsValidArr(self.ftViews)) {
+        NSArray *arr = [NSArray arrayWithArray:self.ftViews];
+        for (NSInteger i = 0 ; i < arr.count; i++) {
+            ChartBaseView *zb = self.ftViews[i];
+            [zb.baseConfig SyncParameter:self.baseConfig];
+        }
     }
 }
 
 - (void)hiddenCrossLine{
+    if (![self isEqual:self.ztView]) {
+        [self.ztView hiddenCrossLine];
+        return;
+    }
     _baseConfig.showCrossLine = NO;
     //    _otherView.baseConfig.showCrossLine = NO;
-    if (IsValidateArr(_ftViews)) {
+    if (chartIsValidArr(_ftViews)) {
         NSArray *arr = [NSArray arrayWithArray:_ftViews];
         for (NSInteger i = 0 ; i < arr.count; i++) {
             ChartBaseView *zb = _ftViews[i];
@@ -415,20 +331,16 @@
         }
     }
     self.baseConfig.showIndex = self.baseConfig.currentIndex + self.baseConfig.currentShowNum - 1;
-    if (self.baseConfig.showIndex >= 0 && self.baseConfig.showIndex > [self.datas count] - 1) {
-        self.baseConfig.showIndex = (NSInteger)[self.datas count] - 1;
+    if (self.baseConfig.showIndex >= 0 && self.baseConfig.showIndex > [self dataNumber] - 1) {
+        self.baseConfig.showIndex = (NSInteger)[self dataNumber] - 1;
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"FXTTapped" object:self userInfo:[NSDictionary dictionaryWithObject:@"0" forKey:@"isShow"]];
     
-    if (IsValidateArr(self.ftViews)) {
+    if (chartIsValidArr(self.ftViews)) {
         NSArray *arr = [NSArray arrayWithArray:self.ftViews];
         for (NSInteger i = 0 ; i < arr.count; i++) {
             ChartBaseView *zb = self.ftViews[i];
             [zb.baseConfig SyncParameter:self.baseConfig];
         }
-    }
-    if (![_ztView isEqual:self]) {
-        [_ztView.baseConfig SyncParameter:self.baseConfig];
     }
 }
 

@@ -17,4 +17,20 @@
     }
     return self;
 }
+
+- (void)dealloc{
+    [self removeAllBridge];
+    
+    _hqData = nil;
+}
+
+- (void)SyncParameter:(ChartBaseViewModel *)con{
+    self.showIndex = con.showIndex;
+    self.showCrossLine = con.showCrossLine;
+    self.maxPointCount = con.maxPointCount;
+    self.maxShowNum = con.maxShowNum;
+    self.minShowNum = con.minShowNum;
+    self.currentIndex = con.currentIndex;
+    self.currentShowNum = con.currentShowNum;
+}
 @end

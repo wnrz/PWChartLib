@@ -17,12 +17,16 @@
     // Drawing code
 }
 */
+- (void)install{
+    [super install];
+    self.ztView = self;
+}
 
 - (void)initFormLayer{
     
 }
 
 - (NSInteger)dataNumber{
-    return fsConfig.fsDatas.count;
+    return _fsConfig.fsDatas.count;
 }
 @end

@@ -14,20 +14,21 @@
 
 @property (nonatomic , strong)ChartHQDataModel *hqData;
 
-@property(nonatomic)double topPrice;  //最高价格
-@property(nonatomic)double bottomPrice;  //最低价格
-@property(nonatomic)BOOL showCrossLine;  //是否显示交叉线
-@property(nonatomic)CGPoint showCrossLinePoint;  //交叉线坐标
+@property(nonatomic , assign)double topPrice;  //最高价格
+@property(nonatomic , assign)double bottomPrice;  //最低价格
+@property(nonatomic , assign)BOOL showCrossLine;  //是否显示交叉线
+@property(nonatomic , assign)CGPoint showCrossLinePoint;  //交叉线坐标
 
 
-@property(nonatomic)NSInteger showIndex;  //显示的数据条
+@property(nonatomic , assign)NSInteger showIndex;  //显示的数据条
 //分时属性
-@property(nonatomic)NSInteger maxPointCount;  //最多多少个点
+@property(nonatomic , assign)NSInteger maxPointCount;  //最多多少个点
 
 //k线属性
-@property(nonatomic)NSInteger maxShowNum;  //最大显示条数
-@property(nonatomic)NSInteger minShowNum;  //最小显示条数
-@property(nonatomic)NSInteger currentIndex;  //当前显示点
-@property(nonatomic)NSInteger currentShowNum;  //显示条数
+@property(nonatomic , assign)NSInteger maxShowNum;  //最大显示条数
+@property(nonatomic , assign)NSInteger minShowNum;  //最小显示条数
+@property(nonatomic , assign)NSInteger currentIndex;  //当前显示点
+@property(nonatomic , assign)NSInteger currentShowNum;  //显示条数
 
+- (void)SyncParameter:(ChartBaseViewModel *)con;
 @end
