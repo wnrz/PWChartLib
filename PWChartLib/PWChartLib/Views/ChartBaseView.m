@@ -128,10 +128,6 @@
 - (void)setEnableTap:(BOOL)enableTap{
     _enableTap = enableTap;
     if (_enableTap) {
-        if (!_twoFingerPinch) {
-            _twoFingerPinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(twoFingerPinch:)];
-            [self addGestureRecognizer:_twoFingerPinch];
-        }
         if (!_longGes) {
             _longGes = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressedGesAction:)];
             [_longGes setMinimumPressDuration:.5];
@@ -142,10 +138,6 @@
             [self addGestureRecognizer:_tapGes];
         }
     }else{
-        if (_twoFingerPinch) {
-            [self removeGestureRecognizer:_twoFingerPinch];
-            _twoFingerPinch = nil;
-        }
         if (_longGes) {
             [self removeGestureRecognizer:_longGes];
             _longGes = nil;
@@ -160,13 +152,27 @@
 - (void)setEnableDrag:(BOOL)enableDrag{
     _enableDrag = enableDrag;
     if (_enableDrag) {
-        
         if (!_panGes) {
             _panGes = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesAction:)];
             [_panGes setMinimumNumberOfTouches:1];
             [_panGes setMaximumNumberOfTouches:1];
             [_panGes setDelegate:self];
             [self addGestureRecognizer:_panGes];
+        }
+    }else{
+        if (_twoFingerPinch) {
+            [self removeGestureRecognizer:_twoFingerPinch];
+            _twoFingerPinch = nil;
+        }
+    }
+}
+
+- (void)setEnableScale:(BOOL)enableScale{
+    _enableScale = enableScale;
+    if (enableScale) {
+        if (!_twoFingerPinch) {
+            _twoFingerPinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(twoFingerPinch:)];
+            [self addGestureRecognizer:_twoFingerPinch];
         }
     }else{
         if (_panGes) {
@@ -317,7 +323,7 @@
 }
 
 - (void)hiddenCrossLine{
-    if (![self isEqual:self.ztView]) {
+    if (![self isEqual:self.ztView] || !self.baseConfig.showCrossLine) {
         [self.ztView hiddenCrossLine];
         return;
     }

@@ -35,6 +35,7 @@
 
 @property(nonatomic)BOOL enableTap; // 是否可以响应点击时间
 @property(nonatomic)BOOL enableDrag; // 是否可以响应点击时间
+@property(nonatomic)BOOL enableScale; // 是否可以响应点击时间
 
 - (void)install;
 
