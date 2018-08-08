@@ -11,5 +11,6 @@
 
 @interface ChartFXView : ChartBaseView
 
-@property (nonatomic , strong)ChartFXViewModel *config;
+@property (nonatomic , strong)ChartFXViewModel *fxconfig;
+
 @end

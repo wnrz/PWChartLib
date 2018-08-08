@@ -14,7 +14,7 @@ float chartValid(float value) {
     return isnan(value) || isinf(value) ? 0 : value;
 }
 
-- (NSMutableArray *)SUMFloat:(NSMutableArray *)array d:(int)d{
++ (NSMutableArray *)SUMFloat:(NSMutableArray *)array d:(int)d{
     NSMutableArray *a = [[NSMutableArray alloc] init];
     for (int i = 0; i < array.count; i++) {
         float f = [[array objectAtIndex:i] doubleValue];
@@ -30,7 +30,7 @@ float chartValid(float value) {
     return a;
 }
 
-- (NSMutableArray *)SUMInt:(NSMutableArray *)array d:(int)d{
++ (NSMutableArray *)SUMInt:(NSMutableArray *)array d:(int)d{
     NSMutableArray *a = [[NSMutableArray alloc] init];
     for (int i = 0; i < array.count; i++) {
         float f = [[array objectAtIndex:i] intValue];
@@ -46,7 +46,7 @@ float chartValid(float value) {
     return a;
 }
 
-- (NSMutableArray *)SUMLong:(NSMutableArray *)array d:(int)d{
++ (NSMutableArray *)SUMLong:(NSMutableArray *)array d:(int)d{
     NSMutableArray *a = [[NSMutableArray alloc] init];
     for (int i = 0; i < array.count; i++) {
         long long f = [[array objectAtIndex:i] longLongValue];
@@ -62,7 +62,7 @@ float chartValid(float value) {
     return a;
 }
 
-- (NSMutableArray *)EMAFload:(NSMutableArray *)array d:(int)d{
++ (NSMutableArray *)EMAFload:(NSMutableArray *)array d:(int)d{
     NSMutableArray *a = [[NSMutableArray alloc] init];
     for (int i = 0 ; i < [array count]; i++) {
         float f = [[array objectAtIndex:i] doubleValue];
@@ -82,7 +82,7 @@ float chartValid(float value) {
     return a;
 }
 
-- (NSMutableArray *)EMALong:(NSMutableArray *)array d:(int)d{
++ (NSMutableArray *)EMALong:(NSMutableArray *)array d:(int)d{
     NSMutableArray *a = [[NSMutableArray alloc] init];
     for (int i = 0 ; i < [array count]; i++) {
         long long f = [[array objectAtIndex:i]  longLongValue];
@@ -102,7 +102,7 @@ float chartValid(float value) {
     return a;
 }
 
-- (NSMutableArray *)EMADouble:(NSMutableArray *)array d:(int)d{
++ (NSMutableArray *)EMADouble:(NSMutableArray *)array d:(int)d{
     NSMutableArray *a = [[NSMutableArray alloc] init];
     for (int i = 0 ; i < [array count]; i++) {
         double f = [[array objectAtIndex:i] doubleValue];
@@ -120,5 +120,11 @@ float chartValid(float value) {
     }
     
     return a;
+}
+
++ (CGFloat)getStartX:(CGRect)rc total:(NSInteger)total{
+    float startX = rc.size.width / total + 1;
+    startX = startX / 2;
+    return startX;
 }
 @end

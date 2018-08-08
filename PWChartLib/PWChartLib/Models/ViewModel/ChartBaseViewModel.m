@@ -10,4 +10,11 @@
 
 @implementation ChartBaseViewModel
 
+- (instancetype)init{
+    self = [super init];
+    if (self) {
+        _hqData = [[ChartHQDataModel alloc] init];
+    }
+    return self;
+}
 @end

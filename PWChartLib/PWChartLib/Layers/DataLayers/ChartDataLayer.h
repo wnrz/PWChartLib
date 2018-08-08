@@ -1,5 +1,5 @@
 //
-//  ChartBaseFormLayer.h
+//  ChartDataLayer.h
 //  PWChartLib
 //
 //  Created by 王宁 on 2018/8/8.
@@ -7,7 +7,8 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import "ChartBaseLayer.h"
 
-@interface ChartBaseFormLayer : CAShapeLayer
+@interface ChartDataLayer : ChartBaseLayer
 
 @end

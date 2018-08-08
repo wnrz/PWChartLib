@@ -7,6 +7,8 @@
 //
 
 #import "ChartZBView.h"
+#import "ChartFSView.h"
+#import "ChartFXView.h"
 
 @implementation ChartZBView
 
@@ -17,5 +19,9 @@
     // Drawing code
 }
 */
+
+- (NSInteger)dataNumber{
+    return [self.ztView dataNumber];
+}
 
 @end

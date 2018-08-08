@@ -11,5 +11,5 @@
 
 @interface ChartFSView : ChartBaseView
 
-@property (nonatomic , strong)ChartFSViewModel *config;
+@property (nonatomic , strong)ChartFSViewModel *fsConfig;
 @end

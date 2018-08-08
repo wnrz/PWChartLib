@@ -10,18 +10,32 @@
 #import "ChartHQDataModel.h"
 #import "ChartBaseViewModel.h"
 
-#import "ChartBaseFormLayer.h"
+#import "ChartFormLayer.h"
+#import "ChartCrossLineLayer.h"
+#import "ChartDataLayer.h"
 
-@interface ChartBaseView : UIView
+@interface ChartBaseView : UIView{
+    UIPanGestureRecognizer *_panGes;
+    UIPinchGestureRecognizer *_twoFingerPinch;
+    UILongPressGestureRecognizer *_longGes;
+    UITapGestureRecognizer *_tapGes;
+}
 
 @property (nonatomic , weak)ChartBaseView *ztView;
-@property (nonatomic , strong)NSMutableArray *zbViews;
+@property (nonatomic , strong)NSMutableArray *ftViews;
 
-@property (nonatomic , strong)ChartHQDataModel *hqData;
 @property (nonatomic , strong)ChartBaseViewModel *baseConfig;
 
 @property (nonatomic , strong)NSMutableArray *layers;
-@property (nonatomic , strong)ChartBaseFormLayer *formLayer;
-@property (nonatomic , strong)CAShapeLayer *crossLayer;
+@property (nonatomic , strong)ChartFormLayer *formLayer;
+@property (nonatomic , strong)ChartCrossLineLayer *crossLayer;
+@property (nonatomic , strong)ChartDataLayer *dataLayer;
 
+@property(nonatomic , assign)CGRect showFrame;
+
+- (void)install;
+
+- (void)setData:(id)data;
+
+- (NSInteger)dataNumber;
 @end

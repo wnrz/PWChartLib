@@ -18,4 +18,11 @@
 }
 */
 
+- (void)initFormLayer{
+    
+}
+
+- (NSInteger)dataNumber{
+    return fsConfig.fsDatas.count;
+}
 @end

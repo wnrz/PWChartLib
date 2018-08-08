@@ -16,6 +16,9 @@
 @property(nonatomic , copy)NSString *closePrice;
 @property(nonatomic , copy)NSString *volume;
 @property(nonatomic , copy)NSString *amount;
+@property(nonatomic , copy)NSString *time;
+@property(nonatomic , copy)NSString *date;
+@property(nonatomic , copy)NSString *timeStamp;
 
 @property(nonatomic , weak)ChartFXDataModel *perFXModel;
 

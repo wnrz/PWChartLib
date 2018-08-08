@@ -18,4 +18,7 @@
 }
 */
 
+- (NSInteger)dataNumber{
+    return fxConfig.fxDatas.count;
+}
 @end
