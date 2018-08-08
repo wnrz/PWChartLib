@@ -34,7 +34,7 @@ end
 
 s.resource_bundles = {'PWChartLib' => ['PWChartLib/PWChartLib/**/*.{storyboard,xib,png,strings}']}
 
-s.dependency 'PWChartLib'
+s.dependency 'PWDataBridge'
 end
 
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8180E12E2342163F53B6D331 /* libPods-PWChartLibExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 076BC685355D3B25B43420DC /* libPods-PWChartLibExample.a */; };
 		92873319211AC7B100FB2771 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 92873318211AC7B100FB2771 /* AppDelegate.m */; };
 		9287331C211AC7B100FB2771 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9287331B211AC7B100FB2771 /* ViewController.m */; };
 		9287331F211AC7B100FB2771 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9287331D211AC7B100FB2771 /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		076BC685355D3B25B43420DC /* libPods-PWChartLibExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PWChartLibExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		92873314211AC7B100FB2771 /* PWChartLibExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PWChartLibExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92873317211AC7B100FB2771 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		92873318211AC7B100FB2771 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -51,6 +53,8 @@
 		92873337211AC7B300FB2771 /* PWChartLibExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PWChartLibExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9287333B211AC7B300FB2771 /* PWChartLibExampleUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWChartLibExampleUITests.m; sourceTree = "<group>"; };
 		9287333D211AC7B300FB2771 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA623D390860B8A924CB05B9 /* Pods-PWChartLibExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PWChartLibExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PWChartLibExample/Pods-PWChartLibExample.debug.xcconfig"; sourceTree = "<group>"; };
+		F86156C96F2635311F068630 /* Pods-PWChartLibExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PWChartLibExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-PWChartLibExample/Pods-PWChartLibExample.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8180E12E2342163F53B6D331 /* libPods-PWChartLibExample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		32F58E2EB8F5B89FA4AEE6F1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				076BC685355D3B25B43420DC /* libPods-PWChartLibExample.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9287330B211AC7B100FB2771 = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +98,8 @@
 				9287332F211AC7B300FB2771 /* PWChartLibExampleTests */,
 				9287333A211AC7B300FB2771 /* PWChartLibExampleUITests */,
 				92873315211AC7B100FB2771 /* Products */,
+				98785D3AC02B17C252806092 /* Pods */,
+				32F58E2EB8F5B89FA4AEE6F1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,6 +147,15 @@
 			path = PWChartLibExampleUITests;
 			sourceTree = "<group>";
 		};
+		98785D3AC02B17C252806092 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AA623D390860B8A924CB05B9 /* Pods-PWChartLibExample.debug.xcconfig */,
+				F86156C96F2635311F068630 /* Pods-PWChartLibExample.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -139,9 +163,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 92873340211AC7B300FB2771 /* Build configuration list for PBXNativeTarget "PWChartLibExample" */;
 			buildPhases = (
+				67B0026514DB3D0829C1FEAD /* [CP] Check Pods Manifest.lock */,
 				92873310211AC7B100FB2771 /* Sources */,
 				92873311211AC7B100FB2771 /* Frameworks */,
 				92873312211AC7B100FB2771 /* Resources */,
+				AC6C980D53F050EF4CD3207A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -256,6 +282,47 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		67B0026514DB3D0829C1FEAD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PWChartLibExample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AC6C980D53F050EF4CD3207A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-PWChartLibExample/Pods-PWChartLibExample-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/PWChartLib/PWChartLib.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/PWDataBridge/PWDataBridge.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PWChartLib.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PWDataBridge.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PWChartLibExample/Pods-PWChartLibExample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		92873310211AC7B100FB2771 /* Sources */ = {
@@ -431,6 +498,7 @@
 		};
 		92873341211AC7B300FB2771 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA623D390860B8A924CB05B9 /* Pods-PWChartLibExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -447,6 +515,7 @@
 		};
 		92873342211AC7B300FB2771 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F86156C96F2635311F068630 /* Pods-PWChartLibExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
