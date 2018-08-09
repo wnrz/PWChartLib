@@ -100,20 +100,23 @@
 - (void)setShowFrame:(CGRect)showFrame{
     _showFrame = showFrame;
     
+    _baseConfig.showFrame = showFrame;
+    
     [_formLayer redraw:^(ChartBaseLayer *obj) {
-        obj.showFrame = showFrame;
     }];
+    
     [_layers enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         ChartBaseLayer *layer = obj;
         [layer redraw:^(ChartBaseLayer *obj) {
-            obj.showFrame = showFrame;
         }];
     }];
     [_crossLayer redraw:^(ChartBaseLayer *obj) {
-        obj.showFrame = showFrame;
     }];
     [_dataLayer redraw:^(ChartBaseLayer *obj) {
-        obj.showFrame = showFrame;
+        [(ChartDataLayer *)obj setIsDrawLeftText:YES];
+        [(ChartDataLayer *)obj setIsDrawRightText:YES];
+        [(ChartDataLayer *)obj setIsDrawCrossLeftText:YES];
+        [(ChartDataLayer *)obj setIsDrawCrossRightText:YES];
     }];
 }
 

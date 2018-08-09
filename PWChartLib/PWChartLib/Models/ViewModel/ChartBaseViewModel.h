@@ -14,11 +14,13 @@
 
 @property (nonatomic , strong)ChartHQDataModel *hqData;
 
+@property(nonatomic , assign)CGRect showFrame;
+
 @property(nonatomic , assign)double topPrice;  //最高价格
 @property(nonatomic , assign)double bottomPrice;  //最低价格
+
 @property(nonatomic , assign)BOOL showCrossLine;  //是否显示交叉线
 @property(nonatomic , assign)CGPoint showCrossLinePoint;  //交叉线坐标
-
 
 @property(nonatomic , assign)NSInteger showIndex;  //显示的数据条
 //分时属性
@@ -29,6 +31,11 @@
 @property(nonatomic , assign)NSInteger minShowNum;  //最小显示条数
 @property(nonatomic , assign)NSInteger currentIndex;  //当前显示点
 @property(nonatomic , assign)NSInteger currentShowNum;  //显示条数
+
+@property(nonatomic , strong)NSArray *verticalSeparateArr; //有多少个 横向 分割线 实线 最小0 最大1
+@property(nonatomic , strong)NSArray *horizontalSeparateArr;  //有多少个 纵向 分割线  实线 最小0 最大1
+@property(nonatomic , strong)NSArray *verticalSeparateDottedArr; //有多少个 横向 分割线 虚线 最小0 最大1
+@property(nonatomic , strong)NSArray *horizontalSeparateDottedArr;  //有多少个 纵向 分割线 虚线 最小0 最大1
 
 - (void)SyncParameter:(ChartBaseViewModel *)con;
 @end

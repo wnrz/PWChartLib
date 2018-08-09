@@ -12,9 +12,6 @@
 
 - (void)install{
     [super install];
-    _verticalSeparateArr = @[@(0),@(1)];
-    _horizontalSeparateArr = @[@(0),@(1)];
-    _verticalSeparateDottedArr = @[@.25,@.5,@.75];
 }
 
 
@@ -25,10 +22,12 @@
 }
 
 - (void)drawForm{
-    [self drawLineWithArr:_verticalSeparateArr isVer:YES isDot:NO];
-    [self drawLineWithArr:_horizontalSeparateArr isVer:NO isDot:NO];
-    [self drawLineWithArr:_verticalSeparateDottedArr isVer:YES isDot:YES];
-    [self drawLineWithArr:_horizontalSeparateDottedArr isVer:NO isDot:YES];
+    if (self.baseConfig) {
+        [self drawLineWithArr:self.baseConfig.verticalSeparateArr isVer:YES isDot:NO];
+        [self drawLineWithArr:self.baseConfig.horizontalSeparateArr isVer:NO isDot:NO];
+        [self drawLineWithArr:self.baseConfig.verticalSeparateDottedArr isVer:YES isDot:YES];
+        [self drawLineWithArr:self.baseConfig.horizontalSeparateDottedArr isVer:NO isDot:YES];
+    }
 }
 
 - (void)drawLineWithArr:(NSArray *)arr isVer:(BOOL)isVer isDot:(BOOL)isDot{
@@ -37,11 +36,11 @@
         CGPoint startPoint;
         CGPoint endPoint;
         if (isVer) {
-            startPoint = CGPointMake(self.showFrame.origin.x , self.showFrame.origin.y + self.showFrame.size.height * num);
-            endPoint = CGPointMake(self.showFrame.origin.x + self.showFrame.size.width, self.showFrame.origin.y + self.showFrame.size.height * num);
+            startPoint = CGPointMake(self.baseConfig.showFrame.origin.x , self.baseConfig.showFrame.origin.y + self.baseConfig.showFrame.size.height * num);
+            endPoint = CGPointMake(self.baseConfig.showFrame.origin.x + self.baseConfig.showFrame.size.width, self.baseConfig.showFrame.origin.y + self.baseConfig.showFrame.size.height * num);
         }else{
-            startPoint = CGPointMake(self.showFrame.origin.x + self.showFrame.size.width * num, self.showFrame.origin.y);
-            endPoint = CGPointMake(self.showFrame.origin.x + self.showFrame.size.width * num, self.showFrame.origin.y + self.showFrame.size.height);
+            startPoint = CGPointMake(self.baseConfig.showFrame.origin.x + self.baseConfig.showFrame.size.width * num, self.baseConfig.showFrame.origin.y);
+            endPoint = CGPointMake(self.baseConfig.showFrame.origin.x + self.baseConfig.showFrame.size.width * num, self.baseConfig.showFrame.origin.y + self.baseConfig.showFrame.size.height);
         }
         
         CAShapeLayer *layer = [CAShapeLayer layer];

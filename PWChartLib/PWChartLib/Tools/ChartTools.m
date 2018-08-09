@@ -127,4 +127,30 @@ float chartValid(float value) {
     startX = startX / 2;
     return startX;
 }
+
+
+
+
+//计算文字的大小
++ (CGSize)sizeWithText:(NSString *)text maxSize:(CGSize)maxSize fontSize:(CGFloat)fontSize
+{
+    //    假设最大CGSize maxSize = CGSizeMake(MAXFLOAT, MAXFLOAT);
+    //计算文本的大小
+    CGSize nameSize = [text boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:fontSize]} context:nil].size;
+    return nameSize;
+}
+
+
+NSString *chartDigitString(NSInteger tpflag , NSString *string){
+    if (tpflag < 0) {
+        tpflag = 2;
+    }
+    NSString *s = [NSString stringWithFormat:@"%%.%lif" , tpflag];
+    if (chartIsValidString(string)) {
+        s = [NSString stringWithFormat:s , [string doubleValue]];
+    }else{
+        s = [NSString stringWithFormat:s , 0];
+    }
+    return s;
+}
 @end

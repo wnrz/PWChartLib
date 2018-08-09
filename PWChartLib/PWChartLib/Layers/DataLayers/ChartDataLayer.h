@@ -11,4 +11,11 @@
 
 @interface ChartDataLayer : ChartBaseLayer
 
+@property (nonatomic , assign) BOOL isDrawLeftText;
+@property (nonatomic , assign) BOOL isDrawRightText;
+
+@property (nonatomic , assign) BOOL isDrawDateText;
+
+@property (nonatomic , assign) BOOL isDrawCrossLeftText;
+@property (nonatomic , assign) BOOL isDrawCrossRightText;
 @end

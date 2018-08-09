@@ -23,6 +23,10 @@ static FSZBParam* shareZBP=nil;
             shareZBP.MACD_Short = 12.0f;
             shareZBP.MACD_Long = 26.0f;
             shareZBP.MACD_Mid = 9.0f;
+            
+            shareZBP.KDJ_N = 55;
+            shareZBP.KDJ_M1 = 34;
+            shareZBP.KDJ_M2 = 21;
         }
     }
     
@@ -155,7 +159,7 @@ static FSZBParam* shareZBP=nil;
 - (NSMutableDictionary *)getVOLMAResult:(NSMutableArray *)array{
     NSMutableDictionary *vols;
     vols = [[NSMutableDictionary alloc] init];
-   
+    
     for (int i = 0; i < array.count; i++) {
         for (int x = 0 ; x < VOL_MAS.count; x++) {
             float ma = [VOL_MAS[x] doubleValue];
@@ -181,5 +185,107 @@ static FSZBParam* shareZBP=nil;
         }
     }
     return vols;
+}
+@synthesize KDJ_N;
+@synthesize KDJ_M1;
+@synthesize KDJ_M2;
+
+- (NSMutableDictionary *)getKDJResult:(NSMutableArray *)array{
+    NSMutableDictionary *dict;
+    dict = [[NSMutableDictionary alloc] init];
+    
+    NSMutableArray *k = [[NSMutableArray alloc] init];
+    NSMutableArray *d = [[NSMutableArray alloc] init];
+    NSMutableArray *j = [[NSMutableArray alloc] init];
+    
+    [dict setObject:k forKey:FSZBResult_KDJ_K];
+    [dict setObject:d forKey:FSZBResult_KDJ_D];
+    [dict setObject:j forKey:FSZBResult_KDJ_J];
+    /*
+     RSV=(NEW-LLV(NEW,N))/(HHV(NEW,N)-LLV(NEW,N))*100;
+     a=SMA(RSV,M1,1);
+     b=SMA(a,M2,1);
+     e=3*a-2*b;
+     K:a;
+     D:b;
+     J:e;
+     */
+    for (NSInteger i = 0 ; i < [array count]; i++) {
+        ChartFSDataModel *klm = [array objectAtIndex:i];
+        
+        float llv = -1;
+        float hhv = -1;
+        float rsv;
+        
+        NSInteger start = i - KDJ_N + 1;
+        if (KDJ_N == 0) {
+            start = 0;
+        }
+        if (start < 0) {
+            start = 0;
+        }
+        for ( NSInteger j = start; j <= i; j++) {
+            ChartFSDataModel *klm2 = [array objectAtIndex:j];
+            if (j == start) {
+                llv = [klm2.nowPrice doubleValue];
+                hhv = [klm2.nowPrice doubleValue];
+            }
+            
+            if ([klm2.nowPrice doubleValue] < llv) {
+                llv = [klm2.nowPrice doubleValue];
+            }
+            
+            if ([klm2.nowPrice doubleValue] > hhv) {
+                hhv = [klm2.nowPrice doubleValue];
+            }
+        }
+        
+        rsv = ([klm.nowPrice doubleValue] - llv)/(hhv - llv)*100;
+        
+        if (isnan(rsv) || isinf(rsv)) {
+            rsv = 0;
+        }
+        float kOld = 50;
+        float kNow = kOld;
+        if (i > 0) {
+            kOld = [[k objectAtIndex:i - 1] doubleValue];
+            kNow = (rsv * 1 + kOld*(KDJ_M1 - 1))/KDJ_M1;
+        }
+        [k addObject:[NSNumber numberWithFloat:kNow]];
+        
+        float dOld = 50;
+        float dNow = dOld;
+        if (i > 0) {
+            dOld = [[d objectAtIndex:i - 1] doubleValue];
+            dNow = (kNow * 1 + dOld*(KDJ_M2 - 1))/KDJ_M2;
+        }
+        [d addObject:[NSNumber numberWithFloat:dNow]];
+        
+        float jNow = 3 * kNow - 2 *dNow;
+        [j addObject:[NSNumber numberWithFloat:jNow]];
+        if (i == [array count] - 1) {
+            
+        }
+    }
+    
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
+    [result setObject:[NSString stringWithFormat:@"KDJ(%.0f,%.0f,%.0f)" , KDJ_N , KDJ_M1 , KDJ_M2] forKey:@"sName"];
+    [result setObject:@(array.count) forKey:@"nCount"];
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    [result setObject:arr forKey:@"linesArray"];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"K",
+                     @"mArrBe":@{@"linesArray":k}
+                     }];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"D",
+                     @"mArrBe":@{@"linesArray":d}
+                     }];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"J",
+                     @"mArrBe":@{@"linesArray":j}
+                     }];
+    
+    return result;
 }
 @end

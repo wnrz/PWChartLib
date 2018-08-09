@@ -316,7 +316,7 @@ static FXZBParam* shareZBP=nil;
         
         rsv = ([klm.closePrice doubleValue] - llv)/(hhv - llv)*100;
         
-        if (isnan(rsv)) {
+        if (isnan(rsv) || isinf(rsv)) {
             rsv = 0;
         }
         float kOld = 50;

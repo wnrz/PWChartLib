@@ -26,4 +26,8 @@ float chartValid(float value);
 + (NSMutableArray *)EMADouble:(NSMutableArray *)array d:(int)d;
 
 + (CGFloat)getStartX:(CGRect)rc total:(NSInteger)total;
+
++ (CGSize)sizeWithText:(NSString *)text maxSize:(CGSize)maxSize fontSize:(CGFloat)fontSize;
+
+NSString *chartDigitString(NSInteger tpflag , NSString *string);
 @end

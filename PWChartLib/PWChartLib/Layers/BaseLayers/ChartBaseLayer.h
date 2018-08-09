@@ -12,7 +12,6 @@
 @interface ChartBaseLayer : CAShapeLayer
 
 
-@property(nonatomic , assign)CGRect showFrame;
 @property(nonatomic , assign)UIColor *lineColor;
 @property (nonatomic , weak)ChartBaseViewModel *baseConfig;
 

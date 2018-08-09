@@ -13,7 +13,7 @@
 - (instancetype)init{
     self = [super init];
     if (self) {
-        _hqData = [[ChartHQDataModel alloc] init];
+        [self install];
     }
     return self;
 }
@@ -22,6 +22,19 @@
     [self removeAllBridge];
     
     _hqData = nil;
+}
+
+- (void)install{
+    _verticalSeparateArr = @[@(0),@(1)];
+    _horizontalSeparateArr = @[@(0),@(1)];
+    _verticalSeparateDottedArr = @[@.25,@.5,@.75];
+    
+    _hqData = [[ChartHQDataModel alloc] init];
+    
+    _hqData.digit = 2;
+    
+    self.topPrice = 1;
+    self.bottomPrice = 0;
 }
 
 - (void)SyncParameter:(ChartBaseViewModel *)con{

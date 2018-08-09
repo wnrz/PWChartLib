@@ -40,17 +40,17 @@
     CGPoint startPoint;
     CGPoint endPoint;
     if (isVer) {
-        if (point.y < self.showFrame.origin.y || point.y > self.showFrame.origin.y + self.showFrame.size.height) {
+        if (point.y < self.baseConfig.showFrame.origin.y || point.y > self.baseConfig.showFrame.origin.y + self.baseConfig.showFrame.size.height) {
             return;
         }
-        startPoint = CGPointMake(self.showFrame.origin.x , self.showFrame.origin.y + point.y);
-        endPoint = CGPointMake(self.showFrame.origin.x + self.showFrame.size.width, self.showFrame.origin.y + point.y);
+        startPoint = CGPointMake(self.baseConfig.showFrame.origin.x , self.baseConfig.showFrame.origin.y + point.y);
+        endPoint = CGPointMake(self.baseConfig.showFrame.origin.x + self.baseConfig.showFrame.size.width, self.baseConfig.showFrame.origin.y + point.y);
     }else{
-        if (point.x < self.showFrame.origin.x || point.x > self.showFrame.origin.x + self.showFrame.size.width) {
+        if (point.x < self.baseConfig.showFrame.origin.x || point.x > self.baseConfig.showFrame.origin.x + self.baseConfig.showFrame.size.width) {
             return;
         }
-        startPoint = CGPointMake(self.showFrame.origin.x + point.x, self.showFrame.origin.y);
-        endPoint = CGPointMake(self.showFrame.origin.x + point.x, self.showFrame.origin.y + self.showFrame.size.height);
+        startPoint = CGPointMake(self.baseConfig.showFrame.origin.x + point.x, self.baseConfig.showFrame.origin.y);
+        endPoint = CGPointMake(self.baseConfig.showFrame.origin.x + point.x, self.baseConfig.showFrame.origin.y + self.baseConfig.showFrame.size.height);
     }
     CAShapeLayer *layer = [CAShapeLayer layer];
     UIBezierPath *linePath = [UIBezierPath bezierPath];
