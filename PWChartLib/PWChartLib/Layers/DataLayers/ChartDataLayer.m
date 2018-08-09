@@ -42,13 +42,15 @@
 
 - (void)drawCrossText{
     if (self.baseConfig.showCrossLine) {
-        CGFloat num = 0;
-        num = self.baseConfig.showCrossLinePoint.y / (self.baseConfig.showFrame.size.height - self.baseConfig.showFrame.origin.y);
-        if (self.baseConfig && self.isDrawCrossLeftText) {
-            [self drawLeftWithNum:num isCross:YES];
-        }
-        if (self.baseConfig && self.isDrawCrossRightText) {
-            [self drawRightWithNum:num isCross:YES];
+        if (self.baseConfig.showCrossLinePoint.y >= self.baseConfig.showFrame.origin.y && self.baseConfig.showCrossLinePoint.y <= self.baseConfig.showFrame.size.height + self.baseConfig.showFrame.origin.y) {
+            CGFloat num = 0;
+            num = self.baseConfig.showCrossLinePoint.y / (self.baseConfig.showFrame.size.height - self.baseConfig.showFrame.origin.y);
+            if (self.baseConfig && self.isDrawCrossLeftText) {
+                [self drawLeftWithNum:num isCross:YES];
+            }
+            if (self.baseConfig && self.isDrawCrossRightText) {
+                [self drawRightWithNum:num isCross:YES];
+            }
         }
     }
 }
