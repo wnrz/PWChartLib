@@ -32,12 +32,22 @@
                                     <action selector="changeSF:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cPr-pS-MSs"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bvV-c0-egG" customClass="ChartBaseView">
+                                <rect key="frame" x="0.0" y="467" width="375" height="200"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="daK-M2-EiJ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="w4D-2N-Ldb" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="44x-ax-WFq"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="w4D-2N-Ldb" secondAttribute="trailing" id="ESu-bN-uBW"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="bvV-c0-egG" secondAttribute="bottom" id="J68-TM-Klk"/>
                             <constraint firstItem="w4D-2N-Ldb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Jl4-kd-ofc"/>
+                            <constraint firstItem="bvV-c0-egG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Kkb-vn-yXo"/>
+                            <constraint firstItem="bvV-c0-egG" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="WL7-GK-H41"/>
                             <constraint firstItem="w4D-2N-Ldb" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="aCr-97-NYQ"/>
                             <constraint firstItem="zMc-df-Tug" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="ese-tp-shw"/>
                             <constraint firstItem="zMc-df-Tug" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="ykQ-4h-kSY"/>
@@ -46,6 +56,7 @@
                     </view>
                     <connections>
                         <outlet property="baseView" destination="w4D-2N-Ldb" id="Wh2-nb-96K"/>
+                        <outlet property="ftView" destination="bvV-c0-egG" id="dHJ-fq-7u8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
