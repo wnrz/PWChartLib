@@ -43,16 +43,9 @@
             endPoint = CGPointMake(self.baseConfig.showFrame.origin.x + self.baseConfig.showFrame.size.width * num, self.baseConfig.showFrame.origin.y + self.baseConfig.showFrame.size.height);
         }
         
-        CAShapeLayer *layer = [CAShapeLayer layer];
-        UIBezierPath *linePath = [UIBezierPath bezierPath];
-        [linePath moveToPoint:startPoint];
-        [linePath addLineToPoint:endPoint];
-        layer.path = linePath.CGPath;
+        CAShapeLayer *layer = [LayerMaker getLineLayer:startPoint toPoint:endPoint isDot:isDot];
         layer.strokeColor = self.lineColor.CGColor;
         layer.lineWidth = self.lineWidth;
-        if (isDot) {
-            layer.lineDashPattern = @[@5,@2];
-        }
         [self addSublayer:layer];
     }];
 }

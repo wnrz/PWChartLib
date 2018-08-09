@@ -8,6 +8,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "ChartBaseViewModel.h"
+#import "LayerMaker.h"
 
 @interface ChartBaseLayer : CAShapeLayer
 

@@ -111,7 +111,7 @@
             frame = CGRectMake(point.x - size.width - 10, point.y - size.height / 2, isCross ? size.width + 10 : size.width, size.height);
         }
         frame = [self chackFrame:frame];
-        CATextLayer *layer = [self getTextLayer:string point:point font:[UIFont systemFontOfSize:12] foregroundColor:[UIColor grayColor] frame:frame];
+        CATextLayer *layer = [LayerMaker getTextLayer:string point:point font:[UIFont systemFontOfSize:12] foregroundColor:[UIColor grayColor] frame:frame];
         if (isCross) {
             layer.backgroundColor = [UIColor whiteColor].CGColor;
             layer.borderColor = [UIColor grayColor].CGColor;
@@ -130,21 +130,5 @@
         frame.origin.y = maxY - frame.size.height;
     }
     return frame;
-}
-
-- (CATextLayer *)getTextLayer:(NSString *)text point:(CGPoint)point font:(UIFont *)font foregroundColor:(UIColor *)foregroundColor frame:(CGRect)frame{
-    CATextLayer *layer = [CATextLayer layer];
-    layer.foregroundColor = foregroundColor.CGColor;
-    layer.string = text;
-    layer.contentsScale = [UIScreen mainScreen].scale;
-    //set layer font
-    CFStringRef fontName = (__bridge CFStringRef)font.fontName;
-    CGFontRef fontRef = CGFontCreateWithFontName(fontName);
-    layer.font = fontRef;
-    layer.fontSize = font.pointSize;
-    CGFontRelease(fontRef);
-    layer.frame = frame;
-    layer.alignmentMode = @"center";
-    return layer;
 }
 @end

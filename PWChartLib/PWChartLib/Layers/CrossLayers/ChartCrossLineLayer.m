@@ -52,11 +52,8 @@
         startPoint = CGPointMake(self.baseConfig.showFrame.origin.x + point.x, self.baseConfig.showFrame.origin.y);
         endPoint = CGPointMake(self.baseConfig.showFrame.origin.x + point.x, self.baseConfig.showFrame.origin.y + self.baseConfig.showFrame.size.height);
     }
-    CAShapeLayer *layer = [CAShapeLayer layer];
-    UIBezierPath *linePath = [UIBezierPath bezierPath];
-    [linePath moveToPoint:startPoint];
-    [linePath addLineToPoint:endPoint];
-    layer.path = linePath.CGPath;
+    
+    CAShapeLayer *layer = [LayerMaker getLineLayer:startPoint toPoint:endPoint isDot:NO];
     layer.strokeColor = self.lineColor.CGColor;
     layer.lineWidth = self.lineWidth;
     [self addSublayer:layer];
