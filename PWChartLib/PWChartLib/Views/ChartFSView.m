@@ -45,11 +45,29 @@
 }
 
 - (void)startDraw{
-    [super startDraw];
+    if (!self.baseConfig.hqData) {
+        return;
+    }
+    [self.formLayer redraw:^(ChartBaseLayer *obj) {
+    }];
+    
+    [self.chartsLayer drawFSLine:_fsConfig];
+    
+    [self.crossLayer redraw:^(ChartBaseLayer *obj) {
+    }];
+    
+    [self.dataLayer redraw:^(ChartBaseLayer *obj) {
+        [(ChartDataLayer *)obj setIsDrawLeftText:YES];
+        [(ChartDataLayer *)obj setIsDrawRightText:YES];
+        [(ChartDataLayer *)obj setIsDrawCrossLeftText:YES];
+        [(ChartDataLayer *)obj setIsDrawCrossRightText:YES];
+    }];
+    
     [_fsDataLayer redraw:^(ChartBaseLayer *obj) {
         [(ChartFSDataLayer *)obj setIsDrawBottomText:YES];
         [(ChartFSDataLayer *)obj setIsDrawCrossBottomText:YES];
     }];
+    
 }
 
 - (void)saveDatas:(NSArray *)datas{

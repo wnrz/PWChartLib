@@ -8,6 +8,7 @@
 
 #import "ChartDataLayer.h"
 #import "ChartTools.h"
+#import "ChartColors.h"
 
 @implementation ChartDataLayer
 
@@ -113,10 +114,10 @@
             frame = CGRectMake(point.x - size.width - 10, point.y - size.height / 2, isCross ? size.width + 10 : size.width, size.height);
         }
         frame = [self chackFrame:frame];
-        CATextLayer *layer = [LayerMaker getTextLayer:string point:point font:[UIFont systemFontOfSize:12] foregroundColor:[UIColor grayColor] frame:frame];
+        CATextLayer *layer = [LayerMaker getTextLayer:string point:point font:[UIFont systemFontOfSize:12] foregroundColor:[ChartColors colorByKey:(isCross ? kChartColorKey_TextBorderText : kChartColorKey_Text)] frame:frame];
         if (isCross) {
-            layer.backgroundColor = [UIColor whiteColor].CGColor;
-            layer.borderColor = [UIColor grayColor].CGColor;
+            layer.backgroundColor = [ChartColors colorByKey:kChartColorKey_TextBorderBackground].CGColor;
+            layer.borderColor = [ChartColors colorByKey:kChartColorKey_TextBorder].CGColor;
             layer.borderWidth = .5;
         }
         [self addSublayer:layer];

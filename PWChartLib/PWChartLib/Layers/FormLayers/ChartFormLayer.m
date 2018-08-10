@@ -7,6 +7,7 @@
 //
 
 #import "ChartFormLayer.h"
+#import "ChartColors.h"
 
 @implementation ChartFormLayer
 
@@ -44,7 +45,7 @@
         }
         
         CAShapeLayer *layer = [LayerMaker getLineLayer:startPoint toPoint:endPoint isDot:isDot];
-        layer.strokeColor = self.lineColor.CGColor;
+        layer.strokeColor = [ChartColors colorByKey:kChartColorKey_Form].CGColor;
         layer.lineWidth = self.lineWidth;
         [self addSublayer:layer];
     }];

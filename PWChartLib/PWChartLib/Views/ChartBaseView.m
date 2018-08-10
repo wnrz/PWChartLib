@@ -46,12 +46,15 @@
 - (void)install{
     _ftViews = [[NSMutableArray alloc] init];
     _baseConfig = [[ChartBaseViewModel alloc] init];
-    _layers = [[NSMutableArray alloc] init];
     
     
     _formLayer = [[ChartFormLayer alloc] init];
     _formLayer.baseConfig = _baseConfig;
     [self.layer addSublayer:_formLayer];
+    
+    _chartsLayer = [[ChartsLayer alloc] init];
+    _chartsLayer.baseConfig = _baseConfig;
+    [self.layer addSublayer:_chartsLayer];
     
     _crossLayer = [[ChartCrossLineLayer alloc] init];
     _crossLayer.baseConfig = _baseConfig;
@@ -84,19 +87,11 @@
     
     _baseConfig = nil;
     
-    NSArray *arr = [NSArray arrayWithArray:_layers];
-    [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        ChartBaseLayer *layer = obj;
-        [layer removeFromSuperlayer];
-        layer = nil;
-    }];
-    arr = nil;
-    
-    [_layers removeAllObjects];
-    _layers = nil;
-    
     [_formLayer removeFromSuperlayer];
     _formLayer = nil;
+    
+    [_chartsLayer removeFromSuperlayer];
+    _chartsLayer = nil;
     
     [_crossLayer removeFromSuperlayer];
     _crossLayer = nil;
@@ -119,11 +114,7 @@
     }
     [_formLayer redraw:^(ChartBaseLayer *obj) {
     }];
-    
-    [_layers enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        ChartBaseLayer *layer = obj;
-        [layer redraw:^(ChartBaseLayer *obj) {
-        }];
+    [_chartsLayer redraw:^(ChartBaseLayer *obj) {
     }];
     [_crossLayer redraw:^(ChartBaseLayer *obj) {
     }];

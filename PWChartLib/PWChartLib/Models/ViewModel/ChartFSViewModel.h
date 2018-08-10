@@ -20,6 +20,7 @@
 @property (nonatomic , strong)NSMutableArray<ChartFSDataModel *> *fsDatas;
 @property (nonatomic , weak)ChartBaseViewModel *baseConfig;
 @property (nonatomic , strong)NSArray<ChartFSTimeModel *> *times;
+@property (nonatomic , assign)BOOL isShowMA;
 
 - (instancetype)initWithBaseConfig:(ChartBaseViewModel *)baseConfig;
 - (void)saveDatas:(NSArray<ChartFSDataModel *> *)datas;

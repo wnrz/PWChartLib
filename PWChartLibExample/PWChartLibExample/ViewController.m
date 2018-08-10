@@ -31,12 +31,12 @@
     
     fsBridge = [[FSDataBridge alloc] init];
     fsBridge.fsView = _baseView;
-        fsBridge.codeId = @"AUTD";
-        fsBridge.marketCode = @"SGE";
+//        fsBridge.codeId = @"AUTD";
+//        fsBridge.marketCode = @"SGE";
     
     //    fsBridge.codeId = @"EUR";
-//    fsBridge.codeId = @"CNH";
-//    fsBridge.marketCode = @"MSFX";
+    fsBridge.codeId = @"CNH";
+    fsBridge.marketCode = @"MSFX";
 }
 
 

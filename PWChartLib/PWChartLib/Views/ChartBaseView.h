@@ -13,6 +13,7 @@
 #import "ChartFormLayer.h"
 #import "ChartCrossLineLayer.h"
 #import "ChartDataLayer.h"
+#import "ChartsLayer.h"
 
 @interface ChartBaseView : UIView <UIGestureRecognizerDelegate>{
     UIPanGestureRecognizer *_panGes;
@@ -26,7 +27,7 @@
 
 @property (nonatomic , strong)ChartBaseViewModel *baseConfig;
 
-@property (nonatomic , strong)NSMutableArray *layers;
+@property (nonatomic , strong)ChartsLayer *chartsLayer;
 @property (nonatomic , strong)ChartFormLayer *formLayer;
 @property (nonatomic , strong)ChartCrossLineLayer *crossLayer;
 @property (nonatomic , strong)ChartDataLayer *dataLayer;

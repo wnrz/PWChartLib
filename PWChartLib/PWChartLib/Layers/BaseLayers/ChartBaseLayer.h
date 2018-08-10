@@ -13,7 +13,7 @@
 @interface ChartBaseLayer : CAShapeLayer
 
 
-@property(nonatomic , assign)UIColor *lineColor;
+@property(nonatomic , strong)UIColor *lineColor;
 @property (nonatomic , weak)ChartBaseViewModel *baseConfig;
 
 - (void)install;

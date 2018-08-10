@@ -7,6 +7,7 @@
 //
 
 #import "ChartBaseLayer.h"
+#import "ChartColors.h"
 
 @implementation ChartBaseLayer
 
@@ -43,7 +44,7 @@
 
 - (void)install{
     self.lineWidth = 1;
-    self.lineColor = [UIColor grayColor];
+    self.lineColor = [ChartColors colorByKey:kChartColorKey_Form];
 }
 
 - (void)startDraw{
