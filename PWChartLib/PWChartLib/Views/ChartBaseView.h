@@ -39,6 +39,8 @@
 
 - (void)install;
 
+- (void)startDraw;
+
 - (void)setData:(id)data;
 
 - (NSInteger)dataNumber;

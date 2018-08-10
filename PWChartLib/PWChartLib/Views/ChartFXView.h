@@ -8,9 +8,12 @@
 
 #import "ChartBaseView.h"
 #import "ChartFXViewModel.h"
+#import "ChartFXDataLayer.h"
 
 @interface ChartFXView : ChartBaseView
 
+@property (nonatomic , strong)ChartFXDataLayer *fxDataLayer;
 @property (nonatomic , strong)ChartFXViewModel *fxconfig;
 
+- (void)saveDatas:(NSArray<ChartFXDataModel *> *)datas;
 @end

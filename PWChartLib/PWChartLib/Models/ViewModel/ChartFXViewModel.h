@@ -8,8 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "ChartFXDataModel.h"
+#import "ChartBaseViewModel.h"
 
 @interface ChartFXViewModel : NSObject
 
 @property (nonatomic , strong)NSMutableArray<ChartFXDataModel *> *fxDatas;
+@property (nonatomic , weak)ChartBaseViewModel *baseConfig;
+
+- (instancetype)initWithBaseConfig:(ChartBaseViewModel *)baseConfig;
+- (void)saveDatas:(NSArray<ChartFXDataModel *> *)datas;
 @end

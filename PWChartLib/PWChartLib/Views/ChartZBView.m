@@ -19,6 +19,10 @@
     // Drawing code
 }
 */
+- (void)install{
+    [super install];
+    _config = [[ChartZBViewModel alloc] initWithBaseConfig:self.baseConfig];
+}
 
 - (NSInteger)dataNumber{
     return [self.ztView dataNumber];

@@ -31,8 +31,8 @@
 
 - (void)drawText{
     if (self.baseConfig && self.isDrawLeftText) {
-        [self drawLineWithArr:self.baseConfig.verticalSeparateArr];
-        [self drawLineWithArr:self.baseConfig.verticalSeparateDottedArr];
+        [self drawLeftWithArr:self.baseConfig.verticalSeparateArr];
+        [self drawLeftWithArr:self.baseConfig.verticalSeparateDottedArr];
     }
     if (self.baseConfig && self.isDrawRightText) {
         [self drawRightWithArr:self.baseConfig.verticalSeparateArr];
@@ -55,7 +55,7 @@
     }
 }
 
-- (void)drawLineWithArr:(NSArray *)arr{
+- (void)drawLeftWithArr:(NSArray *)arr{
     if (self.baseConfig) {
         __weak typeof(self) weakSelf = self;
         [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -67,6 +67,10 @@
     }
 }
 
+- (void)drawLeftWithNum:(CGFloat)num isCross:(BOOL)isCross{
+    [self drawWithNum:num isLeft:YES isCross:isCross];
+}
+
 - (void)drawRightWithArr:(NSArray *)arr{
     if (self.baseConfig) {
         __weak typeof(self) weakSelf = self;
@@ -76,10 +80,6 @@
             [strongSelf drawRightWithNum:num isCross:NO];
         }];
     }
-}
-
-- (void)drawLeftWithNum:(CGFloat)num isCross:(BOOL)isCross{
-    [self drawWithNum:num isLeft:YES isCross:isCross];
 }
 
 - (void)drawRightWithNum:(CGFloat)num isCross:(BOOL)isCross{
@@ -101,10 +101,10 @@
         CGPoint point = CGPointMake(x, y);
         
         CGFloat value2 = value * (1 - num) + bottom;
-        NSString *string = chartDigitString(digit, [NSString stringWithFormat:@"%f" , value2]);
+        NSString *string = value2 == 0 ? @"" : chartDigitString(digit, [NSString stringWithFormat:@"%f" , value2]);
         if (!isLeft) {
-            value2 = (value2 - value / 2) / (value / 2 + bottom) * 100;
-            string = [NSString stringWithFormat:@"%.2f%%" , value2];
+            value2 = (value2 - value / 2 - bottom) / (value / 2 + bottom) * 100;
+            string = isnan(value2) || isinf(value2) ? @"" : [NSString stringWithFormat:@"%.2f%%" , value2];
             point = CGPointMake(maxX, y);
         }
         CGSize size = [ChartTools sizeWithText:string maxSize:CGSizeMake(1000, 1000) fontSize:12];

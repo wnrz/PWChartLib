@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w4D-2N-Ldb" customClass="ChartBaseView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w4D-2N-Ldb" customClass="ChartFSView">
                                 <rect key="frame" x="0.0" y="243.5" width="375" height="200"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -32,17 +32,26 @@
                                     <action selector="changeSF:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cPr-pS-MSs"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bvV-c0-egG" customClass="ChartBaseView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bvV-c0-egG" customClass="ChartZBView">
                                 <rect key="frame" x="0.0" y="467" width="375" height="200"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="daK-M2-EiJ"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9eX-9R-yN3">
+                                <rect key="frame" x="10" y="65" width="47" height="30"/>
+                                <state key="normal" title="loadFS"/>
+                                <connections>
+                                    <action selector="loadFS:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CcT-q4-xYp"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="9eX-9R-yN3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="1eV-up-7sv"/>
                             <constraint firstItem="w4D-2N-Ldb" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="44x-ax-WFq"/>
+                            <constraint firstItem="9eX-9R-yN3" firstAttribute="top" secondItem="zMc-df-Tug" secondAttribute="bottom" constant="5" id="CP6-Zu-MIk"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="w4D-2N-Ldb" secondAttribute="trailing" id="ESu-bN-uBW"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="bvV-c0-egG" secondAttribute="bottom" id="J68-TM-Klk"/>
                             <constraint firstItem="w4D-2N-Ldb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Jl4-kd-ofc"/>

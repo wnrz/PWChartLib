@@ -16,8 +16,9 @@
 @property(nonatomic , copy)NSString *nowVol;
 @property(nonatomic , copy)NSString *time;
 @property(nonatomic , copy)NSString *date;
-@property(nonatomic , copy)NSString *timeStamp;
+@property(nonatomic , copy , nonnull)NSString *timeStamp;
 
 @property(nonatomic , weak)ChartFSDataModel *perFSModel;
 
+- (void)storeFromDict:(NSDictionary *)dict;
 @end

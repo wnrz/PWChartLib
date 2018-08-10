@@ -10,4 +10,7 @@
 
 @implementation ChartFXDataModel
 
+- (void)storeFromDict:(NSDictionary *)dict{
+    
+}
 @end

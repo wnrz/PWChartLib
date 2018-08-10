@@ -62,6 +62,14 @@
     [self.layer addSublayer:_dataLayer];
     
     self.ztView = self;
+    
+    if (!_panGes) {
+        _panGes = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesAction:)];
+        [_panGes setMinimumNumberOfTouches:1];
+        [_panGes setMaximumNumberOfTouches:1];
+        [_panGes setDelegate:self];
+        [self addGestureRecognizer:_panGes];
+    }
 }
 
 - (void)dealloc{
@@ -102,6 +110,13 @@
     
     _baseConfig.showFrame = showFrame;
     
+    [self startDraw];
+}
+
+- (void)startDraw{
+    if (!_baseConfig.hqData) {
+        return;
+    }
     [_formLayer redraw:^(ChartBaseLayer *obj) {
     }];
     
@@ -154,20 +169,6 @@
 
 - (void)setEnableDrag:(BOOL)enableDrag{
     _enableDrag = enableDrag;
-    if (_enableDrag) {
-        if (!_panGes) {
-            _panGes = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesAction:)];
-            [_panGes setMinimumNumberOfTouches:1];
-            [_panGes setMaximumNumberOfTouches:1];
-            [_panGes setDelegate:self];
-            [self addGestureRecognizer:_panGes];
-        }
-    }else{
-        if (_twoFingerPinch) {
-            [self removeGestureRecognizer:_twoFingerPinch];
-            _twoFingerPinch = nil;
-        }
-    }
 }
 
 - (void)setEnableScale:(BOOL)enableScale{
@@ -178,9 +179,9 @@
             [self addGestureRecognizer:_twoFingerPinch];
         }
     }else{
-        if (_panGes) {
-            [self removeGestureRecognizer:_panGes];
-            _panGes = nil;
+        if (_twoFingerPinch) {
+            [self removeGestureRecognizer:_twoFingerPinch];
+            _twoFingerPinch = nil;
         }
     }
 }
@@ -191,9 +192,70 @@
         return;
     }
     if (self.baseConfig.showCrossLine) {
+        if (!_enableTap) {
+            return;
+        }
         [self showCrossLine:recognizer];
     }else{
-        [self hiddenCrossLine];
+        if (!_enableDrag) {
+            return;
+        }
+        CGPoint translatedPoint = [recognizer translationInView:self];
+        
+        NSString *className = NSStringFromClass([self class]);
+        float startX = [className isEqual:@"ChartFSView"] ? 0 : [ChartTools getStartX:self.showFrame total:self.baseConfig.currentShowNum];
+        float width = (self.showFrame.size.width - startX)/self.baseConfig.currentShowNum;
+        NSInteger num;
+        if (translatedPoint.x*translatedPoint.x > width* width) {
+            //                        NSLog(@"???");
+            if (translatedPoint.x < 0) {
+                num = translatedPoint.x/(self.showFrame.size.width/self.baseConfig.currentShowNum);
+                if (labs(num) < 1) {
+                    num = -1;
+                }
+                
+                if (self.baseConfig.currentIndex - num + self.baseConfig.currentShowNum <= [self dataNumber]) {
+                    self.baseConfig.currentIndex = self.baseConfig.currentIndex - num;
+                    if (self.baseConfig.currentIndex > [self dataNumber] - self.baseConfig.currentShowNum) {
+                        self.baseConfig.currentIndex = (NSInteger)[self dataNumber] - self.baseConfig.currentShowNum;
+                    }
+                }
+                
+                
+            }else{
+                num = translatedPoint.x/((self.showFrame.size.width)/self.baseConfig.currentShowNum);
+                if (labs(num) < 1) {
+                    num = 1;
+                }
+                self.baseConfig.currentIndex = self.baseConfig.currentIndex - num;
+                if (self.baseConfig.currentIndex <= 0) {
+                    self.baseConfig.currentIndex = 0;
+                }
+            }
+            
+            self.baseConfig.showIndex = self.baseConfig.currentIndex + self.baseConfig.currentShowNum - 1;
+            if (self.baseConfig.showIndex >= 0 && self.baseConfig.showIndex > [self dataNumber] - 1) {
+                self.baseConfig.showIndex = (NSInteger)[self dataNumber] - 1;
+            }else if (self.baseConfig.showIndex >= 0 && self.baseConfig.showIndex > self.baseConfig.currentIndex + self.baseConfig.currentShowNum - 1) {
+                self.baseConfig.showIndex = self.baseConfig.currentIndex + self.baseConfig.currentShowNum - 1;
+            }else if (self.baseConfig.showIndex < self.baseConfig.currentIndex){
+                self.baseConfig.showIndex = self.baseConfig.currentIndex;
+            }else if (self.baseConfig.showIndex < 0){
+                self.baseConfig.showIndex = 0;
+            }
+            [recognizer setTranslation:CGPointMake(translatedPoint.x - num * width, 0) inView:self];
+            
+            if (chartIsValidArr(self.ftViews)) {
+                NSArray *arr = [NSArray arrayWithArray:self.ftViews];
+                for (NSInteger i = 0 ; i < arr.count; i++) {
+                    ChartBaseView *zb = self.ftViews[i];
+                    [zb.baseConfig SyncParameter:self.baseConfig];
+                }
+            }
+            if (![_ztView isEqual:self]) {
+                [_ztView.baseConfig SyncParameter:self.baseConfig];
+            }
+        }
     }
 }
 
@@ -304,7 +366,8 @@
             zb.baseConfig.showCrossLine = YES;
         }
     }
-    float startX = [ChartTools getStartX:self.showFrame total:self.baseConfig.currentShowNum];
+    NSString *className = NSStringFromClass([self class]);
+    float startX = [className isEqual:@"ChartFSView"] ? 0 : [ChartTools getStartX:self.showFrame total:self.baseConfig.currentShowNum];
     self.baseConfig.showIndex = self.baseConfig.currentIndex + (self.baseConfig.showCrossLinePoint.x - self.showFrame.origin.x - startX) / (self.showFrame.size.width - startX * 2) * self.baseConfig.currentShowNum;
     if (self.baseConfig.showIndex >= 0 && self.baseConfig.showIndex > [self dataNumber] - 1) {
         self.baseConfig.showIndex = (NSInteger)[self dataNumber] - 1;
@@ -326,7 +389,10 @@
 }
 
 - (void)hiddenCrossLine{
-    if (![self isEqual:self.ztView] || !self.baseConfig.showCrossLine) {
+    if (!self.ztView.baseConfig.showCrossLine) {
+        return;
+    }
+    if (![self isEqual:self.ztView]) {
         [self.ztView hiddenCrossLine];
         return;
     }

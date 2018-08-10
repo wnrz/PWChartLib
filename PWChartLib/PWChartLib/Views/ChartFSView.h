@@ -8,8 +8,14 @@
 
 #import "ChartBaseView.h"
 #import "ChartFSViewModel.h"
+#import "ChartFSDataLayer.h"
 
 @interface ChartFSView : ChartBaseView
 
+@property (nonatomic , strong)ChartFSDataLayer *fsDataLayer;
 @property (nonatomic , strong)ChartFSViewModel *fsConfig;
+
+- (void)saveDatas:(NSArray<ChartFSDataModel *> *)datas;
+- (void)setTimes:(NSArray<ChartFSTimeModel *> *)times;
+- (void)updateTopAndBottomTimeByHQData:(ChartHQDataModel *)model;
 @end

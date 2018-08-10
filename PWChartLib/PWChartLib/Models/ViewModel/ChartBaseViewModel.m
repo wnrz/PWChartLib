@@ -20,8 +20,19 @@
 
 - (void)dealloc{
     [self removeAllBridge];
-    
     _hqData = nil;
+    _verticalSeparateArr = nil;
+    _horizontalSeparateArr = nil;
+    _verticalSeparateDottedArr = nil;
+    _horizontalSeparateDottedArr = nil;
+}
+
+- (void)setMaxPointCount:(NSInteger)maxPointCount{
+    _maxPointCount = maxPointCount;
+    _maxShowNum = maxPointCount;
+    _maxShowNum = maxPointCount;
+    _currentIndex = 0;
+    _currentShowNum = maxPointCount;
 }
 
 - (void)install{
@@ -30,11 +41,11 @@
     _verticalSeparateDottedArr = @[@.25,@.5,@.75];
     
     _hqData = [[ChartHQDataModel alloc] init];
-    
-    _hqData.digit = 2;
-    
-    self.topPrice = 1;
-    self.bottomPrice = 0;
+//
+//    _hqData.digit = 2;
+//
+//    self.topPrice = 1;
+//    self.bottomPrice = 0;
 }
 
 - (void)SyncParameter:(ChartBaseViewModel *)con{

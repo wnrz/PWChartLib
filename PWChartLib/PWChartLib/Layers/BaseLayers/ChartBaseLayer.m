@@ -37,6 +37,8 @@
 - (void)dealloc{
     [self clearLayers];
     _lineColor = nil;
+    
+    [_baseConfig removeBridgeObserver:self];
 }
 
 - (void)install{

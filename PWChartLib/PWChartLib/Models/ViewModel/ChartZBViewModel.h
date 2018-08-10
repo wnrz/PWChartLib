@@ -8,8 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "ChartZBDataModel.h"
+#import "ChartBaseViewModel.h"
 
 @interface ChartZBViewModel : NSObject
 
 @property (nonatomic , strong)ChartZBDataModel *zbDatas;
+@property (nonatomic , weak)ChartBaseViewModel *baseConfig;
+
+- (instancetype)initWithBaseConfig:(ChartBaseViewModel *)baseConfig;
 @end

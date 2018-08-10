@@ -15,6 +15,7 @@
 
 - (void)startDraw{
     [super startDraw];
+    [self drawCrossLine];
 }
 
 - (void)drawCrossLine{

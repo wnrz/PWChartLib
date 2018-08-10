@@ -18,8 +18,10 @@
 @property(nonatomic , copy)NSString *openPrice;
 @property(nonatomic , copy)NSString *topPrice;
 @property(nonatomic , copy)NSString *bottomPrice;
+@property(nonatomic , copy)NSString *nowPrice;
 @property(nonatomic , copy)NSString *volume;
 @property(nonatomic , copy)NSString *amount;
 @property(nonatomic , assign)NSInteger digit;
+
 
 @end

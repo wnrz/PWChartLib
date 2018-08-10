@@ -8,8 +8,20 @@
 
 #import <Foundation/Foundation.h>
 #import "ChartFSDataModel.h"
+#import "ChartBaseViewModel.h"
+
+@interface ChartFSTimeModel : NSObject
+@property (nonatomic , assign)NSInteger start;
+@property (nonatomic , assign)NSInteger end;
+@end
 
 @interface ChartFSViewModel : NSObject
 
 @property (nonatomic , strong)NSMutableArray<ChartFSDataModel *> *fsDatas;
+@property (nonatomic , weak)ChartBaseViewModel *baseConfig;
+@property (nonatomic , strong)NSArray<ChartFSTimeModel *> *times;
+
+- (instancetype)initWithBaseConfig:(ChartBaseViewModel *)baseConfig;
+- (void)saveDatas:(NSArray<ChartFSDataModel *> *)datas;
+- (void)updateTopAndBottomTimeByHQData:(ChartHQDataModel *)model;
 @end

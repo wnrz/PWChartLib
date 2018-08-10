@@ -8,6 +8,9 @@
 
 #import "AppDelegate.h"
 
+#import <NetworkController/NetworkController.h>
+#import <BaseUtils/BaseUtils.h>
+
 @interface AppDelegate ()
 
 @end
@@ -17,6 +20,21 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [[NCMQTTNetwork shareManager] initZSHQuote];
+    
+    [[NCHttpNetwork shareManager] sendRequest:@"101411" withDictionary:nil completionHandler:^(NSString *errorNo, NSDictionary *dict) {
+        
+        
+        id searchArray = [dict objectForKey:@"Data"];
+        
+        if ([errorNo isEqualToString:@"0"] && [searchArray isKindOfClass:[NSArray class]]) {
+            
+            [GTAppUtils writeUserDataWithKey:dict[@"Data"] forKey:kQuoteAllList];
+            
+        }
+    }];
+    
     return YES;
 }
 

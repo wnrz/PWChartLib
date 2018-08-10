@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8180E12E2342163F53B6D331 /* libPods-PWChartLibExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 076BC685355D3B25B43420DC /* libPods-PWChartLibExample.a */; };
+		9202A8E1211D3EED0014095B /* FSDataBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 9202A8E0211D3EED0014095B /* FSDataBridge.m */; };
 		92873319211AC7B100FB2771 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 92873318211AC7B100FB2771 /* AppDelegate.m */; };
 		9287331C211AC7B100FB2771 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9287331B211AC7B100FB2771 /* ViewController.m */; };
 		9287331F211AC7B100FB2771 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9287331D211AC7B100FB2771 /* Main.storyboard */; };
@@ -37,6 +38,8 @@
 
 /* Begin PBXFileReference section */
 		076BC685355D3B25B43420DC /* libPods-PWChartLibExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PWChartLibExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9202A8DF211D3EED0014095B /* FSDataBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FSDataBridge.h; path = DataBridge/FSDataBridge.h; sourceTree = "<group>"; };
+		9202A8E0211D3EED0014095B /* FSDataBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = FSDataBridge.m; path = DataBridge/FSDataBridge.m; sourceTree = "<group>"; };
 		92873314211AC7B100FB2771 /* PWChartLibExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PWChartLibExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92873317211AC7B100FB2771 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		92873318211AC7B100FB2771 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -120,6 +123,8 @@
 				92873318211AC7B100FB2771 /* AppDelegate.m */,
 				9287331A211AC7B100FB2771 /* ViewController.h */,
 				9287331B211AC7B100FB2771 /* ViewController.m */,
+				9202A8DF211D3EED0014095B /* FSDataBridge.h */,
+				9202A8E0211D3EED0014095B /* FSDataBridge.m */,
 				9287331D211AC7B100FB2771 /* Main.storyboard */,
 				92873320211AC7B200FB2771 /* Assets.xcassets */,
 				92873322211AC7B200FB2771 /* LaunchScreen.storyboard */,
@@ -168,6 +173,7 @@
 				92873311211AC7B100FB2771 /* Frameworks */,
 				92873312211AC7B100FB2771 /* Resources */,
 				AC6C980D53F050EF4CD3207A /* [CP] Copy Pods Resources */,
+				5EBB4121E7518DC6F64E8A69 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -284,6 +290,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		5EBB4121E7518DC6F64E8A69 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-PWChartLibExample/Pods-PWChartLibExample-frameworks.sh",
+				"${PODS_ROOT}/AliyunPlayer_iOS/AliyunPlayerSDK.framework",
+				"${PODS_ROOT}/AliyunPlayer_iOS/AliThirdparty.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AliyunPlayerSDK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AliThirdparty.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PWChartLibExample/Pods-PWChartLibExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		67B0026514DB3D0829C1FEAD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -309,13 +335,27 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-PWChartLibExample/Pods-PWChartLibExample-resources.sh",
+				"${PODS_ROOT}/AliyunPlayer_iOS/AliyunLanguageSource.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/BaseUtils/BaseUtils.bundle",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/NetworkController/NetworkController.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/PWChartLib/PWChartLib.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/PWDataBridge/PWDataBridge.bundle",
+				"${PODS_ROOT}/UMCShare/UMShare/UMSocialUI/UMSocialSDKResources.bundle",
+				"${PODS_ROOT}/WeexSDK/WeexSDK.framework/main.js",
+				"${PODS_ROOT}/WeexSDK/WeexSDK.framework/wx_load_error@3x.png",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AliyunLanguageSource.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BaseUtils.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/NetworkController.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PWChartLib.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PWDataBridge.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/main.js",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/wx_load_error@3x.png",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -330,6 +370,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9287331C211AC7B100FB2771 /* ViewController.m in Sources */,
+				9202A8E1211D3EED0014095B /* FSDataBridge.m in Sources */,
 				92873327211AC7B200FB2771 /* main.m in Sources */,
 				92873319211AC7B100FB2771 /* AppDelegate.m in Sources */,
 			);

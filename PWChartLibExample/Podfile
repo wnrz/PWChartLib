@@ -1,8 +1,11 @@
+source 'http://47.98.36.186/wangning/shhcSpecs.git'
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 def pods
 
  pod 'PWChartLib', :path=> '../../PWChartLib'
+ pod 'BaseUtils', :path => '/Users/wangning/Documents/shhcProject/BaseUtils'
+ pod 'NetworkController', :path => '/Users/wangning/Documents/shhcProject/NetworkController'
 end
 target 'PWChartLibExample' do
     pods

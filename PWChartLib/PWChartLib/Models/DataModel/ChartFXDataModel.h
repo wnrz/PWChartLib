@@ -22,5 +22,5 @@
 
 @property(nonatomic , weak)ChartFXDataModel *perFXModel;
 
-
+- (void)storeFromDict:(NSDictionary *)dict;
 @end
