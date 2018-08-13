@@ -12,6 +12,10 @@
 
 @end
 
+@implementation StickModel
+
+@end
+
 @implementation LayerMaker
 
 
@@ -222,6 +226,38 @@ void processPathElement(void* info, const CGPathElement* element) {
         }
     }];
     
+    return layer;
+}
+
++ (CALayer *)getStickLine:(CGRect)showFrame total:(float)total top:(float)top bottom:(float)bottom models:(NSArray *)models start:(NSInteger)start lineWidth:(CGFloat)lineWidth{
+    CALayer *layer = [[CALayer alloc] init];
+    CGFloat startX = [ChartTools getStartX:showFrame total:total];
+    CGFloat width = (showFrame.size.width - showFrame.origin.x - 2 * startX) / total;
+    CGFloat height = showFrame.size.height - showFrame.origin.y;
+    CGFloat mid = fabs(top - bottom);
+    if (mid == 0) {
+        mid = 1;
+    }
+    __block CGFloat x = startX + width / 2;
+    [models enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        x = startX + width / 2 + idx * width;
+        StickModel *model = obj;
+        
+        CGFloat value = model.value - bottom;
+        CGFloat y = height * (1 - value / mid) + showFrame.origin.y;
+        CGPoint pointOpen = CGPointMake(x, y);
+        
+        value = 0;
+        y = height * (1 - value / mid) + showFrame.origin.y;
+        CGPoint pointClose = CGPointMake(x, y);
+        
+        CGColorRef color = model.color.CGColor;
+        
+        CAShapeLayer *volLayer = [self getLineLayer:pointOpen toPoint:pointClose isDot:NO];
+        volLayer.lineWidth = lineWidth > 0 ? lineWidth : width *.7;
+        volLayer.strokeColor = color;
+        [layer addSublayer:volLayer];
+    }];
     return layer;
 }
 @end

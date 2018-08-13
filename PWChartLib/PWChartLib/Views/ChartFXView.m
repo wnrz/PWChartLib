@@ -7,6 +7,7 @@
 //
 
 #import "ChartFXView.h"
+#import "ChartZBView.h"
 
 @implementation ChartFXView
 
@@ -72,6 +73,12 @@
         return;
     }
     [_fxConfig saveDatas:datas];
+    NSArray *arr = [NSArray arrayWithArray:self.ftViews];
+    [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        ChartZBView *zbView = obj;
+        [zbView.config getZBData];
+        [zbView startDraw];
+    }];
     [self startDraw];
 }
 @end

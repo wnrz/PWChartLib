@@ -8,8 +8,10 @@
 
 #import "ChartBaseView.h"
 #import "ChartZBViewModel.h"
+#import "ZBChartsLayer.h"
 
 @interface ChartZBView : ChartBaseView
 
+@property (nonatomic , strong)ZBChartsLayer *zbChartsLayer;
 @property (nonatomic , strong)ChartZBViewModel *config;
 @end

@@ -82,4 +82,34 @@
         }
     }
 }
+
+- (void)drawVOL:(id)ztConfig{
+    NSArray *array;
+    if ([ztConfig isKindOfClass:[ChartFXViewModel class]]) {
+        self.fxConfig = ztConfig;
+        array = (NSArray *)self.fxConfig.fxDatas;
+    }else if ([ztConfig isKindOfClass:[ChartFSViewModel class]]){
+        self.fsConfig = ztConfig;
+        array = (NSArray *)self.fsConfig.fsDatas;
+    }
+    if (array.count > 0) {
+        __block NSMutableArray *volArray = [[NSMutableArray alloc] init];
+        NSArray *arr = [NSArray arrayWithArray:_fsConfig.fsDatas];
+        [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            StickModel *sModel = [[StickModel alloc] init];
+            if (self.fsConfig) {
+                ChartFSDataModel *model = obj;
+                sModel.color = [model.nowPrice doubleValue] > [model.perFSModel.nowPrice doubleValue] ? [ChartColors colorByKey:kChartColorKey_Rise] : [model.nowPrice doubleValue] < [model.perFSModel.nowPrice doubleValue] ? [ChartColors colorByKey:kChartColorKey_Fall] : [ChartColors colorByKey:kChartColorKey_Stay];
+                sModel.value = model.nowVol.doubleValue;
+            }else if (self.fxConfig) {
+                ChartFXDataModel *model = obj;
+                sModel.color = [model.closePrice doubleValue] > [model.openPrice doubleValue] ? [ChartColors colorByKey:kChartColorKey_Rise] : [model.closePrice doubleValue] < [model.openPrice doubleValue] ? [ChartColors colorByKey:kChartColorKey_Fall] : [model.closePrice doubleValue] > [model.perFXModel.closePrice doubleValue] ? [ChartColors colorByKey:kChartColorKey_Rise] : [model.closePrice doubleValue] < [model.perFXModel.closePrice doubleValue] ? [ChartColors colorByKey:kChartColorKey_Fall] : [ChartColors colorByKey:kChartColorKey_Stay];
+                sModel.value = model.volume.doubleValue;
+            }
+            [volArray addObject:sModel];
+        }];
+        CALayer *volLayer = [LayerMaker getStickLine:self.baseConfig.showFrame total:self.baseConfig.maxPointCount top:self.baseConfig.topPrice bottom:self.baseConfig.bottomPrice models:volArray start:0 lineWidth:-1];
+        [self addSublayer:volLayer];
+    }
+}
 @end

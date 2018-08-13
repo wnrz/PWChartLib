@@ -107,6 +107,7 @@
             tmp = model;
         }
         model.perFXModel = tmp;
+        tmp = model;
         [self->fxMapTable setObject:model forKey:[model.timeStamp copy]];
     }];
 }

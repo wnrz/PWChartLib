@@ -16,8 +16,9 @@
     self = [super init];
     if (self) {
         _baseConfig = baseConfig;
+        _zbDatas = [[ChartZBDataModel alloc] init];
     }
-    return nil;
+    return self;
 }
 
 - (void)dealloc{
@@ -27,11 +28,19 @@
 - (void)setFsConfig:(ChartFSViewModel *)fsConfig{
     _fsConfig = fsConfig;
     _fxConfig = nil;
+    [self.baseConfig SyncParameter:_fsConfig.baseConfig];
+    if (self.ftZBName) {
+        [self setFtZBName:_ftZBName];
+    }
 }
 
 - (void)setFxConfig:(ChartFXViewModel *)fxConfig{
     _fxConfig = fxConfig;
     _fsConfig = nil;
+    [self.baseConfig SyncParameter:_fxConfig.baseConfig];
+    if (self.ftZBName) {
+        [self setFtZBName:_ftZBName];
+    }
 }
 
 - (void)setFtZBName:(NSString *)ftZBName{
@@ -56,7 +65,6 @@
 }
 
 - (void)getZBData{
-    ChartZBDataModel *model = _zbDatas;
     if (_fsConfig) {
         NSMutableArray *array = [NSMutableArray arrayWithArray:_fsConfig.fsDatas];
         (self.zbType == FTZBFSMACD) ? self.zbDatas.datas = [[FSZBParam shareFSZBParam] getMACDResult:array] : 0;
@@ -74,6 +82,46 @@
         (self.zbType == FTZBFXROC) ? self.zbDatas.datas = [[FXZBParam shareFXZBParam] getROCResult:array] : 0;
         (self.zbType == FTZBFXTSZF0) ? self.zbDatas.datas = [[FXZBParam shareFXZBParam] getTSZF0Result:array] : 0;
         (self.zbType == FTZBFXPSY) ? self.zbDatas.datas = [[FXZBParam shareFXZBParam] getPSYResult:array] : 0;
+    }
+}
+
+- (void)chackTopAndBottomPrice{
+    NSArray *dataArr;
+    if (_fsConfig) {
+        dataArr = _fsConfig.fsDatas;
+    }else{
+        dataArr = _fxConfig.fxDatas;
+    }
+    if (dataArr.count == 0) {
+        return;
+    }
+    NSInteger start = _baseConfig.currentIndex;
+    NSInteger end = _baseConfig.currentIndex + _baseConfig.currentShowNum;
+    start = start < 0 ? 0 : start;
+    end =  end > dataArr.count ? dataArr.count - 1 : end;
+    if (end < start) {
+        return;
+    }
+    __block CGFloat top = _baseConfig.topPrice;
+    __block CGFloat bottom = _baseConfig.bottomPrice;
+    if (self.zbType == FTZBFSVOL || self.zbType == FTZBFXVOL) {
+        NSArray *arr = [dataArr subarrayWithRange:NSMakeRange(start, end - start)];
+        [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (self->_fsConfig) {
+                ChartFSDataModel *model = obj;
+                top = [model.nowVol doubleValue] > top ? [model.nowVol doubleValue] : top;
+                bottom = bottom ? bottom : top;
+                bottom = [model.nowVol doubleValue] < bottom ? [model.nowVol doubleValue] : bottom;
+            }else{
+                ChartFXDataModel *model = obj;
+                top = [model.volume doubleValue] > top ? [model.volume doubleValue] : top;
+                bottom = bottom ? bottom : top;
+                bottom = [model.volume doubleValue] < bottom ? [model.volume doubleValue] : bottom;
+            }
+        }];
+        _baseConfig.topPrice = top;
+        _baseConfig.bottomPrice = bottom;
+        _baseConfig.bottomPrice = 0;
     }
 }
 @end

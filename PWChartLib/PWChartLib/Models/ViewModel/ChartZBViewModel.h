@@ -52,4 +52,7 @@ typedef enum{
 @property (nonatomic , assign)DrawFTZBType zbType;
 
 - (instancetype)initWithBaseConfig:(ChartBaseViewModel *)baseConfig;
+
+- (void)getZBData;
+- (void)chackTopAndBottomPrice;
 @end

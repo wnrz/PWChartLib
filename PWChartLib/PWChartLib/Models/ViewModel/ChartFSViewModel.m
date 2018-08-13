@@ -105,6 +105,7 @@
             tmp = model;
         }
         model.perFSModel = tmp;
+        tmp = model;
         [self->fsMapTable setObject:model forKey:[model.timeStamp copy]];
     }];
 }

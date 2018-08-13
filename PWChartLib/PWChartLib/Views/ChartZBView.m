@@ -22,10 +22,59 @@
 - (void)install{
     [super install];
     _config = [[ChartZBViewModel alloc] initWithBaseConfig:self.baseConfig];
+    
+    _zbChartsLayer = [[ZBChartsLayer alloc] init];
+    _zbChartsLayer.baseConfig = self.baseConfig;
+    [self.layer insertSublayer:_zbChartsLayer above:self.formLayer];
 }
 
 - (NSInteger)dataNumber{
     return [self.ztView dataNumber];
 }
 
+- (void)startDraw{
+    self.baseConfig.topPrice = 0;
+    self.baseConfig.bottomPrice = 0;
+    
+    if (!self.baseConfig.hqData) {
+        return;
+    }
+    [self.formLayer redraw:^(ChartBaseLayer *obj) {
+    }];
+    
+    [self.config chackTopAndBottomPrice];
+    if ([self.ztView isKindOfClass:[ChartFSView class]]) {
+        [self.chartsLayer drawVOL:[(ChartFSView *)self.ztView fsConfig]];
+    }else if ([self.ztView isKindOfClass:[ChartFXView class]]) {
+        [self.chartsLayer drawVOL:[(ChartFXView *)self.ztView fxConfig]];
+    }
+    
+    
+    [_zbChartsLayer redraw:^(ChartBaseLayer *obj) {
+        
+    }];
+    
+    [self.crossLayer redraw:^(ChartBaseLayer *obj) {
+    }];
+    
+    [self.dataLayer redraw:^(ChartBaseLayer *obj) {
+        [(ChartDataLayer *)obj setIsDrawLeftText:YES];
+        [(ChartDataLayer *)obj setIsDrawRightText:NO];
+        [(ChartDataLayer *)obj setIsDrawCrossLeftText:YES];
+        [(ChartDataLayer *)obj setIsDrawCrossRightText:NO];
+    }];
+}
+
+- (void)setZtView:(ChartBaseView *)ztView{
+    if (super.ztView) {
+        [super.ztView.ftViews removeObject:self];
+    }
+    super.ztView = ztView;
+    [super.ztView.ftViews addObject:self];
+    if ([ztView isKindOfClass:[ChartFSView class]]) {
+        self.config.fsConfig = [(ChartFSView *)ztView fsConfig];
+    }else if ([ztView isKindOfClass:[ChartFXView class]]) {
+        self.config.fxConfig = [(ChartFXView *)ztView fxConfig];
+    }
+}
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "ChartFSView.h"
+#import "ChartZBView.h"
 
 @implementation ChartFSView
 
@@ -75,11 +76,22 @@
         return;
     }
     [_fsConfig saveDatas:datas];
+    NSArray *arr = [NSArray arrayWithArray:self.ftViews];
+    [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        ChartZBView *zbView = obj;
+        [zbView.config getZBData];
+        [zbView startDraw];
+    }];
     [self startDraw];
 }
 
 - (void)setTimes:(NSArray<ChartFSTimeModel *> *)times{
     _fsConfig.times = times;
+    NSArray *arr = [NSArray arrayWithArray:self.ftViews];
+    [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        ChartZBView *zbView = obj;
+        [zbView.baseConfig SyncParameter:self->_fsConfig.baseConfig];
+    }];
 }
 
 - (void)updateTopAndBottomTimeByHQData:(ChartHQDataModel *)model{

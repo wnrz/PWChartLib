@@ -17,5 +17,6 @@
 - (void)drawKLine:(ChartFXViewModel *)fxConfig;
 
 - (void)drawFSLine:(ChartFSViewModel *)fsConfig;
+- (void)drawVOL:(id)ztConfig;
 
 @end

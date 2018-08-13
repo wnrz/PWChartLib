@@ -60,7 +60,8 @@
     baseView.showFrame = CGRectMake(0, 0, _baseView.frame.size.width, _baseView.frame.size.height);
     baseView.enableTap = YES;
     baseView.enableDrag = YES;
-    _baseView.fsConfig.isShowMA = YES;
+    baseView.fsConfig.isShowMA = YES;
+    _ftView.ztView = baseView;
 }
 
 - (void)setFtView:(ChartZBView *)ftView{
@@ -68,6 +69,8 @@
     ftView.showFrame = CGRectMake(0, 0, ftView.frame.size.width, ftView.frame.size.height);
     ftView.enableTap = YES;
     ftView.enableDrag = YES;
+    ftView.ztView = _baseView;
+    ftView.config.ftZBName = @"VOL";
 }
 
 - (void)setBaseView2:(ChartFXView *)baseView2{
@@ -76,6 +79,7 @@
     baseView2.enableTap = YES;
     baseView2.enableDrag = YES;
     baseView2.enableScale = YES;
+    _ftView2.ztView = baseView2;
 }
 
 - (void)setFtView2:(ChartZBView *)ftView2{
@@ -84,6 +88,8 @@
     ftView2.enableTap = YES;
     ftView2.enableDrag = YES;
     ftView2.enableScale = YES;
+    ftView2.ztView = _baseView2;
+    ftView2.config.ftZBName = @"VOL";
 }
 
 - (IBAction)changeSF:(id)sender{
