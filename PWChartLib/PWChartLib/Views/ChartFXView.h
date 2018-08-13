@@ -13,7 +13,7 @@
 @interface ChartFXView : ChartBaseView
 
 @property (nonatomic , strong)ChartFXDataLayer *fxDataLayer;
-@property (nonatomic , strong)ChartFXViewModel *fxconfig;
+@property (nonatomic , strong)ChartFXViewModel *fxConfig;
 
 - (void)saveDatas:(NSArray<ChartFXDataModel *> *)datas;
 @end

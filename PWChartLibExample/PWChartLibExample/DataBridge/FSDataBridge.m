@@ -31,6 +31,9 @@
 - (void)setCodeId:(NSString *)codeId{
     [self removeTopic];
     _codeId = codeId;
+    if (_fsView) {
+        _fsView.baseConfig.digit = [QuoteHelper getSingleQuoteDigits:@"quotationcode" With:_codeId];
+    }
     [self addTopic];
     [self loadOneProduct];
     [self loadTime];
@@ -40,6 +43,13 @@
 - (void)setMarketCode:(NSString *)marketCode{
     _marketCode = marketCode;
     [self loadOneProduct];
+}
+
+- (void)setFsView:(ChartFSView *)fsView{
+    _fsView = fsView;
+    if (_codeId) {
+        fsView.baseConfig.digit = [QuoteHelper getSingleQuoteDigits:@"quotationcode" With:_codeId];
+    }
 }
 
 - (void)addTopic{

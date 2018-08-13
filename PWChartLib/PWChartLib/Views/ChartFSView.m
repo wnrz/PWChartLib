@@ -75,6 +75,7 @@
         return;
     }
     [_fsConfig saveDatas:datas];
+    [self startDraw];
 }
 
 - (void)setTimes:(NSArray<ChartFSTimeModel *> *)times{

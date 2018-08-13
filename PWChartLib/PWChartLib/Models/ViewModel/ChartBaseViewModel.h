@@ -32,6 +32,8 @@
 @property(nonatomic , assign)NSInteger currentIndex;  //当前显示点
 @property(nonatomic , assign)NSInteger currentShowNum;  //显示条数
 
+@property(nonatomic , assign)NSInteger digit;  //小数位
+
 @property(nonatomic , strong)NSArray *verticalSeparateArr; //有多少个 横向 分割线 实线 最小0 最大1
 @property(nonatomic , strong)NSArray *horizontalSeparateArr;  //有多少个 纵向 分割线  实线 最小0 最大1
 @property(nonatomic , strong)NSArray *verticalSeparateDottedArr; //有多少个 横向 分割线 虚线 最小0 最大1

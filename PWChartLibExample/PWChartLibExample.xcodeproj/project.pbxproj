@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8180E12E2342163F53B6D331 /* libPods-PWChartLibExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 076BC685355D3B25B43420DC /* libPods-PWChartLibExample.a */; };
 		9202A8E1211D3EED0014095B /* FSDataBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 9202A8E0211D3EED0014095B /* FSDataBridge.m */; };
+		9202A8E4212119ED0014095B /* FXDataBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 9202A8E3212119EC0014095B /* FXDataBridge.m */; };
 		92873319211AC7B100FB2771 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 92873318211AC7B100FB2771 /* AppDelegate.m */; };
 		9287331C211AC7B100FB2771 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9287331B211AC7B100FB2771 /* ViewController.m */; };
 		9287331F211AC7B100FB2771 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9287331D211AC7B100FB2771 /* Main.storyboard */; };
@@ -40,6 +41,8 @@
 		076BC685355D3B25B43420DC /* libPods-PWChartLibExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PWChartLibExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9202A8DF211D3EED0014095B /* FSDataBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FSDataBridge.h; path = DataBridge/FSDataBridge.h; sourceTree = "<group>"; };
 		9202A8E0211D3EED0014095B /* FSDataBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = FSDataBridge.m; path = DataBridge/FSDataBridge.m; sourceTree = "<group>"; };
+		9202A8E2212119EB0014095B /* FXDataBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FXDataBridge.h; path = DataBridge/FXDataBridge.h; sourceTree = "<group>"; };
+		9202A8E3212119EC0014095B /* FXDataBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FXDataBridge.m; path = DataBridge/FXDataBridge.m; sourceTree = "<group>"; };
 		92873314211AC7B100FB2771 /* PWChartLibExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PWChartLibExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92873317211AC7B100FB2771 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		92873318211AC7B100FB2771 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -125,6 +128,8 @@
 				9287331B211AC7B100FB2771 /* ViewController.m */,
 				9202A8DF211D3EED0014095B /* FSDataBridge.h */,
 				9202A8E0211D3EED0014095B /* FSDataBridge.m */,
+				9202A8E2212119EB0014095B /* FXDataBridge.h */,
+				9202A8E3212119EC0014095B /* FXDataBridge.m */,
 				9287331D211AC7B100FB2771 /* Main.storyboard */,
 				92873320211AC7B200FB2771 /* Assets.xcassets */,
 				92873322211AC7B200FB2771 /* LaunchScreen.storyboard */,
@@ -371,6 +376,7 @@
 			files = (
 				9287331C211AC7B100FB2771 /* ViewController.m in Sources */,
 				9202A8E1211D3EED0014095B /* FSDataBridge.m in Sources */,
+				9202A8E4212119ED0014095B /* FXDataBridge.m in Sources */,
 				92873327211AC7B200FB2771 /* main.m in Sources */,
 				92873319211AC7B100FB2771 /* AppDelegate.m in Sources */,
 			);

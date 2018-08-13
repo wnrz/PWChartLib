@@ -26,20 +26,41 @@
 - (void)install{
     [super install];
     self.ztView = self;
-    _fxconfig = [[ChartFXViewModel alloc] initWithBaseConfig:self.baseConfig];
+    _fxConfig = [[ChartFXViewModel alloc] initWithBaseConfig:self.baseConfig];
     
     _fxDataLayer = [[ChartFXDataLayer alloc] init];
     _fxDataLayer.baseConfig = self.baseConfig;
-    _fxDataLayer.fxConfig = self.fxconfig;
+    _fxDataLayer.fxConfig = self.fxConfig;
     [self.layer insertSublayer:_fxDataLayer above:self.dataLayer];
 }
 
 - (NSInteger)dataNumber{
-    return _fxconfig.fxDatas.count;
+    return _fxConfig.fxDatas.count;
 }
 
 - (void)startDraw{
-    [super startDraw];
+    self.baseConfig.topPrice = 0;
+    self.baseConfig.bottomPrice = 0;
+    [_fxConfig chackTopAndBottomPrice];
+    
+    if (!self.baseConfig.hqData) {
+        return;
+    }
+    [self.formLayer redraw:^(ChartBaseLayer *obj) {
+    }];
+    
+    [self.chartsLayer drawKLine:_fxConfig];
+    
+    [self.crossLayer redraw:^(ChartBaseLayer *obj) {
+    }];
+    
+    [self.dataLayer redraw:^(ChartBaseLayer *obj) {
+        [(ChartDataLayer *)obj setIsDrawLeftText:YES];
+        [(ChartDataLayer *)obj setIsDrawRightText:NO];
+        [(ChartDataLayer *)obj setIsDrawCrossLeftText:YES];
+        [(ChartDataLayer *)obj setIsDrawCrossRightText:NO];
+    }];
+    
     [_fxDataLayer redraw:^(ChartBaseLayer *obj) {
         [(ChartFXDataLayer *)obj setIsDrawBottomText:YES];
         [(ChartFXDataLayer *)obj setIsDrawCrossBottomText:YES];
@@ -50,30 +71,7 @@
     if (datas.count == 0) {
         return;
     }
-    if (datas.count > 1) {
-        [datas sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            ChartFXDataModel *model1 = obj1;
-            ChartFXDataModel *model2 = obj2;
-            if (model1.timeStamp.longLongValue < model2.timeStamp.longLongValue) {
-                return NSOrderedAscending;
-            }else if (model1.timeStamp.longLongValue > model2.timeStamp.longLongValue){
-                return NSOrderedDescending;
-            }else{
-                return NSOrderedSame;
-            }
-        }];
-    }
-    
-    __block ChartFXDataModel *tmp;
-    [datas enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        ChartFXDataModel *model = obj;
-        if (idx == 0) {
-            tmp = model;
-        }
-        model.perFXModel = tmp;
-    }];
-    [_fxconfig saveDatas:datas];
-    
+    [_fxConfig saveDatas:datas];
     [self startDraw];
 }
 @end

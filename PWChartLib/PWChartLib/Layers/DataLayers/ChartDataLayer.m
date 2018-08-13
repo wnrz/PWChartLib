@@ -89,7 +89,7 @@
 
 - (void)drawWithNum:(CGFloat)num isLeft:(BOOL)isLeft isCross:(BOOL)isCross{
     if (self.baseConfig) {
-        NSInteger digit = self.baseConfig.hqData.digit;
+        NSInteger digit = self.baseConfig.digit;
         CGFloat top = self.baseConfig.topPrice;
         CGFloat bottom = self.baseConfig.bottomPrice;
         __block CGFloat value = top - bottom;

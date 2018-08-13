@@ -11,4 +11,5 @@
 
 @property(nonatomic , copy)NSString *zbName;
 @property(nonatomic , copy)NSMutableArray *zbDatas;
+@property(nonatomic , strong)NSMutableDictionary *datas;
 @end

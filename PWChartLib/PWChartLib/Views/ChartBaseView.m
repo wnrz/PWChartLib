@@ -247,6 +247,7 @@
                 [_ztView.baseConfig SyncParameter:self.baseConfig];
             }
         }
+        [self startDraw];
     }
 }
 
@@ -315,6 +316,7 @@
     if (![_ztView isEqual:self]) {
         [_ztView.baseConfig SyncParameter:self.baseConfig];
     }
+    [self startDraw];
 }
 
 - (void)tapPressedGesAction:(UILongPressGestureRecognizer *)recognizer{

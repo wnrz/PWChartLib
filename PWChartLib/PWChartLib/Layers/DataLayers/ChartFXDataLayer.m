@@ -39,11 +39,11 @@
 
 - (void)drawCrossText{
     if (self.baseConfig.showCrossLine) {
-        if (self.baseConfig.showCrossLinePoint.y >= self.baseConfig.showFrame.origin.y && self.baseConfig.showCrossLinePoint.y <= self.baseConfig.showFrame.size.height + self.baseConfig.showFrame.origin.y) {
+        if (self.baseConfig.showCrossLinePoint.x >= self.baseConfig.showFrame.origin.x && self.baseConfig.showCrossLinePoint.x <= self.baseConfig.showFrame.size.width + self.baseConfig.showFrame.origin.x) {
             CGFloat num = 0;
-            num = self.baseConfig.showCrossLinePoint.y / (self.baseConfig.showFrame.size.height - self.baseConfig.showFrame.origin.y);
+            num = self.baseConfig.showCrossLinePoint.x / (self.baseConfig.showFrame.size.width - self.baseConfig.showFrame.origin.x);
             if (self.baseConfig && self.isDrawCrossBottomText && self.fxConfig) {
-                //
+                [self drawBottomWithNum:num num:num isCross:YES];
             }
         }
     }
@@ -62,32 +62,42 @@
 
 - (void)drawBottomWithNum:(NSInteger)index num:(CGFloat)num isCross:(BOOL)isCross{
     if (self.baseConfig) {
-        NSInteger digit = self.baseConfig.hqData.digit;
-        CGFloat top = self.baseConfig.topPrice;
-        CGFloat bottom = self.baseConfig.bottomPrice;
-        __block CGFloat value = top - bottom;
-        
-        CGFloat width = self.baseConfig.showFrame.size.width - self.baseConfig.showFrame.origin.x;
-        CGFloat x = width * num;
-        
-        CGFloat y = self.baseConfig.showFrame.origin.y + self.baseConfig.showFrame.size.height;
-        CGPoint point = CGPointMake(x, y);
-        
-        CGFloat value2 = value * (1 - num) + bottom;
-        NSString *string = chartDigitString(digit, [NSString stringWithFormat:@"%f" , value2]);
-        
-        CGSize size = [ChartTools sizeWithText:string maxSize:CGSizeMake(1000, 1000) fontSize:12];
-        CGRect frame = CGRectMake(isCross ? point.x : point.x + 5, point.y - size.height / 2, isCross ? size.width + 10 : size.width, size.height);
-        
-        frame.origin.x = frame.origin.x < self.baseConfig.showFrame.origin.x ? self.baseConfig.showFrame.origin.x : frame.origin.x + frame.size.width  > self.baseConfig.showFrame.origin.x + self.baseConfig.showFrame.size.width ? self.baseConfig.showFrame.origin.x + self.baseConfig.showFrame.size.width - frame.size.width : frame.origin.x;
-        
-        CATextLayer *layer = [LayerMaker getTextLayer:string point:point font:[UIFont systemFontOfSize:12] foregroundColor:[ChartColors colorByKey:(isCross ? kChartColorKey_TextBorderText : kChartColorKey_Text)] frame:frame];
-        if (isCross) {
-            layer.backgroundColor = [ChartColors colorByKey:kChartColorKey_TextBorderBackground].CGColor;
-            layer.borderColor = [ChartColors colorByKey:kChartColorKey_TextBorder].CGColor;
-            layer.borderWidth = .5;
+        NSInteger idx = num * self.baseConfig.currentShowNum + self.baseConfig.currentIndex;
+        if (self.baseConfig && self.fxConfig.fxDatas.count >= idx) {
+            CGFloat width = self.baseConfig.showFrame.size.width - self.baseConfig.showFrame.origin.x;
+            CGFloat x = width * num + self.baseConfig.showFrame.origin.x;
+            
+            CGFloat y = self.baseConfig.showFrame.origin.y + self.baseConfig.showFrame.size.height;
+            CGPoint point = CGPointMake(x, y);
+            
+            NSString *string = @"";
+          
+            if (self.fxConfig.fxDatas.count > idx) {
+                ChartFXDataModel *model = self.fxConfig.fxDatas[idx];
+                model.date = model.date.length > 8 ? model.date : [NSString stringWithFormat:@"%08ld" , (long)[model.date integerValue]];
+                model.time = model.time.length > 4 ? model.time : [NSString stringWithFormat:@"%04ld" , (long)[model.time integerValue]];
+                if (self.fxConfig.FXLinetype < 4) {
+                    string = [NSString stringWithFormat:@"%@/%@ %@:%@" , [model.date substringWithRange:NSMakeRange(4, 2)] , [model.date substringWithRange:NSMakeRange(6, 2)] , [model.time substringToIndex:2] , [model.time substringFromIndex:2]];
+                }else{
+                    string = [NSString stringWithFormat:@"%@/%@/%@" , [model.date substringToIndex:4] , [model.date substringWithRange:NSMakeRange(4, 2)] , [model.date substringWithRange:NSMakeRange(6, 2)]];
+                }
+            }
+            
+            CGSize size = [ChartTools sizeWithText:string maxSize:CGSizeMake(1000, 1000) fontSize:12];
+            point.x = point.x - size.width / (isCross ? 2 : 1);
+            //        point.y = point.y - size.height;
+            CGRect frame = CGRectMake(point.x, point.y, size.width, size.height);
+            
+            frame.origin.x = frame.origin.x < self.baseConfig.showFrame.origin.x ? self.baseConfig.showFrame.origin.x : frame.origin.x + frame.size.width  > self.baseConfig.showFrame.origin.x + self.baseConfig.showFrame.size.width ? self.baseConfig.showFrame.origin.x + self.baseConfig.showFrame.size.width - frame.size.width : frame.origin.x;
+            
+            CATextLayer *layer = [LayerMaker getTextLayer:string point:point font:[UIFont systemFontOfSize:12] foregroundColor:[ChartColors colorByKey:(isCross ? kChartColorKey_TextBorderText : kChartColorKey_Text)] frame:frame];
+            if (isCross) {
+                layer.backgroundColor = [ChartColors colorByKey:kChartColorKey_TextBorderBackground].CGColor;
+                layer.borderColor = [ChartColors colorByKey:kChartColorKey_TextBorder].CGColor;
+                layer.borderWidth = .5;
+            }
+            [self addSublayer:layer];
         }
-        [self addSublayer:layer];
     }
 }
 @end

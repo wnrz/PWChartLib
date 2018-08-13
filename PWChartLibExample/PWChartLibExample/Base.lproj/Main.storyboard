@@ -40,10 +40,25 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9eX-9R-yN3">
-                                <rect key="frame" x="10" y="65" width="47" height="30"/>
-                                <state key="normal" title="loadFS"/>
+                                <rect key="frame" x="10" y="65" width="93" height="30"/>
+                                <state key="normal" title="loadFSAndFX"/>
                                 <connections>
                                     <action selector="loadFS:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CcT-q4-xYp"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qnh-jB-xye" customClass="ChartFXView">
+                                <rect key="frame" x="0.0" y="243.5" width="375" height="200"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yLD-YW-JNt" customClass="ChartZBView">
+                                <rect key="frame" x="0.0" y="467" width="375" height="200"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pPf-cW-qC2">
+                                <rect key="frame" x="10" y="100" width="68" height="30"/>
+                                <state key="normal" title="showHide"/>
+                                <connections>
+                                    <action selector="showHide:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JkZ-VG-RlY"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -51,25 +66,38 @@
                         <constraints>
                             <constraint firstItem="9eX-9R-yN3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="1eV-up-7sv"/>
                             <constraint firstItem="w4D-2N-Ldb" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="44x-ax-WFq"/>
+                            <constraint firstItem="qnh-jB-xye" firstAttribute="bottom" secondItem="w4D-2N-Ldb" secondAttribute="bottom" id="4UW-B2-DXa"/>
                             <constraint firstItem="9eX-9R-yN3" firstAttribute="top" secondItem="zMc-df-Tug" secondAttribute="bottom" constant="5" id="CP6-Zu-MIk"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="w4D-2N-Ldb" secondAttribute="trailing" id="ESu-bN-uBW"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="bvV-c0-egG" secondAttribute="bottom" id="J68-TM-Klk"/>
                             <constraint firstItem="w4D-2N-Ldb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Jl4-kd-ofc"/>
                             <constraint firstItem="bvV-c0-egG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Kkb-vn-yXo"/>
+                            <constraint firstItem="yLD-YW-JNt" firstAttribute="leading" secondItem="bvV-c0-egG" secondAttribute="leading" id="Mzw-wt-zzb"/>
+                            <constraint firstItem="yLD-YW-JNt" firstAttribute="top" secondItem="bvV-c0-egG" secondAttribute="top" id="NxM-Wd-vHA"/>
+                            <constraint firstItem="yLD-YW-JNt" firstAttribute="trailing" secondItem="bvV-c0-egG" secondAttribute="trailing" id="Q3A-tN-I9X"/>
+                            <constraint firstItem="qnh-jB-xye" firstAttribute="trailing" secondItem="w4D-2N-Ldb" secondAttribute="trailing" id="UuY-uP-3wE"/>
                             <constraint firstItem="bvV-c0-egG" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="WL7-GK-H41"/>
                             <constraint firstItem="w4D-2N-Ldb" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="aCr-97-NYQ"/>
+                            <constraint firstItem="qnh-jB-xye" firstAttribute="leading" secondItem="w4D-2N-Ldb" secondAttribute="leading" id="d2e-A7-jUV"/>
                             <constraint firstItem="zMc-df-Tug" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="ese-tp-shw"/>
+                            <constraint firstItem="pPf-cW-qC2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="gCA-lQ-T1j"/>
+                            <constraint firstItem="pPf-cW-qC2" firstAttribute="top" secondItem="9eX-9R-yN3" secondAttribute="bottom" constant="5" id="p2k-B5-zW8"/>
+                            <constraint firstItem="yLD-YW-JNt" firstAttribute="bottom" secondItem="bvV-c0-egG" secondAttribute="bottom" id="sCf-pe-ehV"/>
+                            <constraint firstItem="qnh-jB-xye" firstAttribute="top" secondItem="w4D-2N-Ldb" secondAttribute="top" id="uSt-ls-hos"/>
                             <constraint firstItem="zMc-df-Tug" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="ykQ-4h-kSY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="baseView" destination="w4D-2N-Ldb" id="Wh2-nb-96K"/>
+                        <outlet property="baseView2" destination="qnh-jB-xye" id="zMN-Zz-gmO"/>
                         <outlet property="ftView" destination="bvV-c0-egG" id="dHJ-fq-7u8"/>
+                        <outlet property="ftView2" destination="yLD-YW-JNt" id="xUD-rR-Nwl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="32.799999999999997" y="45.42728635682159"/>
         </scene>
     </scenes>
 </document>

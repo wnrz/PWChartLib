@@ -31,24 +31,30 @@
 }
 
 - (void)drawKLine:(ChartFXViewModel *)fxConfig{
+    [self clearLayers];
     self.fxConfig = fxConfig;
     if (_fxConfig && [_fxConfig.fxDatas count] > 0) {
-        __block NSMutableArray *top = [[NSMutableArray alloc] init];
-        __block NSMutableArray *bottom = [[NSMutableArray alloc] init];
-        __block NSMutableArray *open = [[NSMutableArray alloc] init];
-        __block NSMutableArray *close = [[NSMutableArray alloc] init];
+        __block NSMutableArray *models = [[NSMutableArray alloc] init];
         NSArray *arr = [NSArray arrayWithArray:_fxConfig.fxDatas];
-        [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            ChartFXDataModel *model = obj;
-            [top addObject:model.topPrice];
-            [bottom addObject:model.bottomPrice];
-            [open addObject:model.openPrice];
-            [close addObject:model.closePrice];
-        }];
+        for (NSInteger i = self.baseConfig.currentIndex; i < self.baseConfig.currentIndex + self.baseConfig.currentShowNum; i++) {
+            if (i < self.fxConfig.fxDatas.count) {
+                ChartFXDataModel *model = arr[i];
+                CandlestickModel *cModel = [[CandlestickModel alloc] init];
+                cModel.top = [model.topPrice floatValue];
+                cModel.bottom = [model.bottomPrice floatValue];
+                cModel.open = [model.openPrice floatValue];
+                cModel.close = [model.closePrice floatValue];
+                [models addObject:cModel];
+            }
+        }
+        
+        CALayer *layer = [LayerMaker getCandlestickLine:self.baseConfig.showFrame total:self.baseConfig.currentShowNum top:self.baseConfig.topPrice bottom:self.baseConfig.bottomPrice models:models clrUp:[ChartColors colorByKey:kChartColorKey_Rise] clrDown:[ChartColors colorByKey:kChartColorKey_Fall] clrBal:[ChartColors colorByKey:kChartColorKey_Stay] start:0 lineType:1];
+        [self addSublayer:layer];
     }
 }
 
 - (void)drawFSLine:(ChartFSViewModel *)fsConfig{
+    [self clearLayers];
     self.fsConfig = fsConfig;
     if (_fsConfig && [_fsConfig.fsDatas count] > 0) {
         __block NSMutableArray *nowArray = [[NSMutableArray alloc] init];
@@ -57,18 +63,22 @@
         [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             ChartFSDataModel *model = obj;
             [nowArray addObject:@(model.nowPrice.doubleValue)];
-            [avgArray addObject:@(model.avgVol.doubleValue)];
+            [avgArray addObject:@(model.avgPrice.doubleValue)];
         }];
         CAShapeLayer *nowLayer = [LayerMaker getLineChartLayer:self.baseConfig.showFrame total:self.baseConfig.maxPointCount top:self.baseConfig.topPrice bottom:self.baseConfig.bottomPrice arr:nowArray start:0 startX:0];
         nowLayer.lineWidth = .5;
         nowLayer.strokeColor = [ChartColors colorByKey:kChartColorKey_XJ].CGColor;
         [self addSublayer:nowLayer];
         
+        CAGradientLayer *gradientLayer = [LayerMaker drawGredientLayer:self.baseConfig.showFrame path:nowLayer.path color:[ChartColors colorByKey:kChartColorKey_XJ]];
+        gradientLayer.frame = self.baseConfig.showFrame;
+        [self addSublayer:gradientLayer];
+        
         if (fsConfig.isShowMA) {
             CAShapeLayer *avgLayer = [LayerMaker getLineChartLayer:self.baseConfig.showFrame total:self.baseConfig.maxPointCount top:self.baseConfig.topPrice bottom:self.baseConfig.bottomPrice arr:avgArray start:0 startX:0];
             avgLayer.lineWidth = .5;
             avgLayer.strokeColor = [ChartColors colorByKey:kChartColorKey_JJ].CGColor;
-            [self addSublayer:nowLayer];
+            [self addSublayer:avgLayer];
         }
     }
 }

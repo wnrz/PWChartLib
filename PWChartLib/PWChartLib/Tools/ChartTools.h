@@ -13,21 +13,18 @@
 
 float chartValid(float value);
 
-+ (NSMutableArray *)SUMFloat:(NSMutableArray *)array d:(int)d;
-
-+ (NSMutableArray *)SUMInt:(NSMutableArray *)array d:(int)d;
-
-+ (NSMutableArray *)SUMLong:(NSMutableArray *)array d:(int)d;
-
-+ (NSMutableArray *)EMAFload:(NSMutableArray *)array d:(int)d;
-
-+ (NSMutableArray *)EMALong:(NSMutableArray *)array d:(int)d;
-
-+ (NSMutableArray *)EMADouble:(NSMutableArray *)array d:(int)d;
++ (NSMutableArray *)SUM:(NSArray *)array d:(NSInteger)d block:(double (^)(double num , NSInteger index))block;
++ (NSMutableArray *)EMA:(NSArray *)array d:(NSInteger)d block:(double (^)(double num , NSInteger index))block;
++ (NSMutableArray *)MA:(NSArray *)array d:(NSInteger)d block:(double (^)(double num , NSInteger index))block;
++ (NSMutableArray *)Slope:(NSArray *)input para:(short)para block:(double (^)(double num , NSInteger index))block;
++ (NSMutableArray *)CROSS:(NSArray *)array1 array2:(NSArray *)array2 block:(id (^)(id result , NSInteger index))block;
 
 + (CGFloat)getStartX:(CGRect)rc total:(NSInteger)total;
 
 + (CGSize)sizeWithText:(NSString *)text maxSize:(CGSize)maxSize fontSize:(CGFloat)fontSize;
 
 NSString *chartDigitString(NSInteger tpflag , NSString *string);
+
++ (NSArray *)getRGBWithColor:(UIColor *)color;
++ (UIColor *)getNewColorWith:(UIColor *)color alpha:(float)alpha;
 @end

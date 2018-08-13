@@ -61,6 +61,9 @@
 #define FXZBResult_ROC_ROC @"FXZBResult_ROC_ROC"
 #define FXZBResult_ROC_MAROC @"FXZBResult_ROC_MAROC"
 
+#define FXZBResult_PSY_PSY @"FXZBResult_PSY_PSY"
+#define FXZBResult_PSY_PSYMA @"FXZBResult_PSY_PSYMA"
+
 #define FXZBResult_MTM_MTM @"FXZBResult_MTM_MTM"
 #define FXZBResult_MTM_MAMTM @"FXZBResult_MTM_MAMTM"
 
@@ -132,6 +135,9 @@
 
 @property(nonatomic)float ASI_M;
 
+@property(nonatomic)float ASI_M1;
+@property(nonatomic)float ASI_M2;
+
 @property(nonatomic)float EMV_N;
 @property(nonatomic)float EMV_M;
 
@@ -146,6 +152,9 @@
 
 @property(nonatomic)float ROC_N;
 @property(nonatomic)float ROC_M;
+
+@property(nonatomic)float PSY_N;
+@property(nonatomic)float PSY_M;
 
 @property(nonatomic)float MTM_N;
 @property(nonatomic)float MTM_M;
@@ -188,6 +197,8 @@
 
 - (NSMutableDictionary *)getASIResult:(NSMutableArray *)array;
 
+- (NSMutableDictionary *)getASI2Result:(NSMutableArray *)array;
+
 - (NSMutableDictionary *)getEMVResult:(NSMutableArray *)array;
 
 - (NSMutableDictionary *)getRSIResult:(NSMutableArray *)array;
@@ -198,6 +209,8 @@
 
 - (NSMutableDictionary *)getROCResult:(NSMutableArray *)array;
 
+- (NSMutableDictionary *)getPSYResult:(NSMutableArray *)array;
+
 - (NSMutableDictionary *)getMTMResult:(NSMutableArray *)array;
 
 - (NSMutableDictionary *)getBIASResult:(NSMutableArray *)array;
@@ -205,6 +218,8 @@
 - (NSMutableDictionary*)getBOLLResult:(NSMutableArray *)array;
 
 - (NSMutableDictionary*)getAROONResult:(NSMutableArray *)array;
+
+- (NSMutableDictionary *)getTSZF0Result:(NSMutableArray *)array;
 
 //- (NSMutableDictionary*)getCYZBResult:(NSMutableArray *)array datas:(NSMutableArray *)datas;
 

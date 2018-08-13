@@ -90,19 +90,30 @@ static FXZBParam* shareZBP=nil;
 //主图指标
 - (NSMutableDictionary *)getPriMAResult:(NSMutableArray *)array{
     NSMutableDictionary *vols;
+    /*
+     @{@"sName":NAME,
+     @"linesArray":@[@{@"sName":name,@"type":type,@"mArrBe":@{@"linesArray":@[]}}]
+     }
+     */
     vols = [[NSMutableDictionary alloc] init];
-    for (int i = 0; i < array.count; i++) {
-        for (int x = 0 ; x < Pri_MAS.count; x++) {
-            int ma = [Pri_MAS[x] intValue];
+    NSString *time = @"";
+    for (NSInteger x = 0 ; x < Pri_MAS.count; x++) {
+        NSInteger ma = [Pri_MAS[x] intValue];
+        time.length > 0 ? time = [time stringByAppendingString:@","] : 0;
+        time = [time stringByAppendingFormat:@"%.0ld" , (long)ma];
+    }
+    for (NSInteger i = 0; i < array.count; i++) {
+        for (NSInteger x = 0 ; x < Pri_MAS.count; x++) {
+            NSInteger ma = [Pri_MAS[x] intValue];
             if (ma > 0) {
-                NSMutableArray *tmpArray = vols[@(ma)];
+                NSMutableArray *tmpArray = vols[[NSString stringWithFormat:@"MA%@" , @(ma)]];
                 if (!tmpArray) {
                     tmpArray = [[NSMutableArray alloc] init];
-                    [vols setObject:tmpArray forKey:@(ma)];
+                    [vols setObject:tmpArray forKey:[NSString stringWithFormat:@"MA%@" , @(ma)]];
                 }
                 if (i >= ma - 1) {
                     float price = 0.0f;
-                    for (int j = i - (ma - 1); j <= i ; j++) {
+                    for (NSInteger j = i - (ma - 1); j <= i ; j++) {
                         ChartFXDataModel *klm = [array objectAtIndex:j];
                         price = price + [klm.closePrice doubleValue];
                     }
@@ -115,7 +126,21 @@ static FXZBParam* shareZBP=nil;
             
         }
     }
-    return vols;
+    
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
+    [result setObject:[NSString stringWithFormat:@"MA(%@)" , time] forKey:@"sName"];
+    [result setObject:@(array.count) forKey:@"nCount"];
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    [result setObject:arr forKey:@"linesArray"];
+    [vols enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        NSMutableDictionary *zbDict = [[NSMutableDictionary alloc] init];
+        [zbDict setObject:@"0" forKey:@"type"];
+        [zbDict setObject:key forKey:@"sName"];
+        [zbDict setObject:@{@"linesArray":obj} forKey:@"mArrBe"];
+        [arr addObject:zbDict];
+    }];
+    
+    return result;
 }
 
 #pragma mark -幅图指标
@@ -123,18 +148,24 @@ static FXZBParam* shareZBP=nil;
 - (NSMutableDictionary *)getVOLMAResult:(NSMutableArray *)array{
     NSMutableDictionary *vols;
     vols = [[NSMutableDictionary alloc] init];
-    for (int i = 0; i < array.count; i++) {
-        for (int x = 0 ; x < VOL_MAS.count; x++) {
-            int ma = [VOL_MAS[x] intValue];
+    NSString *time = @"";
+    for (NSInteger x = 0 ; x < VOL_MAS.count; x++) {
+        NSInteger ma = [VOL_MAS[x] intValue];
+        time.length > 0 ? time = [time stringByAppendingString:@","] : 0;
+        time = [time stringByAppendingFormat:@"%.0ld" , (long)ma];
+    }
+    for (NSInteger i = 0; i < array.count; i++) {
+        for (NSInteger x = 0 ; x < VOL_MAS.count; x++) {
+            NSInteger ma = [VOL_MAS[x] intValue];
             if (ma > 0) {
-                NSMutableArray *tmpArray = vols[@(ma)];
+                NSMutableArray *tmpArray = vols[[NSString stringWithFormat:@"MA%@" , @(ma)]];
                 if (!tmpArray) {
                     tmpArray = [[NSMutableArray alloc] init];
-                    [vols setObject:tmpArray forKey:@(ma)];
+                    [vols setObject:tmpArray forKey:[NSString stringWithFormat:@"MA%@" , @(ma)]];
                 }
                 if (i >= ma - 1) {
                     float price = 0.0f;
-                    for (int j = i - (ma - 1); j <= i ; j++) {
+                    for (NSInteger j = i - (ma - 1); j <= i ; j++) {
                         ChartFXDataModel *klm = [array objectAtIndex:j];
                         price = price + [klm.volume doubleValue];
                     }
@@ -147,7 +178,21 @@ static FXZBParam* shareZBP=nil;
             
         }
     }
-    return vols;
+    
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
+    [result setObject:[NSString stringWithFormat:@"MA(%@)" , time] forKey:@"sName"];
+    [result setObject:@(array.count) forKey:@"nCount"];
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    [result setObject:arr forKey:@"linesArray"];
+    [vols enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        NSMutableDictionary *zbDict = [[NSMutableDictionary alloc] init];
+        [zbDict setObject:@"0" forKey:@"type"];
+        [zbDict setObject:key forKey:@"sName"];
+        [zbDict setObject:@{@"linesArray":obj} forKey:@"mArrBe"];
+        [arr addObject:zbDict];
+    }];
+    
+    return result;
 }
 
 @synthesize MACD_Short;
@@ -169,7 +214,7 @@ static FXZBParam* shareZBP=nil;
     [dict setObject:dea forKey:FXZBResult_MACD_DEA];
     [dict setObject:macd forKey:FXZBResult_MACD_MACD];
     
-    for (int i = 0 ; i < [array count]; i++) {
+    for (NSInteger i = 0 ; i < [array count]; i++) {
         ChartFXDataModel *klm = [array objectAtIndex:i];
         
         float ema1;
@@ -205,8 +250,6 @@ static FXZBParam* shareZBP=nil;
         }
         
     }
-    
-    
     return dict;
 }
 
@@ -224,7 +267,8 @@ static FXZBParam* shareZBP=nil;
     [dict setObject:dif forKey:FXZBResult_MACD_DIF];
     [dict setObject:dea forKey:FXZBResult_MACD_DEA];
     [dict setObject:macd forKey:FXZBResult_MACD_MACD];
-    for (int i = 0 ; i < [array count]; i++) {
+    
+    for (NSInteger i = 0 ; i < [array count]; i++) {
         ChartFXDataModel *klm = [array objectAtIndex:i];
         
         float ema1;
@@ -264,7 +308,24 @@ static FXZBParam* shareZBP=nil;
         
     }
     
-    return dict;
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
+    [result setObject:[NSString stringWithFormat:@"MACD(%.0f,%.0f,%.0f)" , MACD_Short , MACD_Long , MACD_Mid] forKey:@"sName"];
+    [result setObject:@(array.count) forKey:@"nCount"];
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    [result setObject:arr forKey:@"linesArray"];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"DIF",
+                     @"mArrBe":@{@"linesArray":dif}
+                     }];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"DEA",
+                     @"mArrBe":@{@"linesArray":dea}
+                     }];
+    [arr addObject:@{@"type":@6,
+                     @"sName":@"MACD",
+                     @"mArrBe":@{@"linesArray":macd}
+                     }];
+    return result;
 }
 
 
@@ -283,22 +344,21 @@ static FXZBParam* shareZBP=nil;
     [dict setObject:k forKey:FXZBResult_KDJ_K];
     [dict setObject:d forKey:FXZBResult_KDJ_D];
     [dict setObject:j forKey:FXZBResult_KDJ_J];
-    
-    for (int i = 0 ; i < [array count]; i++) {
+    for (NSInteger i = 0 ; i < [array count]; i++) {
         ChartFXDataModel *klm = [array objectAtIndex:i];
         
         float llv = -1;
         float hhv = -1;
         float rsv;
         
-        int start = i - KDJ_N + 1;
+        NSInteger start = i - KDJ_N + 1;
         if (KDJ_N == 0) {
             start = 0;
         }
-        for ( int j = start; j <= i; j++) {
-            if ( j < 0) {
-                continue;
-            }
+        if (start < 0) {
+            start = 0;
+        }
+        for ( NSInteger j = start; j <= i; j++) {
             ChartFXDataModel *klm2 = [array objectAtIndex:j];
             if (j == start) {
                 llv = [klm2.bottomPrice doubleValue];
@@ -340,7 +400,25 @@ static FXZBParam* shareZBP=nil;
         }
     }
     
-    return dict;
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
+    [result setObject:[NSString stringWithFormat:@"KDJ(%.0f,%.0f,%.0f)" , KDJ_N , KDJ_M1 , KDJ_M2] forKey:@"sName"];
+    [result setObject:@(array.count) forKey:@"nCount"];
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    [result setObject:arr forKey:@"linesArray"];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"K",
+                     @"mArrBe":@{@"linesArray":k}
+                     }];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"D",
+                     @"mArrBe":@{@"linesArray":d}
+                     }];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"J",
+                     @"mArrBe":@{@"linesArray":j}
+                     }];
+    
+    return result;
 }
 
 
@@ -365,9 +443,9 @@ static FXZBParam* shareZBP=nil;
     NSMutableArray *DMP = [[NSMutableArray alloc] init];
     NSMutableArray *DMM = [[NSMutableArray alloc] init];
     
-    for (int i = 0 ; i < [array count]; i++) {
+    for (NSInteger i = 0 ; i < [array count]; i++) {
         ChartFXDataModel *klm = [array objectAtIndex:i];
-    
+        
         float mtrOld = 0;
         float dmpOld = 0;
         float dmmOld = 0;
@@ -430,7 +508,7 @@ static FXZBParam* shareZBP=nil;
         if (isnan(adxrNow)) {
             adxrNow = 0;
         }
-        [ADXR addObject:[NSNumber numberWithFloat:adxrNow]];        
+        [ADXR addObject:[NSNumber numberWithFloat:adxrNow]];
     }
     
     return dict;
@@ -450,12 +528,12 @@ static FXZBParam* shareZBP=nil;
     [dict setObject:DIF forKey:FXZBResult_DMA_DIF];
     [dict setObject:DIFMA forKey:FXZBResult_DMA_DIFMA];
     
-    for (int i = 0 ; i < [array count]; i++) {
-        int count = 0;
+    for (NSInteger i = 0 ; i < [array count]; i++) {
+        NSInteger count = 0;
         float price1 = 0;
         float price2 = 0;
         float price3 = 0;
-        for (int j = i - DMA_N1 + 1 ; j <= i; j++) {
+        for (NSInteger j = i - DMA_N1 + 1 ; j <= i; j++) {
             if (j >= 0) {
                 ChartFXDataModel *klm2 = [array objectAtIndex:j];
                 price1 = price1 + [klm2.closePrice doubleValue];
@@ -465,7 +543,7 @@ static FXZBParam* shareZBP=nil;
         price1 = price1 / count;
         
         count = 0;
-        for (int j = i - DMA_N2 + 1 ; j <= i; j++) {
+        for (NSInteger j = i - DMA_N2 + 1 ; j <= i; j++) {
             if (j >= 0) {
                 ChartFXDataModel *klm2 = [array objectAtIndex:j];
                 price2 = price2 + [klm2.closePrice doubleValue];
@@ -478,7 +556,7 @@ static FXZBParam* shareZBP=nil;
         
         count = 0;
         [DIF addObject:[NSNumber numberWithFloat:difNow]];
-        for (int j = i - DMA_M + 1 ; j <= i; j++) {
+        for (NSInteger j = i - DMA_M + 1 ; j <= i; j++) {
             if (j >= 0) {
                 price3 = price3 + [[DIF objectAtIndex:j] doubleValue];
                 count++;
@@ -508,7 +586,7 @@ static FXZBParam* shareZBP=nil;
     [dict setObject:TRIX forKey:FXZBResult_TRIX_TRIX];
     [dict setObject:MATRIX forKey:FXZBResult_TRIX_MATRIX];
     
-    for (int i = 0 ; i < [array count]; i++) {
+    for (NSInteger i = 0 ; i < [array count]; i++) {
         ChartFXDataModel *klm = [array objectAtIndex:i];
         
         float ema;
@@ -520,11 +598,11 @@ static FXZBParam* shareZBP=nil;
         }
         ema = (2 * [klm.closePrice doubleValue] + emaOld * (TRIX_N - 1))/(TRIX_N + 1);
         [MTR addObject:[NSNumber numberWithFloat:ema]];
-    
+        
     }
     
-    for (int i = 0; i < 2; i++) {
-        for (int x = 0 ; x < [MTR count]; x++) {
+    for (NSInteger i = 0; i < 2; i++) {
+        for (NSInteger x = 0 ; x < [MTR count]; x++) {
             NSNumber *emaNum = [MTR objectAtIndex:x];
             
             float ema;
@@ -540,7 +618,7 @@ static FXZBParam* shareZBP=nil;
         }
     }
     
-    for (int i = 0 ; i < [MTR count]; i++) {
+    for (NSInteger i = 0 ; i < [MTR count]; i++) {
         float mtrNow = [[MTR objectAtIndex:i] doubleValue];
         
         float trixNow = 0;
@@ -554,10 +632,10 @@ static FXZBParam* shareZBP=nil;
         
     }
     
-    for (int i = 0 ; i < [TRIX count]; i++) {
+    for (NSInteger i = 0 ; i < [TRIX count]; i++) {
         float matrixNow = 0;
-        int count = 0;
-        for (int j = i - TRIX_M + 1; j <= i; j++) {
+        NSInteger count = 0;
+        for (NSInteger j = i - TRIX_M + 1; j <= i; j++) {
             if (j < 0) {
                 continue;
             }
@@ -585,16 +663,16 @@ static FXZBParam* shareZBP=nil;
     [dict setObject:BR forKey:FXZBResult_BRAR_BR];
     [dict setObject:AR forKey:FXZBResult_BRAR_AR];
     
-    for (int i = 0 ; i < [array count]; i++) {
+    for (NSInteger i = 0 ; i < [array count]; i++) {
         float BR1 = 0;
         float BR2 = 0;
         float AR1 = 0;
         float AR2 = 0;
-        int start = 0;
+        NSInteger start = 0;
         if (BRAR_N > 0) {
             start = i - BRAR_N + 1;
         }
-        for (int j = start; j <= i; j++) {
+        for (NSInteger j = start; j <= i; j++) {
             if (j < 0) {
                 continue;
             }
@@ -646,7 +724,11 @@ static FXZBParam* shareZBP=nil;
     [dict setObject:MA3 forKey:FXZBResult_CR_MA3];
     [dict setObject:MA4 forKey:FXZBResult_CR_MA4];
     
-    for (int i = 0 ; i < [array count]; i++) {
+    NSMutableArray *tmpArr = [[NSMutableArray alloc] init];
+    NSMutableArray *tmpArr2 = [[NSMutableArray alloc] init];
+    NSMutableArray *tmpArr3 = [[NSMutableArray alloc] init];
+    NSMutableArray *tmpArr4 = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0 ; i < [array count]; i++) {
         ChartFXDataModel *klm = [array objectAtIndex:i];
         float midNow = ([klm.topPrice doubleValue] + [klm.bottomPrice doubleValue])/2;
         if (i > 0) {
@@ -655,13 +737,13 @@ static FXZBParam* shareZBP=nil;
         }
         [MID addObject:[NSNumber numberWithFloat:midNow]];
         
-        int start = 0;
+        NSInteger start = 0;
         float cr1 = 0;
         float cr2 = 0;
         if (CR_N > 0) {
             start = i - CR_N + 1;
         }
-        for (int j = start; j <= i; j++) {
+        for (NSInteger j = start; j <= i; j++) {
             if (j < 0) {
                 continue;
             }
@@ -673,60 +755,105 @@ static FXZBParam* shareZBP=nil;
         float crNow = cr1 / cr2 * 100;
         [CR addObject:[NSNumber numberWithFloat:crNow]];
         
-        start = i - CR_M1 + 1;
-        int count = 0;
-        float crNum = 0;
-        for (int j = start; j <= i; j++) {
-            if (j < 0) {
-                continue;
-            }
-            crNum = crNum + [[CR objectAtIndex:j] doubleValue];
-            count++;
+        [tmpArr addObject:@(crNow)];
+        if (tmpArr.count > CR_M1) {
+            [tmpArr removeObjectAtIndex:0];
         }
-        crNum = crNum / count;
-        [MACR1 addObject:[NSNumber numberWithFloat:crNum]];
+        double maNum = 0;
+        if (tmpArr.count > 0 && tmpArr.count <= CR_M1) {
+            double sum = [[tmpArr valueForKeyPath:@"@sum.doubleValue"] doubleValue];
+            maNum = sum / tmpArr.count;
+        }
+        [MACR1 addObject:[NSNumber numberWithFloat:maNum]];
         
-        start = i - CR_M2 + 1;
-        count = 0;
-        crNum = 0;
-        for (int j = start; j <= i; j++) {
-            if (j < 0) {
-                continue;
-            }
-            crNum = crNum + [[CR objectAtIndex:j] doubleValue];
-            count++;
-        }
-        crNum = crNum / count;
-        [MACR2 addObject:[NSNumber numberWithFloat:crNum]];
+        //        start = i - CR_M1 + 1;
+        //        NSInteger count = 0;
+        //        float crNum = 0;
+        //        for (NSInteger j = start; j <= i; j++) {
+        //            if (j < 0) {
+        //                continue;
+        //            }
+        //            crNum = crNum + [[CR objectAtIndex:j] doubleValue];
+        //            count++;
+        //        }
+        //        crNum = crNum / count;
+        //        [MACR1 addObject:[NSNumber numberWithFloat:crNum]];
         
-        start = i - CR_M3 + 1;
-        count = 0;
-        crNum = 0;
-        for (int j = start; j <= i; j++) {
-            if (j < 0) {
-                continue;
-            }
-            crNum = crNum + [[CR objectAtIndex:j] doubleValue];
-            count++;
-        }
-        crNum = crNum / count;
-        [MACR3 addObject:[NSNumber numberWithFloat:crNum]];
         
-        start = i - CR_M4 + 1;
-        count = 0;
-        crNum = 0;
-        for (int j = start; j <= i; j++) {
-            if (j < 0) {
-                continue;
-            }
-            crNum = crNum + [[CR objectAtIndex:j] doubleValue];
-            count++;
+        [tmpArr2 addObject:@(crNow)];
+        if (tmpArr2.count > CR_M2) {
+            [tmpArr2 removeObjectAtIndex:0];
         }
-        crNum = crNum / count;
-        [MACR4 addObject:[NSNumber numberWithFloat:crNum]];
+        double maNum2 = 0;
+        if (tmpArr2.count > 0 && tmpArr2.count <= CR_M2) {
+            double sum = [[tmpArr2 valueForKeyPath:@"@sum.doubleValue"] doubleValue];
+            maNum2 = sum / tmpArr2.count;
+        }
+        [MACR2 addObject:[NSNumber numberWithFloat:maNum2]];
+        //        start = i - CR_M2 + 1;
+        //        count = 0;
+        //        crNum = 0;
+        //        for (NSInteger j = start; j <= i; j++) {
+        //            if (j < 0) {
+        //                continue;
+        //            }
+        //            crNum = crNum + [[CR objectAtIndex:j] doubleValue];
+        //            count++;
+        //        }
+        //        crNum = crNum / count;
+        //        [MACR2 addObject:[NSNumber numberWithFloat:crNum]];
+        
+        
+        [tmpArr3 addObject:@(crNow)];
+        if (tmpArr3.count > CR_M3) {
+            [tmpArr3 removeObjectAtIndex:0];
+        }
+        double maNum3 = 0;
+        if (tmpArr3.count > 0 && tmpArr3.count <= CR_M3) {
+            double sum = [[tmpArr3 valueForKeyPath:@"@sum.doubleValue"] doubleValue];
+            maNum3 = sum / tmpArr3.count;
+        }
+        [MACR3 addObject:[NSNumber numberWithFloat:maNum3]];
+        //        start = i - CR_M3 + 1;
+        //        count = 0;
+        //        crNum = 0;
+        //        for (NSInteger j = start; j <= i; j++) {
+        //            if (j < 0) {
+        //                continue;
+        //            }
+        //            crNum = crNum + [[CR objectAtIndex:j] doubleValue];
+        //            count++;
+        //        }
+        //        crNum = crNum / count;
+        //        [MACR3 addObject:[NSNumber numberWithFloat:crNum]];
+        
+        
+        [tmpArr4 addObject:@(crNow)];
+        if (tmpArr4.count > CR_M4) {
+            [tmpArr4 removeObjectAtIndex:0];
+        }
+        double maNum4 = 0;
+        if (tmpArr4.count > 0 && tmpArr4.count <= CR_M4) {
+            double sum = [[tmpArr4 valueForKeyPath:@"@sum.doubleValue"] doubleValue];
+            maNum4 = sum / tmpArr4.count;
+        }
+        [MACR4 addObject:[NSNumber numberWithFloat:maNum4]];
+        
+        //        start = i - CR_M4 + 1;
+        //        count = 0;
+        //        crNum = 0;
+        //        for (NSInteger j = start; j <= i; j++) {
+        //            if (j < 0) {
+        //                continue;
+        //            }
+        //            crNum = crNum + [[CR objectAtIndex:j] doubleValue];
+        //            count++;
+        //        }
+        //        crNum = crNum / count;
+        //        [MACR4 addObject:[NSNumber numberWithFloat:crNum]];
         
         float mNum = [[MACR1 objectAtIndex:i] doubleValue];
-        int d = CR_M1 / 2.5;
+        NSInteger d = CR_M1 / 2.5;
         if (i > d) {
             mNum = [[MACR1 objectAtIndex:i - d - 1] doubleValue];
         }
@@ -769,14 +896,16 @@ static FXZBParam* shareZBP=nil;
     
     [dict setObject:VR forKey:FXZBResult_VR_VR];
     [dict setObject:MAVR forKey:FXZBResult_VR_MAVR];
-    for (int i = 0 ; i < [array count]; i++) {
-        int start = 0 ;
+    
+    NSMutableArray *tmpArr = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0 ; i < [array count]; i++) {
+        NSInteger start = 0 ;
         float thNum = 0;
         float tlNum = 0;
         float tqNum = 0;
         if (VR_N > 0) {
             start = i - VR_N + 1;
-            for (int j = start; j <= i ; j++) {
+            for (NSInteger j = start; j <= i ; j++) {
                 if (j < 0) {
                     continue;
                 }
@@ -796,22 +925,33 @@ static FXZBParam* shareZBP=nil;
             float vrNum = 100 * (thNum * 2 + tqNum) / (tlNum * 2 + tqNum);
             [VR addObject:[NSNumber numberWithFloat:vrNum]];
             
-            float mavrNum = 0;
-            if (VR_M != 0) {
-                float count = 0;
-                start = i - VR_M + 1;
-                for (int j = start; j <= i ; j++) {
-                    if (j < 0) {
-                        continue;
-                    }
-                    mavrNum = mavrNum + [[VR objectAtIndex:j] doubleValue];
-                    count++;
-                }
-                mavrNum = mavrNum / count;
+            [tmpArr addObject:@(vrNum)];
+            if (tmpArr.count > VR_M) {
+                [tmpArr removeObjectAtIndex:0];
             }
-            [MAVR addObject:[NSNumber numberWithFloat:mavrNum]];
+            double maNum = 0;
+            if (tmpArr.count > 0 && tmpArr.count <= VR_M) {
+                double sum = [[tmpArr valueForKeyPath:@"@sum.doubleValue"] doubleValue];
+                maNum = sum / tmpArr.count;
+            }
+            [MAVR addObject:[NSNumber numberWithFloat:maNum]];
+            
+            //            float mavrNum = 0;
+            //            if (VR_M != 0) {
+            //                float count = 0;
+            //                start = i - VR_M + 1;
+            //                for (NSInteger j = start; j <= i ; j++) {
+            //                    if (j < 0) {
+            //                        continue;
+            //                    }
+            //                    mavrNum = mavrNum + [[VR objectAtIndex:j] doubleValue];
+            //                    count++;
+            //                }
+            //                mavrNum = mavrNum / count;
+            //            }
+            //            [MAVR addObject:[NSNumber numberWithFloat:mavrNum]];
         }
-    
+        
     }
     
     
@@ -829,21 +969,25 @@ static FXZBParam* shareZBP=nil;
     
     [dict setObject:OBV forKey:FXZBResult_OBV_OBV];
     [dict setObject:MAOBV forKey:FXZBResult_OBV_MAOBV];
-    for (int i = 0 ; i < [array count]; i++) {
+    
+    NSMutableArray *tmpArr = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0 ; i < [array count]; i++) {
         ChartFXDataModel *klm = [array objectAtIndex:i];
         ChartFXDataModel *klm2 = [array objectAtIndex:i];
         if (i > 0) {
             klm2 = [array objectAtIndex:i - 1];
         }
         
-        float vaNum = [klm.volume doubleValue];
-        if ([klm2.closePrice doubleValue] > [klm.closePrice doubleValue]) {
+        float vaNum = 0;
+        if ([klm2.closePrice doubleValue] < [klm.closePrice doubleValue]) {
+            vaNum = [klm.volume doubleValue];
+        }else if ([klm2.closePrice doubleValue] > [klm.closePrice doubleValue]) {
             vaNum = 0 - [klm.volume doubleValue];
         }
         [VA addObject:[NSNumber numberWithFloat:vaNum]];
         
         float obvNum = 0;
-        for (int j = 0 ; j <= i ; j++) {
+        for (NSInteger j = 0 ; j <= i ; j++) {
             ChartFXDataModel *klm3 = [array objectAtIndex:j];
             ChartFXDataModel *klm4 = [array objectAtIndex:j];
             if (j > 0) {
@@ -856,22 +1000,50 @@ static FXZBParam* shareZBP=nil;
             }
         }
         [OBV addObject:[NSNumber numberWithFloat:obvNum]];
-        
-        int count = 0;
-        float maobvNum = 0;
-        for (int x = i - OBV_M + 1 ; x <= i ; x++) {
-            if (x < 0) {
-                continue;
-            }
-            maobvNum = maobvNum + [[OBV objectAtIndex:x] doubleValue];
-            count++;
+        [tmpArr addObject:@(obvNum)];
+        if (tmpArr.count > OBV_M) {
+            [tmpArr removeObjectAtIndex:0];
         }
-        maobvNum = maobvNum / count;
-        [MAOBV addObject:[NSNumber numberWithFloat:maobvNum]];
+        if (tmpArr.count > 0 && tmpArr.count <= OBV_M) {
+            double sum = [[tmpArr valueForKeyPath:@"@sum.doubleValue"] doubleValue];
+            double maobvNum = sum / tmpArr.count;
+            [MAOBV addObject:[NSNumber numberWithFloat:maobvNum]];
+        }
+        //            NSInteger count = 0;
+        //            float maobvNum = 0;
+        //            for (NSInteger x = i - OBV_M + 1 ; x <= i ; x++) {
+        //                if (x < 0) {
+        //                    continue;
+        //                }
+        //                maobvNum = maobvNum + [[OBV objectAtIndex:x] doubleValue];
+        //                count++;
+        //            }
+        //            maobvNum = maobvNum / count;
+        //            [MAOBV addObject:[NSNumber numberWithFloat:maobvNum]];
         
     }
     
-    return dict;
+    OBV = [ChartTools SUM:VA d:0 block:^double(double num, NSInteger index) {
+        return num / 10000.0f;
+    }];
+    
+    MAOBV = [ChartTools MA:OBV d:30 block:nil];
+    
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
+    [result setObject:[NSString stringWithFormat:@"OBV(%.0f)" , OBV_M] forKey:@"sName"];
+    [result setObject:@(array.count) forKey:@"nCount"];
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    [result setObject:arr forKey:@"linesArray"];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"OBV",
+                     @"mArrBe":@{@"linesArray":OBV}
+                     }];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"MAOBV",
+                     @"mArrBe":@{@"linesArray":MAOBV}
+                     }];
+    
+    return result;
 }
 
 @synthesize ASI_M;
@@ -885,17 +1057,19 @@ static FXZBParam* shareZBP=nil;
     
     [dict setObject:ASI forKey:FXZBResult_ASI_ASI];
     [dict setObject:MAASI forKey:FXZBResult_ASI_MAASI];
-    for (int i = 0 ; i < [array count]; i++) {
+    
+    NSMutableArray *tmpArr = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0 ; i < [array count]; i++) {
         ChartFXDataModel *klm = [array objectAtIndex:i];
         ChartFXDataModel *klm2 = [array objectAtIndex:i];
         if (i > 0) {
             klm2 = [array objectAtIndex:i - 1];
         }
         float lcNum = [klm2.closePrice doubleValue];
-        float aaNum = fabsf([klm.topPrice doubleValue] - lcNum);
-        float bbNum = fabsf([klm.bottomPrice doubleValue] - lcNum);
-        float ccNum = fabsf([klm.topPrice doubleValue] - [klm2.bottomPrice doubleValue]);
-        float ddNum = fabsf(lcNum - [klm2.openPrice doubleValue]);
+        float aaNum = fabs([klm.topPrice doubleValue] - lcNum);
+        float bbNum = fabs([klm.bottomPrice doubleValue] - lcNum);
+        float ccNum = fabs([klm.topPrice doubleValue] - [klm2.bottomPrice doubleValue]);
+        float ddNum = fabs(lcNum - [klm2.openPrice doubleValue]);
         float rNum = 0;
         if (aaNum > bbNum && aaNum > ccNum) {
             rNum = aaNum + bbNum / 2 + ddNum / 4;
@@ -906,29 +1080,111 @@ static FXZBParam* shareZBP=nil;
         }
         float xNum = ([klm.closePrice doubleValue] - lcNum + ([klm.closePrice doubleValue] - [klm.openPrice doubleValue]) / 2 + lcNum - [klm2.openPrice doubleValue]);
         float siNum = 8 * xNum / rNum * MAX(aaNum, bbNum);
+        siNum = isnan(siNum) && SI.count > 0 ? [[SI lastObject] floatValue] : siNum;
         [SI addObject:[NSNumber numberWithFloat:siNum]];
         
         float asiNum = 0;
-        for (int j = 0; j <= i; j++) {
+        for (NSInteger j = 0; j <= i; j++) {
             asiNum = asiNum + [[SI objectAtIndex:j] doubleValue];
         }
         [ASI addObject:[NSNumber numberWithFloat:asiNum]];
         
-        int count = 0;
-        float maasiNum = 0;
-        for (int x = i - ASI_M + 1 ; x <= i ; x++) {
-            if (x < 0) {
-                continue;
-            }
-            maasiNum = maasiNum + [[ASI objectAtIndex:x] doubleValue];
-            count++;
+        [tmpArr addObject:@(asiNum)];
+        if (tmpArr.count > ASI_M) {
+            [tmpArr removeObjectAtIndex:0];
         }
-        maasiNum = maasiNum / count;
-        [MAASI addObject:[NSNumber numberWithFloat:maasiNum]];
+        if (tmpArr.count > 0 && tmpArr.count <= ASI_M) {
+            double sum = [[tmpArr valueForKeyPath:@"@sum.doubleValue"] doubleValue];
+            double maasiNum = sum / tmpArr.count;
+            [MAASI addObject:[NSNumber numberWithFloat:maasiNum]];
+        }
+        
+        //            NSInteger count = 0;
+        //            float maasiNum = 0;
+        //            for (NSInteger x = i - ASI_M + 1 ; x <= i ; x++) {
+        //                if (x < 0) {
+        //                    continue;
+        //                }
+        //                maasiNum = maasiNum + [[ASI objectAtIndex:x] doubleValue];
+        //                count++;
+        //            }
+        //            maasiNum = maasiNum / count;
+        //            [MAASI addObject:[NSNumber numberWithFloat:maasiNum]];
         
     }
     
-    return dict;
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
+    [result setObject:[NSString stringWithFormat:@"ASI(%.0f)" , ASI_M] forKey:@"sName"];
+    [result setObject:@(array.count) forKey:@"nCount"];
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    [result setObject:arr forKey:@"linesArray"];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"ASI",
+                     @"mArrBe":@{@"linesArray":ASI}
+                     }];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"MAASI",
+                     @"mArrBe":@{@"linesArray":MAASI}
+                     }];
+    
+    return result;
+}
+
+@synthesize ASI_M1;
+@synthesize ASI_M2;
+- (NSMutableDictionary *)getASI2Result:(NSMutableArray *)array{
+    NSMutableDictionary *dict;
+    dict = [[NSMutableDictionary alloc] init];
+    
+    NSMutableArray *ASI = [[NSMutableArray alloc] init];
+    NSMutableArray *MAASI = [[NSMutableArray alloc] init];
+    NSMutableArray *SI = [[NSMutableArray alloc] init];
+    
+    [dict setObject:ASI forKey:FXZBResult_ASI_ASI];
+    [dict setObject:MAASI forKey:FXZBResult_ASI_MAASI];
+    
+    for (NSInteger i = 0 ; i < [array count]; i++) {
+        ChartFXDataModel *klm = [array objectAtIndex:i];
+        ChartFXDataModel *klm2 = [array objectAtIndex:i];
+        if (i > 0) {
+            klm2 = [array objectAtIndex:i - 1];
+        }
+        float lcNum = [klm2.closePrice doubleValue];
+        float aaNum = fabs([klm.topPrice doubleValue] - lcNum);
+        float bbNum = fabs([klm.bottomPrice doubleValue] - lcNum);
+        float ccNum = fabs([klm.topPrice doubleValue] - [klm2.bottomPrice doubleValue]);
+        float ddNum = fabs(lcNum - [klm2.openPrice doubleValue]);
+        float rNum = 0;
+        if (aaNum > bbNum && aaNum > ccNum) {
+            rNum = aaNum + bbNum / 2 + ddNum / 4;
+        }else if (bbNum > ccNum && bbNum > aaNum){
+            rNum = bbNum + aaNum / 2 + ddNum / 4;
+        }else{
+            rNum = ccNum + ddNum / 4;
+        }
+        float xNum = ([klm.closePrice doubleValue] - lcNum + ([klm.closePrice doubleValue] - [klm.openPrice doubleValue]) / 2 + lcNum - [klm2.openPrice doubleValue]);
+        float siNum = 16 * xNum / rNum * MAX(aaNum, bbNum);
+        siNum = isnan(siNum) && SI.count > 0 ? [[SI lastObject] floatValue] : siNum;
+        [SI addObject:[NSNumber numberWithFloat:siNum]];
+    }
+    ASI = [ChartTools SUM:SI d:ASI_M1 block:nil];
+    MAASI = [ChartTools MA:ASI d:ASI_M2 block:nil];
+    
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
+    [result setObject:[NSString stringWithFormat:@"ASI(%.0f,%.0f)" , ASI_M1 , ASI_M2] forKey:@"sName"];
+    [result setObject:@(array.count) forKey:@"nCount"];
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    [result setObject:arr forKey:@"linesArray"];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"ASI",
+                     @"mArrBe":@{@"linesArray":ASI}
+                     }];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"ASIT",
+                     @"mArrBe":@{@"linesArray":MAASI}
+                     }];
+    
+    return result;
 }
 
 @synthesize EMV_N;
@@ -944,15 +1200,17 @@ static FXZBParam* shareZBP=nil;
     
     [dict setObject:EMV forKey:FXZBResult_EMV_EMV];
     [dict setObject:MAEMV forKey:FXZBResult_EMV_MAEMV];
-    for (int i = 0 ; i < [array count]; i++) {
+    
+    NSMutableArray *tmpArr = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0 ; i < [array count]; i++) {
         ChartFXDataModel *klm = [array objectAtIndex:i];
         ChartFXDataModel *klm2 = [array objectAtIndex:i];
         if (i > 0) {
             klm2 = [array objectAtIndex:i - 1];
         }
         float volNum = 0;
-        int count = 0;
-        for (int j = i - EMV_N + 1; j <= i; j++) {
+        NSInteger count = 0;
+        for (NSInteger j = i - EMV_N + 1; j <= i; j++) {
             if (j < 0) {
                 continue;
             }
@@ -968,7 +1226,7 @@ static FXZBParam* shareZBP=nil;
         
         count = 0;
         float emvNum1 = 0;
-        for (int j = i - EMV_N + 1; j <= i; j++) {
+        for (NSInteger j = i - EMV_N + 1; j <= i; j++) {
             if (j < 0) {
                 continue;
             }
@@ -980,7 +1238,7 @@ static FXZBParam* shareZBP=nil;
         
         count = 0;
         float emvNum = 0;
-        for (int j = i - EMV_N + 1; j <= i; j++) {
+        for (NSInteger j = i - EMV_N + 1; j <= i; j++) {
             if (j < 0) {
                 continue;
             }
@@ -993,18 +1251,16 @@ static FXZBParam* shareZBP=nil;
         emvNum = emvNum / count;
         [EMV addObject:[NSNumber numberWithFloat:emvNum]];
         
-        count = 0;
-        float maemvNum = 0;
-        for (int j = i - EMV_M + 1; j <= i; j++) {
-            if (j < 0) {
-                continue;
-            }
-            float emvNow = [[EMV objectAtIndex:j] doubleValue];
-            maemvNum = maemvNum + emvNow;
-            count++;
+        [tmpArr addObject:@(emvNum)];
+        if (tmpArr.count > EMV_M) {
+            [tmpArr removeObjectAtIndex:0];
         }
-        maemvNum = maemvNum / count;
-        [MAEMV addObject:[NSNumber numberWithFloat:maemvNum]];
+        double maNum = 0;
+        if (tmpArr.count > 0 && tmpArr.count <= EMV_M) {
+            double sum = [[tmpArr valueForKeyPath:@"@sum.doubleValue"] doubleValue];
+            maNum = sum / tmpArr.count;
+        }
+        [MAEMV addObject:[NSNumber numberWithFloat:maNum]];
         
     }
     
@@ -1034,7 +1290,8 @@ static FXZBParam* shareZBP=nil;
     [dict setObject:RSI1 forKey:FXZBResult_RSI_RSI1];
     [dict setObject:RSI2 forKey:FXZBResult_RSI_RSI2];
     [dict setObject:RSI3 forKey:FXZBResult_RSI_RSI3];
-    for (int i = 0 ; i < [array count]; i++) {
+    
+    for (NSInteger i = 0 ; i < [array count]; i++) {
         ChartFXDataModel *klm = [array objectAtIndex:i];
         ChartFXDataModel *klm2 = [array objectAtIndex:i];
         if (i > 0) {
@@ -1079,7 +1336,26 @@ static FXZBParam* shareZBP=nil;
         [RSI2 addObject:[NSNumber numberWithFloat:rsi2Num]];
         [RSI3 addObject:[NSNumber numberWithFloat:rsi3Num]];
     }
-    return dict;
+    
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
+    [result setObject:[NSString stringWithFormat:@"RSI(%.0f,%.0f,%.0f)" , RSI_N1 , RSI_N2 , RSI_N3] forKey:@"sName"];
+    [result setObject:@(array.count) forKey:@"nCount"];
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    [result setObject:arr forKey:@"linesArray"];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"RSI1",
+                     @"mArrBe":@{@"linesArray":RSI1}
+                     }];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"RSI2",
+                     @"mArrBe":@{@"linesArray":RSI2}
+                     }];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"RSI3",
+                     @"mArrBe":@{@"linesArray":RSI3}
+                     }];
+    
+    return result;
 }
 
 @synthesize WR_N;
@@ -1094,18 +1370,18 @@ static FXZBParam* shareZBP=nil;
     
     [dict setObject:WR1 forKey:FXZBResult_WR_WR1];
     [dict setObject:WR2 forKey:FXZBResult_WR_WR2];
-    for (int i = 0 ; i < [array count]; i++) {
+    for (NSInteger i = 0 ; i < [array count]; i++) {
         ChartFXDataModel *klm = [array objectAtIndex:i];
         float hhv1Num = -1000000;
         float hhv2Num = -1000000;
         float llv1Num = 1000000;
         float llv2Num = 1000000;
         
-        int start = 0;
+        NSInteger start = 0;
         if (WR_N > 0) {
             start = i - WR_N + 1;
         }
-        for (int j = start; j <= i ; j++) {
+        for (NSInteger j = start; j <= i ; j++) {
             if (j < 0) {
                 continue;
             }
@@ -1123,7 +1399,7 @@ static FXZBParam* shareZBP=nil;
         if (WR_N1 > 0) {
             start = i - WR_N1 + 1;
         }
-        for (int j = start; j <= i ; j++) {
+        for (NSInteger j = start; j <= i ; j++) {
             if (j < 0) {
                 continue;
             }
@@ -1145,8 +1421,22 @@ static FXZBParam* shareZBP=nil;
         
         [WR2 addObject:[NSNumber numberWithFloat:chartValid(wr2Num)]];
     }
-    return dict;
     
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
+    [result setObject:[NSString stringWithFormat:@"WR(%.0f,%.0f)" , WR_N , WR_N1] forKey:@"sName"];
+    [result setObject:@(array.count) forKey:@"nCount"];
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    [result setObject:arr forKey:@"linesArray"];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"WR1",
+                     @"mArrBe":@{@"linesArray":WR1}
+                     }];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"WR2",
+                     @"mArrBe":@{@"linesArray":WR2}
+                     }];
+    
+    return result;
 }
 
 @synthesize CCI_N;
@@ -1159,32 +1449,43 @@ static FXZBParam* shareZBP=nil;
     
     
     [dict setObject:CCI forKey:FXZBResult_CCI_CCI];
-    for (int i = 0 ; i < [array count]; i++) {
+    
+    NSMutableArray *tmpArr = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0 ; i < [array count]; i++) {
         ChartFXDataModel *klm = [array objectAtIndex:i];
         float typNum = ([klm.topPrice doubleValue] + [klm.bottomPrice doubleValue] + [klm.closePrice doubleValue]) / 3;
         [TYP addObject:[NSNumber numberWithFloat:typNum]];
         
+        [tmpArr addObject:@(typNum)];
+        if (tmpArr.count > CCI_N) {
+            [tmpArr removeObjectAtIndex:0];
+        }
         float avedevNum = 0;
-        int start = 0;
+        if (tmpArr.count > 0 && tmpArr.count <= CCI_N) {
+            double sum = [[tmpArr valueForKeyPath:@"@sum.doubleValue"] doubleValue];
+            avedevNum = sum / tmpArr.count;
+        }
+        
+        NSInteger start = 0;
         if (CCI_N > 0) {
             start = i - CCI_N + 1;
         }
-        int avedevCount = 0;
-        for (int j = start ; j <= i; j++) {
-            if (j < 0) {
-                continue;
-            }
-            avedevNum = avedevNum + [[TYP objectAtIndex:j] doubleValue];
-            avedevCount++;
-        }
-        avedevNum = avedevNum / avedevCount;
+        //            NSInteger avedevCount = 0;
+        //            for (NSInteger j = start ; j <= i; j++) {
+        //                if (j < 0) {
+        //                    continue;
+        //                }
+        //                avedevNum = avedevNum + [[TYP objectAtIndex:j] doubleValue];
+        //                avedevCount++;
+        //            }
+        //            avedevNum = avedevNum / avedevCount;
         float avedevNow = 0;
-        avedevCount = 0;
-        for (int j = start ; j <= i; j++) {
+        NSInteger avedevCount = 0;
+        for (NSInteger j = start ; j <= i; j++) {
             if (j < 0) {
                 continue;
             }
-            avedevNow = avedevNow + fabsf([[TYP objectAtIndex:j] doubleValue] - avedevNum);
+            avedevNow = avedevNow + fabs([[TYP objectAtIndex:j] doubleValue] - avedevNum);
             avedevCount++;
         }
         avedevNow = avedevNow / avedevCount;
@@ -1192,12 +1493,24 @@ static FXZBParam* shareZBP=nil;
         float cciNum = (typNum - avedevNum) / (0.015 * avedevNow);
         [CCI addObject:[NSNumber numberWithFloat:cciNum]];
     }
-    return dict;
+    
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
+    [result setObject:[NSString stringWithFormat:@"CCI(%.0f)" , CCI_N] forKey:@"sName"];
+    [result setObject:@(array.count) forKey:@"nCount"];
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    [result setObject:arr forKey:@"linesArray"];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"CCI",
+                     @"mArrBe":@{@"linesArray":CCI}
+                     }];
+    
+    return result;
 }
 
 @synthesize ROC_N;
 @synthesize ROC_M;
 - (NSMutableDictionary *)getROCResult:(NSMutableArray *)array{
+    
     NSMutableDictionary *dict;
     dict = [[NSMutableDictionary alloc] init];
     
@@ -1207,7 +1520,9 @@ static FXZBParam* shareZBP=nil;
     
     [dict setObject:ROC forKey:FXZBResult_ROC_ROC];
     [dict setObject:MAROC forKey:FXZBResult_ROC_MAROC];
-    for (int i = 0 ; i < [array count]; i++) {
+    
+    NSMutableArray *tmpArr = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0 ; i < [array count]; i++) {
         ChartFXDataModel *klm = [array objectAtIndex:i];
         ChartFXDataModel *klm2 = [array objectAtIndex:0];
         if (i >= ROC_N) {
@@ -1216,23 +1531,103 @@ static FXZBParam* shareZBP=nil;
         float rocNum = 100 * ([klm.closePrice doubleValue] - [klm2.closePrice doubleValue]) / [klm2.closePrice doubleValue];
         [ROC addObject:[NSNumber numberWithFloat:rocNum]];
         
-        int start = 0;
-        int count = 0;
-        float marocNum = 0;
-        if (ROC_M > 0) {
-            start = i - ROC_M + 1;
+        [tmpArr addObject:@(rocNum)];
+        if (tmpArr.count > ROC_M) {
+            [tmpArr removeObjectAtIndex:0];
         }
-        for (int j = start; j <= i; j++) {
-            if (j < 0) {
-                continue;
-            }
-            marocNum = marocNum + [[ROC objectAtIndex:j] doubleValue];
-            count++;
+        if (tmpArr.count > 0 && tmpArr.count <= ROC_M) {
+            double sum = [[tmpArr valueForKeyPath:@"@sum.doubleValue"] doubleValue];
+            double maNum = sum / tmpArr.count;
+            [MAROC addObject:[NSNumber numberWithFloat:maNum]];
         }
-        marocNum = marocNum / count;
-        [MAROC addObject:[NSNumber numberWithFloat:marocNum]];
+        
+        //            NSInteger start = 0;
+        //            NSInteger count = 0;
+        //            float marocNum = 0;
+        //            if (ROC_M > 0) {
+        //                start = i - ROC_M + 1;
+        //            }
+        //            for (NSInteger j = start; j <= i; j++) {
+        //                if (j < 0) {
+        //                    continue;
+        //                }
+        //                marocNum = marocNum + [[ROC objectAtIndex:j] doubleValue];
+        //                count++;
+        //            }
+        //            marocNum = marocNum / count;
+        //            [MAROC addObject:[NSNumber numberWithFloat:marocNum]];
     }
-    return dict;
+    
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
+    [result setObject:[NSString stringWithFormat:@"ROC(%.0f,%.0f)" , ROC_N , ROC_M] forKey:@"sName"];
+    [result setObject:@(array.count) forKey:@"nCount"];
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    [result setObject:arr forKey:@"linesArray"];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"ROC",
+                     @"mArrBe":@{@"linesArray":ROC}
+                     }];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"MAROC",
+                     @"mArrBe":@{@"linesArray":MAROC}
+                     }];
+    
+    return result;
+}
+
+@synthesize PSY_N;
+@synthesize PSY_M;
+- (NSMutableDictionary *)getPSYResult:(NSMutableArray *)array{
+    /*
+     PSY:COUNT(CLOSE>REF(CLOSE,1),N)/N*100;
+     PSYMA:MA(PSY,M);
+     */
+    NSMutableDictionary *dict;
+    dict = [[NSMutableDictionary alloc] init];
+    
+    NSMutableArray *PSY = [[NSMutableArray alloc] init];
+    NSMutableArray *PSYMA = [[NSMutableArray alloc] init];
+    
+    
+    [dict setObject:PSY forKey:FXZBResult_PSY_PSY];
+    [dict setObject:PSYMA forKey:FXZBResult_PSY_PSYMA];
+    
+    NSMutableArray *tmpArr = [[NSMutableArray alloc] init];
+    NSMutableArray *tmpMAArr = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0 ; i < [array count]; i++) {
+        ChartFXDataModel *klm = [array objectAtIndex:i];
+        ChartFXDataModel *klm2 = [array objectAtIndex:(i > 1) ? i - 1 : 0];
+        [tmpArr addObject:@(([klm.closePrice doubleValue] - [klm2.closePrice doubleValue]) > 0 ? 1 : 0)];
+        tmpArr.count > PSY_N ? [tmpArr removeObjectAtIndex:0] : 0;
+        if (tmpArr.count == PSY_N) {
+            int sum = [[tmpArr valueForKeyPath:@"@sum.intValue"] intValue];
+            double psyNum = sum * 100.0f / PSY_N;
+            [PSY addObject:@(psyNum)];
+            [tmpMAArr addObject:@(psyNum)];
+        }
+        tmpMAArr.count > PSY_M ? [tmpMAArr removeObjectAtIndex:0] : 0;
+        if (tmpMAArr.count == PSY_M) {
+            double sum = [[tmpMAArr valueForKeyPath:@"@sum.doubleValue"] doubleValue];
+            double psyMANum = sum / PSY_M;
+            [PSYMA addObject:@(psyMANum)];
+        }
+    }
+    
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
+    [result setObject:[NSString stringWithFormat:@"PSY(%.0f,%.0f)" , PSY_N , PSY_M] forKey:@"sName"];
+    [result setObject:@(array.count) forKey:@"nCount"];
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    [result setObject:arr forKey:@"linesArray"];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"PSY",
+                     @"mArrBe":@{@"linesArray":PSY}
+                     }];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"PSYMA",
+                     @"mArrBe":@{@"linesArray":PSYMA}
+                     }];
+    
+    return result;
 }
 
 @synthesize MTM_N;
@@ -1247,7 +1642,9 @@ static FXZBParam* shareZBP=nil;
     
     [dict setObject:MTM forKey:FXZBResult_MTM_MTM];
     [dict setObject:MAMTM forKey:FXZBResult_MTM_MAMTM];
-    for (int i = 0 ; i < [array count]; i++) {
+    
+    NSMutableArray *tmpArr = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0 ; i < [array count]; i++) {
         ChartFXDataModel *klm = [array objectAtIndex:i];
         ChartFXDataModel *klm2 = [array objectAtIndex:0];
         if (i >= MTM_N) {
@@ -1256,21 +1653,31 @@ static FXZBParam* shareZBP=nil;
         float mtmNum = ([klm.closePrice doubleValue] - [klm2.closePrice doubleValue]);
         [MTM addObject:[NSNumber numberWithFloat:mtmNum]];
         
-        int start = 0;
-        int count = 0;
-        float mamtmNum = 0;
-        if (MTM_M > 0) {
-            start = i - MTM_M + 1;
+        [tmpArr addObject:@(mtmNum)];
+        if (tmpArr.count > MTM_M) {
+            [tmpArr removeObjectAtIndex:0];
         }
-        for (int j = start; j <= i; j++) {
-            if (j < 0) {
-                continue;
-            }
-            mamtmNum = mamtmNum + [[MTM objectAtIndex:j] doubleValue];
-            count++;
+        if (tmpArr.count > 0 && tmpArr.count <= MTM_M) {
+            double sum = [[tmpArr valueForKeyPath:@"@sum.doubleValue"] doubleValue];
+            double maNum = sum / tmpArr.count;
+            [MAMTM addObject:[NSNumber numberWithFloat:maNum]];
         }
-        mamtmNum = mamtmNum / count;
-        [MAMTM addObject:[NSNumber numberWithFloat:mamtmNum]];
+        
+        //        NSInteger start = 0;
+        //        NSInteger count = 0;
+        //        float mamtmNum = 0;
+        //        if (MTM_M > 0) {
+        //            start = i - MTM_M + 1;
+        //        }
+        //        for (NSInteger j = start; j <= i; j++) {
+        //            if (j < 0) {
+        //                continue;
+        //            }
+        //            mamtmNum = mamtmNum + [[MTM objectAtIndex:j] doubleValue];
+        //            count++;
+        //        }
+        //        mamtmNum = mamtmNum / count;
+        //        [MAMTM addObject:[NSNumber numberWithFloat:mamtmNum]];
     }
     /*
      MTM:CLOSE-REF(CLOSE,N);
@@ -1294,12 +1701,12 @@ static FXZBParam* shareZBP=nil;
     [dict setObject:BIAS1 forKey:FXZBResult_BIAS_BIAS1];
     [dict setObject:BIAS2 forKey:FXZBResult_BIAS_BIAS2];
     [dict setObject:BIAS3 forKey:FXZBResult_BIAS_BIAS3];
-    for (int i = 0 ; i < [array count]; i++) {
+    for (NSInteger i = 0 ; i < [array count]; i++) {
         ChartFXDataModel *klm = [array objectAtIndex:i];
         
         float price = 0;
-        int count = 0;
-        for ( int j = i - BIAS_N1 + 1; j <= i; j++) {
+        NSInteger count = 0;
+        for ( NSInteger j = i - BIAS_N1 + 1; j <= i; j++) {
             if (j >= 0 ) {
                 ChartFXDataModel *klm2 = [array objectAtIndex:j];
                 count++;
@@ -1317,7 +1724,7 @@ static FXZBParam* shareZBP=nil;
         
         price = 0;
         count = 0;
-        for ( int j = i - BIAS_N2 + 1; j <= i; j++) {
+        for ( NSInteger j = i - BIAS_N2 + 1; j <= i; j++) {
             if (j >= 0 ) {
                 ChartFXDataModel *klm2 = [array objectAtIndex:j];
                 count++;
@@ -1334,7 +1741,7 @@ static FXZBParam* shareZBP=nil;
         
         price = 0;
         count = 0;
-        for ( int j = i - BIAS_N3 + 1; j <= i; j++) {
+        for ( NSInteger j = i - BIAS_N3 + 1; j <= i; j++) {
             if (j >= 0 ) {
                 ChartFXDataModel *klm2 = [array objectAtIndex:j];
                 count++;
@@ -1351,27 +1758,27 @@ static FXZBParam* shareZBP=nil;
         
         
         
-//        if (i >= MTM_N) {
-//            klm2 = [array objectAtIndex:i - MTM_N];
-//        }
-//        float mtmNum = ([klm.closePrice doubleValue] - [klm2.closePrice doubleValue]);
-//        [MTM addObject:[NSNumber numberWithFloat:mtmNum]];
-//        
-//        int start = 0;
-//        int count = 0;
-//        float mamtmNum = 0;
-//        if (MTM_M > 0) {
-//            start = i - MTM_M + 1;
-//        }
-//        for (int j = start; j <= i; j++) {
-//            if (j < 0) {
-//                continue;
-//            }
-//            mamtmNum = mamtmNum + [[MTM objectAtIndex:j] doubleValue];
-//            count++;
-//        }
-//        mamtmNum = mamtmNum / count;
-//        [MAMTM addObject:[NSNumber numberWithFloat:mamtmNum]];
+        //        if (i >= MTM_N) {
+        //            klm2 = [array objectAtIndex:i - MTM_N];
+        //        }
+        //        float mtmNum = ([klm.closePrice doubleValue] - [klm2.closePrice doubleValue]);
+        //        [MTM addObject:[NSNumber numberWithFloat:mtmNum]];
+        //
+        //        NSInteger start = 0;
+        //        NSInteger count = 0;
+        //        float mamtmNum = 0;
+        //        if (MTM_M > 0) {
+        //            start = i - MTM_M + 1;
+        //        }
+        //        for (NSInteger j = start; j <= i; j++) {
+        //            if (j < 0) {
+        //                continue;
+        //            }
+        //            mamtmNum = mamtmNum + [[MTM objectAtIndex:j] doubleValue];
+        //            count++;
+        //        }
+        //        mamtmNum = mamtmNum / count;
+        //        [MAMTM addObject:[NSNumber numberWithFloat:mamtmNum]];
     }
     /*
      MTM:CLOSE-REF(CLOSE,N);
@@ -1394,10 +1801,10 @@ static FXZBParam* shareZBP=nil;
     [dict setObject:UB forKey:FXZBResult_BOLL_BOLL2];
     [dict setObject:LB forKey:FXZBResult_BOLL_BOLL3];
     
-    for (int i = 0 ; i < array.count; i++) {
+    for (NSInteger i = 0 ; i < array.count; i++) {
         float num = 0;
         if (i >= BOLL_M - 1) {
-            for (int j = i - BOLL_M + 1 ; j <= i; j++) {
+            for (NSInteger j = i - BOLL_M + 1 ; j <= i; j++) {
                 ChartFXDataModel *model = [array objectAtIndex:j];
                 num = num + [model.closePrice doubleValue];
             }
@@ -1406,7 +1813,7 @@ static FXZBParam* shareZBP=nil;
         
         float num2 = 0;
         if (i >= BOLL_M - 1) {
-            for (int j = i - BOLL_M + 1 ; j <= i; j++) {
+            for (NSInteger j = i - BOLL_M + 1 ; j <= i; j++) {
                 ChartFXDataModel *model = [array objectAtIndex:j];
                 num2 = num2 + pow([model.closePrice doubleValue] - num / BOLL_M , 2);
             }
@@ -1429,12 +1836,12 @@ static FXZBParam* shareZBP=nil;
     [dict setObject:H forKey:FXZBResult_AROON_H];
     [dict setObject:L forKey:FXZBResult_AROON_L];
     
-    for (int i = 0 ; i < array.count; i++) {
+    for (NSInteger i = 0 ; i < array.count; i++) {
         float maxNum = 0;
-        int maxI = 0;
+        NSInteger maxI = 0;
         float minNum = MAXFLOAT;
-        int minI = 0;
-        for (int j = i - AROON_N + 1 ; j <= i; j++) {
+        NSInteger minI = 0;
+        for (NSInteger j = i - AROON_N + 1 ; j <= i; j++) {
             if (j >= 0) {
                 ChartFXDataModel *model = [array objectAtIndex:j];
                 if ([model.topPrice doubleValue] > maxNum) {
@@ -1453,36 +1860,55 @@ static FXZBParam* shareZBP=nil;
     return dict;
 }
 
-//@synthesize CYZB_Value;
-//- (NSMutableDictionary*)getCYZBResult:(NSMutableArray *)array datas:(NSMutableArray *)datas{
-//    NSMutableDictionary *dict;
-//    dict = [[NSMutableDictionary alloc] init];
-//
-//    NSMutableArray *Values = [[NSMutableArray alloc] init];
-//
-//
-//    [dict setObject:Values forKey:FXZBResult_CYZB_Values];
-//
-//    NSString *tmp = @"0";
-//    for (int i = 0 ; i < datas.count; i++) {
-//        NSString *value = @"0";
-//        FXDataModel *model1 = [datas objectAtIndex:i];
-//        for (int j = 0; j < array.count; j++) {
-//            cyzbModel *model2 = [array objectAtIndex:j];
-//            if ([model2[kStr_CYZB_Date] isEqual:model1[kStr_FX_Date]] && [model2[kStr_CYZB_Time] isEqual:model1[kStr_FX_Time]]) {
-//                value = model2[kStr_CYZB_Value];
-//                break;
-//            }
-//        }
-//        if ([value isEqual:tmp]) {
-//            value = @"0";
-//        }
-//        if (![value isEqual:@"0"]) {
-//            tmp = value;
-//        }
-//        [Values addObject:value];
-//
-//    }
-//    return dict;
-//}
+- (NSMutableDictionary *)getTSZF0Result:(NSMutableArray *)array{
+    NSMutableDictionary *dict;
+    dict = [[NSMutableDictionary alloc] init];
+    
+    NSMutableArray *closes = [[NSMutableArray alloc] init];
+    NSMutableArray *tops = [[NSMutableArray alloc] init];
+    NSMutableArray *bottoms = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0 ; i < array.count; i++) {
+        ChartFXDataModel *model = [array objectAtIndex:i];
+        [closes addObject:model.closePrice];
+        [tops addObject:model.topPrice];
+        [bottoms addObject:model.bottomPrice];
+    }
+    
+    NSArray *ts = [ChartTools EMA:closes d:2 block:nil];
+    NSArray *slopes = [ChartTools Slope:closes para:21 block:^double(double slopeNum, NSInteger index) {
+        return slopeNum * 20 + [closes[index] doubleValue];
+    }];
+    NSArray *mg = [ChartTools EMA:slopes d:42 block:nil];
+    
+    NSMutableArray *duo = [ChartTools CROSS:ts array2:mg block:^id(id result, NSInteger index) {
+        if ([result boolValue]) {
+            return bottoms[index];
+        }else{
+            return @(0);
+        }
+    }];
+    NSMutableArray *kong = [ChartTools CROSS:mg array2:ts block:^id(id result, NSInteger index) {
+        if ([result boolValue]) {
+            return tops[index];
+        }else{
+            return @(0);
+        }
+    }];
+    
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
+    [result setObject:@"特色战法" forKey:@"sName"];
+    [result setObject:@(array.count) forKey:@"nCount"];
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    [result setObject:arr forKey:@"linesArray"];
+    [arr addObject:@{@"type":@-1,
+                     @"sName":@"多",
+                     @"mArrBe":@{@"linesArray":duo}
+                     }];
+    [arr addObject:@{@"type":@-1,
+                     @"sName":@"空",
+                     @"mArrBe":@{@"linesArray":kong}
+                     }];
+    
+    return result;
+}
 @end
