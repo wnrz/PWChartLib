@@ -95,8 +95,13 @@
         _fxDatas = [NSMutableArray arrayWithArray:[self sortByTimeStamp:_fxDatas]];
         [self setPerModel:self.fxDatas];
         if (model) {
-            NSInteger index = [_fxDatas indexOfObject:model];
-            self.baseConfig.currentIndex = index;
+            model = [fxMapTable objectForKey:model.timeStamp];
+            if (model) {
+                NSInteger index = [_fxDatas indexOfObject:model];
+                index = index > _fxDatas.count - self.baseConfig.currentShowNum ? _fxDatas.count - self.baseConfig.currentShowNum : index;
+                index = index < 0 ? 0 : index;
+                self.baseConfig.currentIndex = index;
+            }
         }
     }
 }
