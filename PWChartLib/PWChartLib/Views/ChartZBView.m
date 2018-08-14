@@ -44,10 +44,12 @@
     }];
     
     [self.config chackTopAndBottomPrice];
-    if ([self.ztView isKindOfClass:[ChartFSView class]]) {
+    if ([self.ztView isKindOfClass:[ChartFSView class]] && self.config.zbType == FTZBFSVOL) {
         [self.chartsLayer drawVOL:[(ChartFSView *)self.ztView fsConfig]];
-    }else if ([self.ztView isKindOfClass:[ChartFXView class]]) {
+    }else if ([self.ztView isKindOfClass:[ChartFXView class]] && self.config.zbType == FTZBFXVOL) {
         [self.chartsLayer drawVOL:[(ChartFXView *)self.ztView fxConfig]];
+    }else{
+        [self.chartsLayer clearLayers];
     }
     
     [_zbChartsLayer drawZB];

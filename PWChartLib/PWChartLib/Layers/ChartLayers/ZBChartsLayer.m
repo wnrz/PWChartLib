@@ -39,7 +39,11 @@
                 if ([dict[@"type"] intValue] == 0) {
                     //折线 0
 //                    [DrawCommonMethod drawMALine:drawView.showFrame total:drawView.drawDataCon.currentShowNum top:drawView.drawDataCon.topPrice bottom:drawView.drawDataCon.bottomPrice arr:A clr:[ChartColors drawColorByIndex:idx] lineWidth:.5 lineDash:NO shadow:NO start:((drawView.drawDataCon.currentIndex >= num) ? 0 : num - drawView.drawDataCon.currentIndex)];
-                    CAShapeLayer *lineLayer = [LayerMaker getLineChartLayer:baseConfig.showFrame total:baseConfig.currentShowNum top:baseConfig.topPrice bottom:baseConfig.bottomPrice arr:A start:after startX:[ChartTools getStartX:baseConfig.showFrame total:baseConfig.currentShowNum]];
+                    
+                    CGFloat startX = [ChartTools getStartX:baseConfig.showFrame total:baseConfig.currentShowNum];
+                    CGFloat width = baseConfig.showFrame.size.width - startX * 2;
+                    width = width / baseConfig.currentShowNum;
+                    CAShapeLayer *lineLayer = [LayerMaker getLineChartLayer:baseConfig.showFrame total:baseConfig.currentShowNum top:baseConfig.topPrice bottom:baseConfig.bottomPrice arr:A start:after startX:startX + width / 2];
                     lineLayer.lineWidth = .5;
                     lineLayer.strokeColor = [ChartColors drawColorByIndex:idx].CGColor;
                     [self addSublayer:lineLayer];

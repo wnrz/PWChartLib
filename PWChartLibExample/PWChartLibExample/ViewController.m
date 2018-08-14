@@ -70,7 +70,7 @@
     ftView.enableTap = YES;
     ftView.enableDrag = YES;
     ftView.ztView = _baseView;
-    ftView.config.ftZBName = @"VOL";
+    ftView.config.ftZBName = @"KDJ";
 }
 
 - (void)setBaseView2:(ChartFXView *)baseView2{
@@ -90,7 +90,7 @@
     ftView2.enableDrag = YES;
     ftView2.enableScale = YES;
     ftView2.ztView = _baseView2;
-    ftView2.config.ftZBName = @"VOL";
+    ftView2.config.ftZBName = @"KDJ";
 }
 
 - (IBAction)changeSF:(id)sender{
