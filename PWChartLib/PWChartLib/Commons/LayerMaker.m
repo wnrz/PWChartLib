@@ -78,7 +78,7 @@
     if (mid != 0) {
         [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             CGFloat value = [obj doubleValue] - bottom;
-            CGFloat x = startX +  width / (total + 1) * idx;
+            CGFloat x = startX +  width / (total - 1) * idx;
             CGFloat y = height * (1 - value / mid) + showFrame.origin.y;
             CGPoint point = CGPointMake(x, y);
             if (idx == start) {
@@ -247,7 +247,7 @@ void processPathElement(void* info, const CGPathElement* element) {
         CGFloat y = height * (1 - value / mid) + showFrame.origin.y;
         CGPoint pointOpen = CGPointMake(x, y);
         
-        value = 0;
+        value = 0 - bottom;
         y = height * (1 - value / mid) + showFrame.origin.y;
         CGPoint pointClose = CGPointMake(x, y);
         

@@ -37,12 +37,12 @@
     
     fsBridge = [[FSDataBridge alloc] init];
     fsBridge.fsView = _baseView;
-        fsBridge.codeId = @"AUTD";
-        fsBridge.marketCode = @"SGE";
+//        fsBridge.codeId = @"AUTD";
+//        fsBridge.marketCode = @"SGE";
     
     //    fsBridge.codeId = @"EUR";
-//    fsBridge.codeId = @"CNH";
-//    fsBridge.marketCode = @"MSFX";
+    fsBridge.codeId = @"CNH";
+    fsBridge.marketCode = @"MSFX";
     
     fxBridge = [[FXDataBridge alloc] init];
     fxBridge.fxView = _baseView2;
@@ -90,7 +90,7 @@
     ftView2.enableDrag = YES;
     ftView2.enableScale = YES;
     ftView2.ztView = _baseView2;
-    ftView2.config.ftZBName = @"KDJ";
+    ftView2.config.ftZBName = @"MACD";
 }
 
 - (IBAction)changeSF:(id)sender{

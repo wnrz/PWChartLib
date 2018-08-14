@@ -38,6 +38,7 @@
     [self loadOneProduct];
     [self loadTime];
     [self loadFS];
+    [self autoLoadFS];
 }
 
 - (void)setMarketCode:(NSString *)marketCode{
@@ -110,6 +111,13 @@
     }];
 }
 
+- (void)autoLoadFS{
+    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(autoLoadFS) object:nil];
+    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(loadFS) object:nil];
+    [self performSelector:@selector(autoLoadFS) withObject:nil afterDelay:10];
+    [self performSelector:@selector(loadFS) withObject:nil afterDelay:2];
+}
+
 - (void)loadFS{
     NSMutableDictionary *requestDic = [NSMutableDictionary dictionary];
     requestDic[@"access_token"] = @"";
@@ -171,8 +179,38 @@
 }
 
 - (void)Funcion5002:(NSDictionary *)dict{
+    [self autoLoadFS];
     NSDictionary *d = dict[@"Data"];
+    
+    ChartHQDataModel *hqinfo = [[ChartHQDataModel alloc] init];
+    hqinfo.digit = [QuoteHelper getSingleQuoteDigits:@"prodcode" With:d[@"quotaCode"]];
+    hqinfo.closePrice = [NSString stringWithFormat:@"%@" , d[@"close"]];
+    hqinfo.yclosePrice = [NSString stringWithFormat:@"%@" , d[@"close"]];
+    if ([d[@"prodcode"] containsString:@"T+D"]) {
+        hqinfo.closePrice = [NSString stringWithFormat:@"%@" , d[@"close"]];
+    }
+    hqinfo.openPrice = [NSString stringWithFormat:@"%@" , d[@"open"]];
+    hqinfo.nowPrice = [NSString stringWithFormat:@"%@" , d[@"close"]];
+    hqinfo.topPrice = [NSString stringWithFormat:@"%@" , d[@"high"]];
+    hqinfo.bottomPrice = [NSString stringWithFormat:@"%@" , d[@"low"]];
+    hqinfo.volume = [NSString stringWithFormat:@"%@" , d[@"volumn"]];
+    [self.fsView updateTopAndBottomTimeByHQData:hqinfo];
+    [self.fsView startDraw];
+    
     if (![d[@"quotaCode"] isEqual:_codeId]) {
+        return;
+    }
+    if ([[d allKeys] containsObject:@"type"] && [d[@"type"] intValue] == 0) {
+        if (_fsView.fsConfig.fsDatas.count > 0) {
+            [_fsView.fsConfig.fsDatas removeAllObjects];
+            NSArray *arr = [NSArray arrayWithArray:_fsView.ftViews];
+            [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                ChartZBView *zbView = obj;
+                [zbView.config getZBData];
+                [zbView startDraw];
+            }];
+            [_fsView startDraw];
+        }
         return;
     }
     if ([[d allKeys] containsObject:@"type"] && [d[@"type"] intValue] == 0) {

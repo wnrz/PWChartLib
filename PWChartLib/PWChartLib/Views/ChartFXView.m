@@ -90,6 +90,7 @@
     [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         ChartZBView *zbView = obj;
         [zbView.config getZBData];
+        [zbView.baseConfig SyncParameter:self.baseConfig];
         [zbView startDraw];
     }];
     [self.fxConfig getZBData];

@@ -55,6 +55,17 @@
                     //柱状图 如vol 6
 //                    [DrawCommonMethod drawStickLine:drawView.showFrame total:drawView.drawDataCon.currentShowNum top:drawView.drawDataCon.topPrice bottom:drawView.drawDataCon.bottomPrice arr:A clrPos:@[(__bridge id)Chart_Color(@"color_rise").CGColor, (__bridge id)Chart_Color(@"color_rise").CGColor] clrNeg:@[(__bridge id)Chart_Color(@"color_fall").CGColor, (__bridge id)Chart_Color(@"color_fall").CGColor] stickWidth:1 start:0];
 
+                    __block NSMutableArray *macdArray = [[NSMutableArray alloc] init];
+                    [A enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        StickModel *sModel = [[StickModel alloc] init];
+                        sModel.value = [obj doubleValue];
+                        sModel.color = sModel.value > 0 ? [ChartColors colorByKey:kChartColorKey_Rise] : sModel.value < 0 ? [ChartColors colorByKey:kChartColorKey_Fall] : [ChartColors colorByKey:kChartColorKey_Stay];
+                        [macdArray addObject:sModel];
+                    }];
+                    CALayer *macdLayer = [LayerMaker getStickLine:self.baseConfig.showFrame total:self.baseConfig.currentShowNum top:self.baseConfig.topPrice bottom:self.baseConfig.bottomPrice models:macdArray start:0 lineWidth:1];
+                    if (macdLayer) {
+                        [self addSublayer:macdLayer];
+                    }
                 }else if ([dict[@"type"] intValue] == -1) {
                     //特色战法
 

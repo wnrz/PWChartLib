@@ -78,24 +78,26 @@
 }
 
 - (void)saveDatas:(NSArray<ChartFXDataModel *> *)datas{
-    NSInteger index = _baseConfig.currentIndex;
-    BOOL needUpdate = NO;
-    if (_baseConfig.currentIndex + _baseConfig.currentShowNum >= _fxDatas.count ) {
-        needUpdate = YES;
-    }
     if (_fxDatas.count == 0) {
         datas = [self sortByTimeStamp:datas];
         [self setPerModel:datas];
         _fxDatas = [NSMutableArray arrayWithArray:datas];
+        NSInteger index = _fxDatas.count - self.baseConfig.currentShowNum;
+        index = index < 0 ? 0 : index;
+        self.baseConfig.currentIndex = index;
     }else{
+        ChartFXDataModel *model;
+        if (_baseConfig.currentIndex < _fxDatas.count) {
+            model = _fxDatas[_baseConfig.currentIndex];
+        }
         NSMutableArray *arr = [self filterByMapTable:datas];
         [self increaseNewDatas:arr];
-        datas = [self sortByTimeStamp:datas];
+        _fxDatas = [NSMutableArray arrayWithArray:[self sortByTimeStamp:_fxDatas]];
         [self setPerModel:self.fxDatas];
-    }
-    if (needUpdate) {
-        index = _fxDatas.count - _baseConfig.currentShowNum;
-        _baseConfig.currentIndex = index < 0 ? 0 : index;
+        if (model) {
+            NSInteger index = [_fxDatas indexOfObject:model];
+            self.baseConfig.currentIndex = index;
+        }
     }
 }
 

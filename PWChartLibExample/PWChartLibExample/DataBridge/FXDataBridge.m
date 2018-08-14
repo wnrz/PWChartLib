@@ -17,6 +17,7 @@
 
 
 @interface FXDataBridge () {
+    BOOL isLoadingMore;
 }
 
 @end
@@ -24,6 +25,7 @@
 @implementation FXDataBridge
 
 - (void)dealloc{
+    [_fxView.baseConfig removeBridgeObserver:self];
     [self removeTopic];
     _codeId = nil;
 }
@@ -36,10 +38,13 @@
     }
     [self addTopic];
     [self loadFX:0];
+    [self autoLoadFX];
 }
 
 - (void)setFxView:(ChartFXView *)fxView{
+    [_fxView.baseConfig removeBridgeObserver:self];
     _fxView = fxView;
+    [_fxView.baseConfig addBridgeObserver:self forKeyPath:@"currentIndex" action:@selector(loadMore)];
     if (_codeId) {
         fxView.baseConfig.digit = [QuoteHelper getSingleQuoteDigits:@"quotationcode" With:_codeId];
     }
@@ -64,6 +69,26 @@
     [PWMessageCenter removeBridgeObserver:self];
 }
 
+- (void)loadMore{
+    if (_fxView.baseConfig.currentIndex < 50) {
+        if (isLoadingMore) {
+            return;
+        }
+        isLoadingMore = YES;
+        [self loadFX:1];
+    }
+}
+
+- (void)loadLast{
+    [self loadFX:2];
+}
+
+- (void)autoLoadFX{
+    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(autoLoadFX) object:nil];
+    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(loadLast) object:nil];
+    [self performSelector:@selector(autoLoadFX) withObject:nil afterDelay:10];
+    [self performSelector:@selector(loadLast) withObject:nil afterDelay:2];
+}
 //type 0:加载最新 1:加载更多 2:加载最后一根
 - (void)loadFX:(int)type{
     float pageSize = 300.0f;
@@ -86,6 +111,9 @@
     __block NSInteger zq = _fxView.fxConfig.fxLinetype;
     requestDic[@"period"] = period;
     [[NCHttpNetwork shareManager] sendRequest:GT_SINGLE_KLINE_QUOTE_LIST withDictionary:requestDic completionHandler:^(NSString *errorNo, NSDictionary *dict) {
+        if (type == 1) {
+            self->isLoadingMore = NO;
+        }
         __strong typeof(weakSelf) strongSelf = weakSelf;
         if (zq != strongSelf->_fxView.fxConfig.fxLinetype) {
             return;
@@ -112,6 +140,7 @@
 }
 
 - (void)Funcion5004:(NSDictionary *)dict{
+    [self autoLoadFX];
     NSDictionary *d = dict[@"Data"];
     if (![d[@"quotaCode"] isEqual:_codeId] || _fxView.fxConfig.fxDatas.count == 0) {
         return;
