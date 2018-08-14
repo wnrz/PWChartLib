@@ -21,6 +21,7 @@
 */
 - (void)install{
     [super install];
+    self.baseConfig.digit = 2;
     _config = [[ChartZBViewModel alloc] initWithBaseConfig:self.baseConfig];
     
     _zbChartsLayer = [[ZBChartsLayer alloc] init];
