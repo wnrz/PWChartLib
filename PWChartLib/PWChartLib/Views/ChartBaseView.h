@@ -45,4 +45,10 @@
 - (void)setData:(id)data;
 
 - (NSInteger)dataNumber;
+
+- (void)panGesAction:(UIPanGestureRecognizer*)recognizer;
+- (void)twoFingerPinch:(UIPinchGestureRecognizer *)recognizer;
+- (void)longPressedGesAction:(UILongPressGestureRecognizer *)recognizer;
+- (UIPanGestureRecognizer *)getPanGestureRecognizer;
+- (BOOL)canUsePanGestureRecognizer;
 @end

@@ -179,6 +179,10 @@
 
 
 - (void)panGesAction:(UIPanGestureRecognizer*)recognizer{
+    if (![self isEqual:self.ztView]) {
+        [self.ztView panGesAction:recognizer];
+        return;
+    }
     if (_ztView && ![_ztView canUsePanGestureRecognizer]) {
         return;
     }
@@ -254,6 +258,10 @@
 }
 
 -(void)twoFingerPinch:(UIPinchGestureRecognizer *)recognizer{
+    if (![self isEqual:self.ztView]) {
+        [self.ztView twoFingerPinch:recognizer];
+        return;
+    }
     if (self.ztView.baseConfig.showCrossLine) {
         return;
     }
@@ -329,6 +337,10 @@
 
 - (void)longPressedGesAction:(UILongPressGestureRecognizer *)recognizer
 {
+    if (![self isEqual:self.ztView]) {
+        [self.ztView longPressedGesAction:recognizer];
+        return;
+    }
     if(recognizer.state == UIGestureRecognizerStateBegan)
     {
         _baseConfig.showCrossLine =YES;
