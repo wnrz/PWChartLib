@@ -24,6 +24,7 @@
     _config = [[ChartZBViewModel alloc] initWithBaseConfig:self.baseConfig];
     
     _zbChartsLayer = [[ZBChartsLayer alloc] init];
+    _zbChartsLayer.zbConfig = _config;
     _zbChartsLayer.baseConfig = self.baseConfig;
     [self.layer insertSublayer:_zbChartsLayer above:self.formLayer];
 }
@@ -49,10 +50,7 @@
         [self.chartsLayer drawVOL:[(ChartFXView *)self.ztView fxConfig]];
     }
     
-    
-    [_zbChartsLayer redraw:^(ChartBaseLayer *obj) {
-        
-    }];
+    [_zbChartsLayer drawZB];
     
     [self.crossLayer redraw:^(ChartBaseLayer *obj) {
     }];
@@ -75,6 +73,14 @@
         self.config.fsConfig = [(ChartFSView *)ztView fsConfig];
     }else if ([ztView isKindOfClass:[ChartFXView class]]) {
         self.config.fxConfig = [(ChartFXView *)ztView fxConfig];
+    }
+}
+
+- (void)showZB:(NSString *)zbName{
+    if (![self.config.ftZBName isEqual:zbName]) {
+        self.config.ftZBName = zbName;
+        [self.config getZBData];
+        [self startDraw];
     }
 }
 @end

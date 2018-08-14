@@ -6,10 +6,14 @@
 //
 
 #import "ChartBaseModel.h"
+#import "ChartBaseViewModel.h"
 
 @interface ChartZBDataModel : ChartBaseModel
 
 @property(nonatomic , copy)NSString *zbName;
-@property(nonatomic , copy)NSMutableArray *zbDatas;
+@property(nonatomic , assign)NSInteger numCount;
+@property(nonatomic , strong)NSMutableArray *zbDatas;
 @property(nonatomic , strong)NSMutableDictionary *datas;
+
+- (void)chackTopAndBottomPrice:(ChartBaseViewModel *)baseConfig;
 @end

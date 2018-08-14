@@ -46,7 +46,7 @@
     
     fxBridge = [[FXDataBridge alloc] init];
     fxBridge.fxView = _baseView2;
-    fxBridge.codeId = @"CNH";
+    fxBridge.codeId = fsBridge.codeId;
 }
 
 
@@ -79,6 +79,7 @@
     baseView2.enableTap = YES;
     baseView2.enableDrag = YES;
     baseView2.enableScale = YES;
+    baseView2.fxConfig.ztZBName = @"MA";
     _ftView2.ztView = baseView2;
 }
 

@@ -33,6 +33,11 @@
     _fxDataLayer.baseConfig = self.baseConfig;
     _fxDataLayer.fxConfig = self.fxConfig;
     [self.layer insertSublayer:_fxDataLayer above:self.dataLayer];
+    
+    _zbChartsLayer = [[ZBChartsLayer alloc] init];
+    _zbChartsLayer.baseConfig = self.baseConfig;
+    _zbChartsLayer.fxConfig = _fxConfig;
+    [self.layer insertSublayer:_zbChartsLayer above:self.chartsLayer];
 }
 
 - (NSInteger)dataNumber{
@@ -51,6 +56,8 @@
     }];
     
     [self.chartsLayer drawKLine:_fxConfig];
+    
+    [_zbChartsLayer drawZB];
     
     [self.crossLayer redraw:^(ChartBaseLayer *obj) {
     }];
@@ -79,6 +86,12 @@
         [zbView.config getZBData];
         [zbView startDraw];
     }];
+    [self.fxConfig getZBData];
+    [self startDraw];
+}
+
+- (void)showZB:(NSString *)zbName{
+    self.fxConfig.ztZBName = zbName;
     [self startDraw];
 }
 @end

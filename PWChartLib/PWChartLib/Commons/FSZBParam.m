@@ -275,15 +275,18 @@ static FSZBParam* shareZBP=nil;
     [result setObject:arr forKey:@"linesArray"];
     [arr addObject:@{@"type":@0,
                      @"sName":@"K",
-                     @"mArrBe":@{@"linesArray":k}
+                     @"linesArray":k,
+                     @"start":@0
                      }];
     [arr addObject:@{@"type":@0,
                      @"sName":@"D",
-                     @"mArrBe":@{@"linesArray":d}
+                     @"linesArray":d,
+                     @"start":@0
                      }];
     [arr addObject:@{@"type":@0,
                      @"sName":@"J",
-                     @"mArrBe":@{@"linesArray":j}
+                     @"linesArray":j,
+                     @"start":@0
                      }];
     
     return result;

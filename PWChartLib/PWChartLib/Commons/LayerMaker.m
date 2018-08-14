@@ -72,8 +72,8 @@
     CAShapeLayer *layer = [CAShapeLayer layer];
     UIBezierPath *linePath = [UIBezierPath bezierPath];
     
-    CGFloat width = showFrame.size.width - showFrame.origin.x - startX * 2;
-    CGFloat height = showFrame.size.height - showFrame.origin.y;
+    CGFloat width = showFrame.size.width - startX * 2;
+    CGFloat height = showFrame.size.height;
     CGFloat mid = fabs(top - bottom);
     if (mid != 0) {
         [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -154,8 +154,8 @@ void processPathElement(void* info, const CGPathElement* element) {
 + (CALayer *)getCandlestickLine:(CGRect)showFrame total:(float)total top:(float)top bottom:(float)bottom models:(NSArray *)models clrUp:(UIColor *)clrUp clrDown:(UIColor *)clrDown clrBal:(UIColor *)clrBal start:(NSInteger)start lineType:(NSInteger)lintType{
     CALayer *layer = [[CALayer alloc] init];
     CGFloat startX = [ChartTools getStartX:showFrame total:total];
-    CGFloat width = (showFrame.size.width - showFrame.origin.x - 2 * startX) / total;
-    CGFloat height = showFrame.size.height - showFrame.origin.y;
+    CGFloat width = (showFrame.size.width - 2 * startX) / total;
+    CGFloat height = showFrame.size.height;
     CGFloat mid = fabs(top - bottom);
     if (mid == 0) {
         mid = 1;
@@ -232,8 +232,8 @@ void processPathElement(void* info, const CGPathElement* element) {
 + (CALayer *)getStickLine:(CGRect)showFrame total:(float)total top:(float)top bottom:(float)bottom models:(NSArray *)models start:(NSInteger)start lineWidth:(CGFloat)lineWidth{
     CALayer *layer = [[CALayer alloc] init];
     CGFloat startX = [ChartTools getStartX:showFrame total:total];
-    CGFloat width = (showFrame.size.width - showFrame.origin.x - 2 * startX) / total;
-    CGFloat height = showFrame.size.height - showFrame.origin.y;
+    CGFloat width = (showFrame.size.width - 2 * startX) / total;
+    CGFloat height = showFrame.size.height;
     CGFloat mid = fabs(top - bottom);
     if (mid == 0) {
         mid = 1;

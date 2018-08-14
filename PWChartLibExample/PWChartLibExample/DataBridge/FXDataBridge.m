@@ -78,16 +78,16 @@
     requestDic[@"access_token"] = @"";
     requestDic[@"codeitem"] = _codeId;
     requestDic[@"makettype"] = @1;
-    requestDic[@"page_size"] = last ? (_fxView.fxConfig.FXLinetype < KLineType_DAY ? @10 : @2) : @(pageSize);
+    requestDic[@"page_size"] = last ? (_fxView.fxConfig.fxLinetype < KLineType_DAY ? @10 : @2) : @(pageSize);
     requestDic[@"page_no"] = @(pageNum);
     requestDic[@"direction"] = @1;
     
     __weak typeof(self) weakSelf = self;
-    __block NSInteger zq = _fxView.fxConfig.FXLinetype;
+    __block NSInteger zq = _fxView.fxConfig.fxLinetype;
     requestDic[@"period"] = period;
     [[NCHttpNetwork shareManager] sendRequest:GT_SINGLE_KLINE_QUOTE_LIST withDictionary:requestDic completionHandler:^(NSString *errorNo, NSDictionary *dict) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
-        if (zq != strongSelf->_fxView.fxConfig.FXLinetype) {
+        if (zq != strongSelf->_fxView.fxConfig.fxLinetype) {
             return;
         }
         NSMutableArray *arr = [[NSMutableArray alloc] init];
@@ -135,7 +135,7 @@
 
 - (NSString *)getPeriod{
     NSString *period = @"";
-    switch (_fxView.fxConfig.FXLinetype) {
+    switch (_fxView.fxConfig.fxLinetype) {
         case KLineType_1Min:
             period = @"MIN01";
             break;

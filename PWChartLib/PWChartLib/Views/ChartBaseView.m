@@ -239,12 +239,14 @@
             if (chartIsValidArr(self.ftViews)) {
                 NSArray *arr = [NSArray arrayWithArray:self.ftViews];
                 for (NSInteger i = 0 ; i < arr.count; i++) {
-                    ChartBaseView *zb = self.ftViews[i];
+                    ChartBaseView *zb = arr[i];
                     [zb.baseConfig SyncParameter:self.baseConfig];
+                    [zb startDraw];
                 }
             }
             if (![_ztView isEqual:self]) {
                 [_ztView.baseConfig SyncParameter:self.baseConfig];
+                [_ztView startDraw];
             }
         }
         [self startDraw];
@@ -309,12 +311,14 @@
     if (chartIsValidArr(self.ftViews)) {
         NSArray *arr = [NSArray arrayWithArray:self.ftViews];
         for (NSInteger i = 0 ; i < arr.count; i++) {
-            ChartBaseView *zb = self.ftViews[i];
+            ChartBaseView *zb = arr[i];
             [zb.baseConfig SyncParameter:self.baseConfig];
+            [zb startDraw];
         }
     }
     if (![_ztView isEqual:self]) {
         [_ztView.baseConfig SyncParameter:self.baseConfig];
+        [_ztView startDraw];
     }
     [self startDraw];
 }
@@ -353,7 +357,7 @@
     if (chartIsValidArr(self.ftViews)) {
         NSArray *arr = [NSArray arrayWithArray:self.ftViews];
         for (NSInteger i = 0 ; i < arr.count; i++) {
-            ChartBaseView *zb = self.ftViews[i];
+            ChartBaseView *zb = arr[i];
             CGPoint translatedPoint2 = [recognizer locationInView:zb];
             zb.baseConfig.showCrossLinePoint = translatedPoint2;
             zb.baseConfig.showCrossLine = YES;
@@ -375,7 +379,7 @@
     if (chartIsValidArr(self.ftViews)) {
         NSArray *arr = [NSArray arrayWithArray:self.ftViews];
         for (NSInteger i = 0 ; i < arr.count; i++) {
-            ChartBaseView *zb = self.ftViews[i];
+            ChartBaseView *zb = arr[i];
             [zb.baseConfig SyncParameter:self.baseConfig];
         }
     }

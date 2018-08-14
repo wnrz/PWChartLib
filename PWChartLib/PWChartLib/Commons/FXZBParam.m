@@ -89,13 +89,13 @@ static FXZBParam* shareZBP=nil;
 #pragma mark -主图指标
 //主图指标
 - (NSMutableDictionary *)getPriMAResult:(NSMutableArray *)array{
-    NSMutableDictionary *vols;
+    NSMutableDictionary *mas;
     /*
      @{@"sName":NAME,
      @"linesArray":@[@{@"sName":name,@"type":type,@"mArrBe":@{@"linesArray":@[]}}]
      }
      */
-    vols = [[NSMutableDictionary alloc] init];
+    mas = [[NSMutableDictionary alloc] init];
     NSString *time = @"";
     for (NSInteger x = 0 ; x < Pri_MAS.count; x++) {
         NSInteger ma = [Pri_MAS[x] intValue];
@@ -106,10 +106,10 @@ static FXZBParam* shareZBP=nil;
         for (NSInteger x = 0 ; x < Pri_MAS.count; x++) {
             NSInteger ma = [Pri_MAS[x] intValue];
             if (ma > 0) {
-                NSMutableArray *tmpArray = vols[[NSString stringWithFormat:@"MA%@" , @(ma)]];
+                NSMutableArray *tmpArray = mas[[NSString stringWithFormat:@"%@" , @(ma)]];
                 if (!tmpArray) {
                     tmpArray = [[NSMutableArray alloc] init];
-                    [vols setObject:tmpArray forKey:[NSString stringWithFormat:@"MA%@" , @(ma)]];
+                    [mas setObject:tmpArray forKey:[NSString stringWithFormat:@"%@" , @(ma)]];
                 }
                 if (i >= ma - 1) {
                     float price = 0.0f;
@@ -132,11 +132,12 @@ static FXZBParam* shareZBP=nil;
     [result setObject:@(array.count) forKey:@"nCount"];
     NSMutableArray *arr = [[NSMutableArray alloc] init];
     [result setObject:arr forKey:@"linesArray"];
-    [vols enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+    [mas enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
         NSMutableDictionary *zbDict = [[NSMutableDictionary alloc] init];
         [zbDict setObject:@"0" forKey:@"type"];
-        [zbDict setObject:key forKey:@"sName"];
-        [zbDict setObject:@{@"linesArray":obj} forKey:@"mArrBe"];
+        [zbDict setObject:[NSString stringWithFormat:@"MA%@" , key] forKey:@"sName"];
+        [zbDict setObject:obj forKey:@"linesArray"];
+        [zbDict setObject:@([key integerValue] - 1) forKey:@"start"];
         [arr addObject:zbDict];
     }];
     
@@ -158,10 +159,10 @@ static FXZBParam* shareZBP=nil;
         for (NSInteger x = 0 ; x < VOL_MAS.count; x++) {
             NSInteger ma = [VOL_MAS[x] intValue];
             if (ma > 0) {
-                NSMutableArray *tmpArray = vols[[NSString stringWithFormat:@"MA%@" , @(ma)]];
+                NSMutableArray *tmpArray = vols[[NSString stringWithFormat:@"%@" , @(ma)]];
                 if (!tmpArray) {
                     tmpArray = [[NSMutableArray alloc] init];
-                    [vols setObject:tmpArray forKey:[NSString stringWithFormat:@"MA%@" , @(ma)]];
+                    [vols setObject:tmpArray forKey:[NSString stringWithFormat:@"%@" , @(ma)]];
                 }
                 if (i >= ma - 1) {
                     float price = 0.0f;
@@ -187,8 +188,9 @@ static FXZBParam* shareZBP=nil;
     [vols enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
         NSMutableDictionary *zbDict = [[NSMutableDictionary alloc] init];
         [zbDict setObject:@"0" forKey:@"type"];
-        [zbDict setObject:key forKey:@"sName"];
-        [zbDict setObject:@{@"linesArray":obj} forKey:@"mArrBe"];
+        [zbDict setObject:[NSString stringWithFormat:@"MA%@" , key] forKey:@"sName"];
+        [zbDict setObject:obj forKey:@"linesArray"];
+        [zbDict setObject:@([key integerValue] - 1) forKey:@"start"];
         [arr addObject:zbDict];
     }];
     
@@ -315,15 +317,18 @@ static FXZBParam* shareZBP=nil;
     [result setObject:arr forKey:@"linesArray"];
     [arr addObject:@{@"type":@0,
                      @"sName":@"DIF",
-                     @"mArrBe":@{@"linesArray":dif}
+                     @"linesArray":dif,
+                     @"start":@0
                      }];
     [arr addObject:@{@"type":@0,
                      @"sName":@"DEA",
-                     @"mArrBe":@{@"linesArray":dea}
+                     @"linesArray":dea,
+                     @"start":@0
                      }];
     [arr addObject:@{@"type":@6,
                      @"sName":@"MACD",
-                     @"mArrBe":@{@"linesArray":macd}
+                     @"linesArray":macd,
+                     @"start":@0
                      }];
     return result;
 }
@@ -407,15 +412,18 @@ static FXZBParam* shareZBP=nil;
     [result setObject:arr forKey:@"linesArray"];
     [arr addObject:@{@"type":@0,
                      @"sName":@"K",
-                     @"mArrBe":@{@"linesArray":k}
+                     @"linesArray":k,
+                     @"start":@0
                      }];
     [arr addObject:@{@"type":@0,
                      @"sName":@"D",
-                     @"mArrBe":@{@"linesArray":d}
+                     @"linesArray":d,
+                     @"start":@0
                      }];
     [arr addObject:@{@"type":@0,
                      @"sName":@"J",
-                     @"mArrBe":@{@"linesArray":j}
+                     @"linesArray":j,
+                     @"start":@0
                      }];
     
     return result;
@@ -1036,11 +1044,13 @@ static FXZBParam* shareZBP=nil;
     [result setObject:arr forKey:@"linesArray"];
     [arr addObject:@{@"type":@0,
                      @"sName":@"OBV",
-                     @"mArrBe":@{@"linesArray":OBV}
+                     @"linesArray":OBV,
+                     @"start":@0
                      }];
     [arr addObject:@{@"type":@0,
                      @"sName":@"MAOBV",
-                     @"mArrBe":@{@"linesArray":MAOBV}
+                     @"linesArray":MAOBV,
+                     @"start":@0
                      }];
     
     return result;
@@ -1120,11 +1130,13 @@ static FXZBParam* shareZBP=nil;
     [result setObject:arr forKey:@"linesArray"];
     [arr addObject:@{@"type":@0,
                      @"sName":@"ASI",
-                     @"mArrBe":@{@"linesArray":ASI}
+                     @"linesArray":ASI,
+                     @"start":@0
                      }];
     [arr addObject:@{@"type":@0,
                      @"sName":@"MAASI",
-                     @"mArrBe":@{@"linesArray":MAASI}
+                     @"linesArray":MAASI,
+                     @"start":@0
                      }];
     
     return result;
@@ -1177,11 +1189,13 @@ static FXZBParam* shareZBP=nil;
     [result setObject:arr forKey:@"linesArray"];
     [arr addObject:@{@"type":@0,
                      @"sName":@"ASI",
-                     @"mArrBe":@{@"linesArray":ASI}
+                     @"linesArray":ASI,
+                     @"start":@0
                      }];
     [arr addObject:@{@"type":@0,
                      @"sName":@"ASIT",
-                     @"mArrBe":@{@"linesArray":MAASI}
+                     @"linesArray":MAASI,
+                     @"start":@0
                      }];
     
     return result;
@@ -1344,15 +1358,18 @@ static FXZBParam* shareZBP=nil;
     [result setObject:arr forKey:@"linesArray"];
     [arr addObject:@{@"type":@0,
                      @"sName":@"RSI1",
-                     @"mArrBe":@{@"linesArray":RSI1}
+                     @"linesArray":RSI1,
+                     @"start":@0
                      }];
     [arr addObject:@{@"type":@0,
                      @"sName":@"RSI2",
-                     @"mArrBe":@{@"linesArray":RSI2}
+                     @"linesArray":RSI2,
+                     @"start":@0
                      }];
     [arr addObject:@{@"type":@0,
                      @"sName":@"RSI3",
-                     @"mArrBe":@{@"linesArray":RSI3}
+                     @"linesArray":RSI3,
+                     @"start":@0
                      }];
     
     return result;
@@ -1429,11 +1446,13 @@ static FXZBParam* shareZBP=nil;
     [result setObject:arr forKey:@"linesArray"];
     [arr addObject:@{@"type":@0,
                      @"sName":@"WR1",
-                     @"mArrBe":@{@"linesArray":WR1}
+                     @"linesArray":WR1,
+                     @"start":@0
                      }];
     [arr addObject:@{@"type":@0,
                      @"sName":@"WR2",
-                     @"mArrBe":@{@"linesArray":WR2}
+                     @"linesArray":WR2,
+                     @"start":@0
                      }];
     
     return result;
@@ -1501,7 +1520,8 @@ static FXZBParam* shareZBP=nil;
     [result setObject:arr forKey:@"linesArray"];
     [arr addObject:@{@"type":@0,
                      @"sName":@"CCI",
-                     @"mArrBe":@{@"linesArray":CCI}
+                     @"linesArray":CCI,
+                     @"start":@0
                      }];
     
     return result;
@@ -1565,11 +1585,13 @@ static FXZBParam* shareZBP=nil;
     [result setObject:arr forKey:@"linesArray"];
     [arr addObject:@{@"type":@0,
                      @"sName":@"ROC",
-                     @"mArrBe":@{@"linesArray":ROC}
+                     @"linesArray":ROC,
+                     @"start":@0
                      }];
     [arr addObject:@{@"type":@0,
                      @"sName":@"MAROC",
-                     @"mArrBe":@{@"linesArray":MAROC}
+                     @"linesArray":MAROC,
+                     @"start":@0
                      }];
     
     return result;
@@ -1620,11 +1642,13 @@ static FXZBParam* shareZBP=nil;
     [result setObject:arr forKey:@"linesArray"];
     [arr addObject:@{@"type":@0,
                      @"sName":@"PSY",
-                     @"mArrBe":@{@"linesArray":PSY}
+                     @"linesArray":PSY,
+                     @"start":@0
                      }];
     [arr addObject:@{@"type":@0,
                      @"sName":@"PSYMA",
-                     @"mArrBe":@{@"linesArray":PSYMA}
+                     @"linesArray":PSYMA,
+                     @"start":@0
                      }];
     
     return result;
@@ -1902,11 +1926,13 @@ static FXZBParam* shareZBP=nil;
     [result setObject:arr forKey:@"linesArray"];
     [arr addObject:@{@"type":@-1,
                      @"sName":@"多",
-                     @"mArrBe":@{@"linesArray":duo}
+                     @"linesArray":duo,
+                     @"start":@0
                      }];
     [arr addObject:@{@"type":@-1,
                      @"sName":@"空",
-                     @"mArrBe":@{@"linesArray":kong}
+                     @"linesArray":kong,
+                     @"start":@0
                      }];
     
     return result;

@@ -8,6 +8,8 @@
 //
 
 #import "ChartFXViewModel.h"
+#import "FXZBParam.h"
+#import "ChartTools.h"
 
 @interface ChartFXViewModel () {
     NSMapTable *fxMapTable;
@@ -26,6 +28,7 @@
         _baseConfig.maxShowNum = 150;
         _baseConfig.minShowNum = 20;
         _baseConfig.currentShowNum = 55;
+        _zbDatas = [[ChartZBDataModel alloc] init];
     }
     return self;
 }
@@ -65,20 +68,34 @@
         bottom = [model.closePrice doubleValue] < bottom ? [model.closePrice doubleValue] : bottom;
         bottom = [model.bottomPrice doubleValue] < bottom ? [model.bottomPrice doubleValue] : bottom;
     }];
-    _baseConfig.topPrice = top;
-    _baseConfig.bottomPrice = bottom;
+    if (_baseConfig.topPrice != top && _baseConfig.bottomPrice != bottom) {
+        CGFloat mid = top - bottom;
+        mid = mid * (5 / self.baseConfig.showFrame.size.height);
+        _baseConfig.topPrice = top + mid;
+        _baseConfig.bottomPrice = bottom - mid;
+    }
+    [self.zbDatas chackTopAndBottomPrice:_baseConfig];
 }
 
 - (void)saveDatas:(NSArray<ChartFXDataModel *> *)datas{
+    NSInteger index = _baseConfig.currentIndex;
+    BOOL needUpdate = NO;
+    if (_baseConfig.currentIndex + _baseConfig.currentShowNum >= _fxDatas.count ) {
+        needUpdate = YES;
+    }
     if (_fxDatas.count == 0) {
-        //        datas = [self sortByTimeStamp:datas];
+        datas = [self sortByTimeStamp:datas];
         [self setPerModel:datas];
         _fxDatas = [NSMutableArray arrayWithArray:datas];
     }else{
         NSMutableArray *arr = [self filterByMapTable:datas];
         [self increaseNewDatas:arr];
-        //        datas = [self sortByTimeStamp:datas];
+        datas = [self sortByTimeStamp:datas];
         [self setPerModel:self.fxDatas];
+    }
+    if (needUpdate) {
+        index = _fxDatas.count - _baseConfig.currentShowNum;
+        _baseConfig.currentIndex = index < 0 ? 0 : index;
     }
 }
 
@@ -131,10 +148,24 @@
     [_fxDatas addObjectsFromArray:datas];
 }
 
-- (void)setFXLinetype:(KLineType)FXLinetype{
-    if (_FXLinetype != FXLinetype) {
-        _FXLinetype = FXLinetype;
+- (void)setfxLinetype:(KLineType)fxLinetype{
+    if (_fxLinetype != fxLinetype) {
+        _fxLinetype = fxLinetype;
         [self.fxDatas removeAllObjects];
     }
+}
+
+- (void)setZtZBName:(NSString *)ztZBName{
+    _ztZBName = ztZBName;
+    [ztZBName isEqualToString:@"MA"] ? self.ztZBType = FXZTZBMA : 0;
+    [ztZBName isEqualToString:@"特色"] ? self.ztZBType = FXZTZBTSZF : 0;
+}
+
+- (void)getZBData{
+    NSMutableDictionary *dict;
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.fxDatas];
+    (self.ztZBType == FXZTZBMA) ? dict = [[FXZBParam shareFXZBParam] getPriMAResult:array] : 0;
+    (self.ztZBType == FXZTZBTSZF) ? dict = [[FXZBParam shareFXZBParam] getTSZF0Result:array] : 0;
+    self.zbDatas.datas = dict;
 }
 @end

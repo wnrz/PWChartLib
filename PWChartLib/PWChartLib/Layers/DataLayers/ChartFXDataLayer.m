@@ -24,6 +24,13 @@
 }
 
 - (void)startDraw{
+    if (!self.baseConfig.showCrossLine) {
+        NSInteger idx = self.baseConfig.showIndex;
+        if (idx != MIN(self.fxConfig.fxDatas.count - 1, self.baseConfig.currentShowNum + self.baseConfig.currentIndex)) {
+            idx = MIN(self.fxConfig.fxDatas.count - 1, self.baseConfig.currentShowNum + self.baseConfig.currentIndex);
+            self.baseConfig.showIndex = idx;
+        }
+    }
     [super startDraw];
     
     [self drawText];
@@ -41,7 +48,7 @@
     if (self.baseConfig.showCrossLine) {
         if (self.baseConfig.showCrossLinePoint.x >= self.baseConfig.showFrame.origin.x && self.baseConfig.showCrossLinePoint.x <= self.baseConfig.showFrame.size.width + self.baseConfig.showFrame.origin.x) {
             CGFloat num = 0;
-            num = self.baseConfig.showCrossLinePoint.x / (self.baseConfig.showFrame.size.width - self.baseConfig.showFrame.origin.x);
+            num = (self.baseConfig.showCrossLinePoint.x - [ChartTools getStartX:self.baseConfig.showFrame total:self.baseConfig.currentShowNum]) / (self.baseConfig.showFrame.size.width - [ChartTools getStartX:self.baseConfig.showFrame total:self.baseConfig.currentShowNum] * 2);
             if (self.baseConfig && self.isDrawCrossBottomText && self.fxConfig) {
                 [self drawBottomWithNum:num num:num isCross:YES];
             }
@@ -63,8 +70,18 @@
 - (void)drawBottomWithNum:(NSInteger)index num:(CGFloat)num isCross:(BOOL)isCross{
     if (self.baseConfig) {
         NSInteger idx = num * self.baseConfig.currentShowNum + self.baseConfig.currentIndex;
+        if (idx < self.baseConfig.currentIndex) {
+            idx = self.baseConfig.currentIndex;
+        }
+        if (idx > self.baseConfig.currentShowNum + self.baseConfig.currentIndex){
+            idx = self.baseConfig.currentShowNum + self.baseConfig.currentIndex;
+        }
+        if (idx >= self.fxConfig.fxDatas.count) {
+            idx = self.fxConfig.fxDatas.count - 1;
+        }
+        self.baseConfig.showIndex = idx;
         if (self.baseConfig && self.fxConfig.fxDatas.count >= idx) {
-            CGFloat width = self.baseConfig.showFrame.size.width - self.baseConfig.showFrame.origin.x;
+            CGFloat width = self.baseConfig.showFrame.size.width;
             CGFloat x = width * num + self.baseConfig.showFrame.origin.x;
             
             CGFloat y = self.baseConfig.showFrame.origin.y + self.baseConfig.showFrame.size.height;
@@ -76,7 +93,7 @@
                 ChartFXDataModel *model = self.fxConfig.fxDatas[idx];
                 model.date = model.date.length > 8 ? model.date : [NSString stringWithFormat:@"%08ld" , (long)[model.date integerValue]];
                 model.time = model.time.length > 4 ? model.time : [NSString stringWithFormat:@"%04ld" , (long)[model.time integerValue]];
-                if (self.fxConfig.FXLinetype < 4) {
+                if (self.fxConfig.fxLinetype < 4) {
                     string = [NSString stringWithFormat:@"%@/%@ %@:%@" , [model.date substringWithRange:NSMakeRange(4, 2)] , [model.date substringWithRange:NSMakeRange(6, 2)] , [model.time substringToIndex:2] , [model.time substringFromIndex:2]];
                 }else{
                     string = [NSString stringWithFormat:@"%@/%@/%@" , [model.date substringToIndex:4] , [model.date substringWithRange:NSMakeRange(4, 2)] , [model.date substringWithRange:NSMakeRange(6, 2)]];

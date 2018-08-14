@@ -14,4 +14,6 @@
 
 @property (nonatomic , strong)ZBChartsLayer *zbChartsLayer;
 @property (nonatomic , strong)ChartZBViewModel *config;
+
+- (void)showZB:(NSString *)zbName;
 @end

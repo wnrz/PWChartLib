@@ -9,11 +9,15 @@
 #import "ChartBaseView.h"
 #import "ChartFXViewModel.h"
 #import "ChartFXDataLayer.h"
+#import "ZBChartsLayer.h"
 
 @interface ChartFXView : ChartBaseView
 
 @property (nonatomic , strong)ChartFXDataLayer *fxDataLayer;
+@property (nonatomic , strong)ZBChartsLayer *zbChartsLayer;
 @property (nonatomic , strong)ChartFXViewModel *fxConfig;
 
 - (void)saveDatas:(NSArray<ChartFXDataModel *> *)datas;
+
+- (void)showZB:(NSString *)zbName;
 @end

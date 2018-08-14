@@ -84,6 +84,7 @@
 }
 
 - (void)drawVOL:(id)ztConfig{
+    [self clearLayers];
     NSArray *array;
     if ([ztConfig isKindOfClass:[ChartFXViewModel class]]) {
         self.fxConfig = ztConfig;
@@ -94,7 +95,14 @@
     }
     if (array.count > 0) {
         __block NSMutableArray *volArray = [[NSMutableArray alloc] init];
-        NSArray *arr = [NSArray arrayWithArray:_fsConfig.fsDatas];
+        NSArray *arr = [NSArray arrayWithArray:array];
+        if ([ztConfig isKindOfClass:[ChartFXViewModel class]]) {
+            NSInteger start = self.baseConfig.currentIndex < arr.count ? self.baseConfig.currentIndex : array.count - 1;
+            NSInteger length = arr.count - start > self.baseConfig.currentShowNum ? self.baseConfig.currentShowNum : arr.count - start;
+            arr = [array subarrayWithRange:NSMakeRange(self.baseConfig.currentIndex < arr.count ? self.baseConfig.currentIndex : start, length)];
+        }else if ([ztConfig isKindOfClass:[ChartFSViewModel class]]){
+            arr = [NSArray arrayWithArray:array];
+        }
         [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             StickModel *sModel = [[StickModel alloc] init];
             if (self.fsConfig) {
@@ -108,8 +116,15 @@
             }
             [volArray addObject:sModel];
         }];
-        CALayer *volLayer = [LayerMaker getStickLine:self.baseConfig.showFrame total:self.baseConfig.maxPointCount top:self.baseConfig.topPrice bottom:self.baseConfig.bottomPrice models:volArray start:0 lineWidth:-1];
-        [self addSublayer:volLayer];
+        CALayer *volLayer;
+        if ([ztConfig isKindOfClass:[ChartFXViewModel class]]) {
+            volLayer = [LayerMaker getStickLine:self.baseConfig.showFrame total:self.baseConfig.currentShowNum top:self.baseConfig.topPrice bottom:self.baseConfig.bottomPrice models:volArray start:0 lineWidth:-1];
+        }else if ([ztConfig isKindOfClass:[ChartFSViewModel class]]){
+            volLayer = [LayerMaker getStickLine:self.baseConfig.showFrame total:self.baseConfig.maxPointCount top:self.baseConfig.topPrice bottom:self.baseConfig.bottomPrice models:volArray start:0 lineWidth:-1];
+        }
+        if (volLayer) {
+            [self addSublayer:volLayer];
+        }
     }
 }
 @end

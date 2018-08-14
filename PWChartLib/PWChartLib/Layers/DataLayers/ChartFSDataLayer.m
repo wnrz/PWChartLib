@@ -41,7 +41,7 @@
     if (self.baseConfig.showCrossLine) {
         if (self.baseConfig.showCrossLinePoint.y >= self.baseConfig.showFrame.origin.y && self.baseConfig.showCrossLinePoint.y <= self.baseConfig.showFrame.size.height + self.baseConfig.showFrame.origin.y) {
             CGFloat num = 0;
-            num = self.baseConfig.showCrossLinePoint.x / (self.baseConfig.showFrame.size.width - self.baseConfig.showFrame.origin.x);
+            num = self.baseConfig.showCrossLinePoint.x / (self.baseConfig.showFrame.size.width);
             if (self.baseConfig && self.isDrawCrossBottomText && self.fsConfig) {
                 [self drawBottomWithNum:0 num:num isCross:YES];
             }
@@ -62,7 +62,7 @@
 
 - (void)drawBottomWithNum:(NSInteger)index num:(CGFloat)num isCross:(BOOL)isCross{
     if (self.baseConfig && self.fsConfig.times.count >= index) {
-        CGFloat width = self.baseConfig.showFrame.size.width - self.baseConfig.showFrame.origin.x;
+        CGFloat width = self.baseConfig.showFrame.size.width;
         CGFloat x = width * num + self.baseConfig.showFrame.origin.x;
         
         CGFloat y = self.baseConfig.showFrame.origin.y + self.baseConfig.showFrame.size.height;
