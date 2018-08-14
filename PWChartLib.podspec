@@ -3,11 +3,11 @@ Pod::Spec.new do |s|
 
 
 s.name         = "PWChartLib"
-s.version      = "0.0.2"
-s.summary      = "通信业务库"
+s.version      = "0.0.1"
+s.summary      = "图表库"
 
 
-s.description  = "通信业务库"
+s.description  = "图表库"
 
 s.homepage     = "https://github.com/wnrz/PWChartLib.git"
 
