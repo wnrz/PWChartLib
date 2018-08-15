@@ -25,7 +25,7 @@
     NSInteger start = baseConfig.currentIndex;
     NSInteger end = baseConfig.currentShowNum;
     start = start < 0 ? 0 : start;
-    end =  end > _numCount - start ? _numCount - start - 1 : end;
+    end =  end > _numCount - start - 1 ? _numCount - start - 1 : end;
     if (end < 0) {
         return;
     }
@@ -36,12 +36,14 @@
         NSDictionary *d = obj;
         NSArray *array = d[@"linesArray"];
         NSInteger after = [d[@"start"] integerValue];
-        NSArray *a = [array subarrayWithRange:NSMakeRange(start, end)];
+        NSArray *a = [array subarrayWithRange:NSMakeRange(start, end - after > 0 ? end - after : 0)];
         [a enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx2, BOOL * _Nonnull stop) {
             if (after <= idx2 + start) {
                 CGFloat value = [obj doubleValue];
-                top = top > value ? top : value;
-                bottom = bottom < value ? bottom : value;
+                if (!isnan(value) && !isinf(value)) {
+                    top = top > value ? top : value;
+                    bottom = bottom < value ? bottom : value;
+                }
             }
         }];
     }];

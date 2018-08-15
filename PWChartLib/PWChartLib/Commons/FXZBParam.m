@@ -55,6 +55,9 @@ static FXZBParam* shareZBP=nil;
             
             shareZBP.ASI_M = 6;
             
+            shareZBP.ASI_M1 = 26;
+            shareZBP.ASI_M2 = 10;
+            
             shareZBP.EMV_N = 14;
             shareZBP.EMV_M = 9;
             
@@ -69,6 +72,9 @@ static FXZBParam* shareZBP=nil;
             
             shareZBP.ROC_N = 12;
             shareZBP.ROC_M = 6;
+            
+            shareZBP.PSY_N = 12;
+            shareZBP.PSY_M = 6;
             
             shareZBP.MTM_N = 12;
             shareZBP.MTM_M = 6;
@@ -1177,6 +1183,7 @@ static FXZBParam* shareZBP=nil;
         float xNum = ([klm.closePrice doubleValue] - lcNum + ([klm.closePrice doubleValue] - [klm.openPrice doubleValue]) / 2 + lcNum - [klm2.openPrice doubleValue]);
         float siNum = 16 * xNum / rNum * MAX(aaNum, bbNum);
         siNum = isnan(siNum) && SI.count > 0 ? [[SI lastObject] floatValue] : siNum;
+        siNum = isnan(siNum) || isinf(siNum) ? 0 : siNum;
         [SI addObject:[NSNumber numberWithFloat:siNum]];
     }
     ASI = [ChartTools SUM:SI d:ASI_M1 block:nil];
@@ -1549,6 +1556,7 @@ static FXZBParam* shareZBP=nil;
             klm2 = [array objectAtIndex:i - ROC_N];
         }
         float rocNum = 100 * ([klm.closePrice doubleValue] - [klm2.closePrice doubleValue]) / [klm2.closePrice doubleValue];
+        rocNum = isnan(rocNum) || isinf(rocNum) ? 0 : rocNum;
         [ROC addObject:[NSNumber numberWithFloat:rocNum]];
         
         [tmpArr addObject:@(rocNum)];
@@ -1558,6 +1566,7 @@ static FXZBParam* shareZBP=nil;
         if (tmpArr.count > 0 && tmpArr.count <= ROC_M) {
             double sum = [[tmpArr valueForKeyPath:@"@sum.doubleValue"] doubleValue];
             double maNum = sum / tmpArr.count;
+            maNum = isnan(maNum) || isinf(maNum) ? 0 : maNum;
             [MAROC addObject:[NSNumber numberWithFloat:maNum]];
         }
         
@@ -1586,12 +1595,12 @@ static FXZBParam* shareZBP=nil;
     [arr addObject:@{@"type":@0,
                      @"sName":@"ROC",
                      @"linesArray":ROC,
-                     @"start":@0
+                     @"start":@(ROC_N + 2)
                      }];
     [arr addObject:@{@"type":@0,
                      @"sName":@"MAROC",
                      @"linesArray":MAROC,
-                     @"start":@0
+                     @"start":@(ROC_N + 2)
                      }];
     
     return result;
@@ -1643,12 +1652,12 @@ static FXZBParam* shareZBP=nil;
     [arr addObject:@{@"type":@0,
                      @"sName":@"PSY",
                      @"linesArray":PSY,
-                     @"start":@0
+                     @"start":@(PSY_N - 1)
                      }];
     [arr addObject:@{@"type":@0,
                      @"sName":@"PSYMA",
                      @"linesArray":PSYMA,
-                     @"start":@0
+                     @"start":@(PSY_N + PSY_M - 2)
                      }];
     
     return result;
@@ -1908,14 +1917,14 @@ static FXZBParam* shareZBP=nil;
         if ([result boolValue]) {
             return bottoms[index];
         }else{
-            return @(0);
+            return @(NAN);
         }
     }];
     NSMutableArray *kong = [ChartTools CROSS:mg array2:ts block:^id(id result, NSInteger index) {
         if ([result boolValue]) {
             return tops[index];
         }else{
-            return @(0);
+            return @(NAN);
         }
     }];
     

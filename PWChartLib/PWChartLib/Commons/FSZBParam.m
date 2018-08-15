@@ -153,7 +153,28 @@ static FSZBParam* shareZBP=nil;
         
     }
     
-    return dict;
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
+    [result setObject:[NSString stringWithFormat:@"KDJ(%.0f,%.0f,%.0f)" , KDJ_N , KDJ_M1 , KDJ_M2] forKey:@"sName"];
+    [result setObject:@(array.count) forKey:@"nCount"];
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    [result setObject:arr forKey:@"linesArray"];
+    [arr addObject:@{@"type":@6,
+                     @"sName":@"MACD",
+                     @"linesArray":macd,
+                     @"start":@0
+                     }];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"DIF",
+                     @"linesArray":dif,
+                     @"start":@0
+                     }];
+    [arr addObject:@{@"type":@0,
+                     @"sName":@"DEA",
+                     @"linesArray":dea,
+                     @"start":@0
+                     }];
+    
+    return result;
 }
 
 - (NSMutableDictionary *)getVOLMAResult:(NSMutableArray *)array{

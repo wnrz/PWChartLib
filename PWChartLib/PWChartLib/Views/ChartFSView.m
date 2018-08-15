@@ -85,6 +85,15 @@
     [self startDraw];
 }
 
+- (void)clearData{
+    [_fsConfig.fsDatas removeAllObjects];
+    [self startDraw];
+}
+
+- (void)changeZB:(NSString *)zbName{
+    
+}
+
 - (void)setTimes:(NSArray<ChartFSTimeModel *> *)times{
     _fsConfig.times = times;
     NSArray *arr = [NSArray arrayWithArray:self.ftViews];
@@ -96,5 +105,16 @@
 
 - (void)updateTopAndBottomTimeByHQData:(ChartHQDataModel *)model{
     [_fsConfig updateTopAndBottomTimeByHQData:model];
+}
+
+- (CGPoint)correctCrossLinePoint:(CGPoint)crossLinePoint{
+    CGPoint point = [super correctCrossLinePoint:crossLinePoint];
+    if (_fsConfig.fsDatas.count > self.baseConfig.showIndex && self.baseConfig.showIndex >= 0 && self.baseConfig.topPrice != self.baseConfig.bottomPrice) {
+        ChartFSDataModel *model = _fsConfig.fsDatas[self.baseConfig.showIndex];
+        CGFloat num = ([model.nowPrice doubleValue] - self.baseConfig.bottomPrice) / (self.baseConfig.topPrice - self.baseConfig.bottomPrice);
+        CGFloat y = self.showFrame.origin.y + self.showFrame.size.height * (1 - num);
+        point.y = y;
+    }
+    return point;
 }
 @end

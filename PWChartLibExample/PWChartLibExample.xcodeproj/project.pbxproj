@@ -347,8 +347,6 @@
 				"${PODS_CONFIGURATION_BUILD_DIR}/PWChartLib/PWChartLib.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/PWDataBridge/PWDataBridge.bundle",
 				"${PODS_ROOT}/UMCShare/UMShare/UMSocialUI/UMSocialSDKResources.bundle",
-				"${PODS_ROOT}/WeexSDK/WeexSDK.framework/main.js",
-				"${PODS_ROOT}/WeexSDK/WeexSDK.framework/wx_load_error@3x.png",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -359,8 +357,6 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PWChartLib.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PWDataBridge.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKResources.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/main.js",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/wx_load_error@3x.png",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

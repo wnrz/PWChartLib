@@ -45,6 +45,9 @@
 }
 
 - (void)setFtZBName:(NSString *)ftZBName{
+    if ([_ftZBName isEqualToString:ftZBName]) {
+        return;
+    }
     _ftZBName = ftZBName;
     if (_fsConfig) {
         ([ftZBName isEqualToString:@"VOL"]) ? self.zbType = FTZBFSVOL : 0;
@@ -61,7 +64,6 @@
         ([ftZBName isEqualToString:@"ASI"]) ? self.zbType = FTZBFXASI : 0;
         ([ftZBName isEqualToString:@"ROC"]) ? self.zbType = FTZBFXROC : 0;
         ([ftZBName isEqualToString:@"PSY"]) ? self.zbType = FTZBFXPSY : 0;
-        ([ftZBName isEqualToString:@"特色"]) ? self.zbType = FTZBFXTSZF0 : 0;
     }
 }
 
@@ -82,7 +84,6 @@
         (self.zbType == FTZBFXOBV) ? dict = [[FXZBParam shareFXZBParam] getOBVResult:array] : 0;
         (self.zbType == FTZBFXASI) ? dict = [[FXZBParam shareFXZBParam] getASI2Result:array] : 0;
         (self.zbType == FTZBFXROC) ? dict = [[FXZBParam shareFXZBParam] getROCResult:array] : 0;
-        (self.zbType == FTZBFXTSZF0) ? dict = [[FXZBParam shareFXZBParam] getTSZF0Result:array] : 0;
         (self.zbType == FTZBFXPSY) ? dict = [[FXZBParam shareFXZBParam] getPSYResult:array] : 0;
     }
     self.zbDatas.datas = dict;

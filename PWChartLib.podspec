@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
 
 s.name         = "PWChartLib"
-s.version      = "0.0.1"
+s.version      = "0.0.2"
 s.summary      = "图表库"
 
 
@@ -32,7 +32,7 @@ ss.source_files = 'PWChartLib/PWChartLib/**/*.{h,m,a,c}'
 ss.ios.frameworks = 'UIKit', 'Foundation'
 end
 
-#s.resource_bundles = {'PWChartLib' => ['PWChartLib/PWChartLib/**/*.{storyboard,xib,png,strings}']}
+s.resource_bundles = {'PWChartLib' => ['PWChartLib/PWChartLib/**/*.{storyboard,xib,png,strings}']}
 
 s.dependency 'PWDataBridge'
 end

@@ -70,7 +70,7 @@
                     //特色战法
 
                     UIImage *image;
-                    NSBundle *bundle = [NSBundle bundleWithPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"ChartLib.bundle"]];
+                    NSBundle *bundle = [NSBundle bundleWithPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"PWChartLib.bundle"]];
                     BOOL isBuy;
                     if ([dict[@"sName"] isEqual:@"多"]) {
                         image = [UIImage imageNamed:@"chart_buy_arrow.png" inBundle:bundle compatibleWithTraitCollection:nil];
@@ -78,6 +78,10 @@
                     }else{
                         image = [UIImage imageNamed:@"chart_sell_arrow.png" inBundle:bundle compatibleWithTraitCollection:nil];
                         isBuy = NO;
+                    }
+                    CALayer *tszfLayer = [LayerMaker drawImages:baseConfig.showFrame total:baseConfig.currentShowNum top:baseConfig.topPrice bottom:baseConfig.bottomPrice image:image array:A isBuy:isBuy];
+                    if (tszfLayer) {
+                        [self addSublayer:tszfLayer];
                     }
 //                    [DrawCommonMethod drawTSZF0:drawView.showFrame total:drawView.drawDataCon.currentShowNum top:drawView.drawDataCon.topPrice bottom:drawView.drawDataCon.bottomPrice image:image start:0 tszbs:A isBuy:isBuy];
 

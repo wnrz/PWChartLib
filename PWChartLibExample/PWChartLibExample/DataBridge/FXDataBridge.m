@@ -97,6 +97,11 @@
     if (!_fxView) {
         return;
     }
+    if (more) {
+        if (_fxView.fxConfig.fxDatas.count < pageSize) {
+            return;
+        }
+    }
     NSString *period = [self getPeriod];
     NSInteger pageNum = last ? 1 : more ? floor(_fxView.fxConfig.fxDatas.count / pageSize) + 1 : 1;
     NSMutableDictionary *requestDic = [NSMutableDictionary dictionary];

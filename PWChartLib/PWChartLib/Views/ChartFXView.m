@@ -97,6 +97,30 @@
     [self startDraw];
 }
 
+- (void)clearData{
+    _fxConfig.baseConfig.currentIndex = 0;
+    [_fxConfig.fxDatas removeAllObjects];
+    [self startDraw];
+}
+
+- (void)changeZB:(NSString *)zbName{
+    self.fxConfig.ztZBName = zbName;
+    [self.fxConfig getZBData];
+    [self startDraw];
+}
+
+- (void)changeZQ:(KLineType)fxLinetype{
+    if (self.fxConfig.fxLinetype != fxLinetype) {
+        [self clearData];
+        NSArray *arr = [NSArray arrayWithArray:self.ftViews];
+        [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            ChartZBView *view = obj;
+            [view clearData];
+        }];
+        self.fxConfig.fxLinetype = fxLinetype;
+    }
+}
+
 - (void)showZB:(NSString *)zbName{
     self.fxConfig.ztZBName = zbName;
     [self startDraw];
@@ -158,5 +182,16 @@
         }
         return YES;
     }
+}
+
+- (CGPoint)correctCrossLinePoint:(CGPoint)crossLinePoint{
+    CGPoint point = [super correctCrossLinePoint:crossLinePoint];
+    if (_fxConfig.fxDatas.count > self.baseConfig.showIndex && self.baseConfig.showIndex >= 0 && self.baseConfig.topPrice != self.baseConfig.bottomPrice) {
+        ChartFXDataModel *model = _fxConfig.fxDatas[self.baseConfig.showIndex];
+        CGFloat num = ([model.closePrice doubleValue] - self.baseConfig.bottomPrice) / (self.baseConfig.topPrice - self.baseConfig.bottomPrice);
+        CGFloat y = self.showFrame.origin.y + self.showFrame.size.height * (1 - num);
+        point.y = y;
+    }
+    return point;
 }
 @end

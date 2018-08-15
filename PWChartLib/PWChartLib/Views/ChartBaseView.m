@@ -130,6 +130,14 @@
     
 }
 
+- (void)clearData{
+    
+}
+
+- (void)changeZB:(NSString *)zbName{
+    
+}
+
 - (NSInteger)dataNumber{
     return 0;
 }
@@ -285,23 +293,28 @@
         self.baseConfig.minShowNum = 5;
     }
     
+    BOOL changeCurrentIndex = YES;
     if (self.baseConfig.currentShowNum > self.baseConfig.maxShowNum) {
         self.baseConfig.currentShowNum = self.baseConfig.maxShowNum;
+        changeCurrentIndex = NO;
     }else if (self.baseConfig.currentShowNum < self.baseConfig.minShowNum){
         self.baseConfig.currentShowNum = self.baseConfig.minShowNum;
+        changeCurrentIndex = NO;
     }
     
-    if (self.baseConfig.currentIndex > [self dataNumber] - self.baseConfig.currentShowNum) {
-        self.baseConfig.currentIndex = (NSInteger)[self dataNumber] - self.baseConfig.currentShowNum;
-    }
-    
-    if (self.baseConfig.currentIndex < 0) {
-        self.baseConfig.currentIndex = (NSInteger)[self dataNumber] - self.baseConfig.currentShowNum;
-    }
-    
-    self.baseConfig.currentIndex = self.baseConfig.showIndex - self.baseConfig.currentShowNum + 1;
-    if (self.baseConfig.currentIndex < 0) {
-        self.baseConfig.currentIndex = 0;
+    if (changeCurrentIndex) {
+        if (self.baseConfig.currentIndex > [self dataNumber] - self.baseConfig.currentShowNum) {
+            self.baseConfig.currentIndex = (NSInteger)[self dataNumber] - self.baseConfig.currentShowNum;
+        }
+        
+        if (self.baseConfig.currentIndex < 0) {
+            self.baseConfig.currentIndex = (NSInteger)[self dataNumber] - self.baseConfig.currentShowNum;
+        }
+        
+        self.baseConfig.currentIndex = self.baseConfig.showIndex - self.baseConfig.currentShowNum + 1;
+        if (self.baseConfig.currentIndex < 0) {
+            self.baseConfig.currentIndex = 0;
+        }
     }
     
     if (self.baseConfig.showIndex >= 0 && self.baseConfig.showIndex > [self dataNumber] - 1) {
@@ -365,19 +378,10 @@
     }
     
     CGPoint translatedPoint = [recognizer locationInView:self];
-    self.baseConfig.showCrossLinePoint = translatedPoint;
-    if (chartIsValidArr(self.ftViews)) {
-        NSArray *arr = [NSArray arrayWithArray:self.ftViews];
-        for (NSInteger i = 0 ; i < arr.count; i++) {
-            ChartBaseView *zb = arr[i];
-            CGPoint translatedPoint2 = [recognizer locationInView:zb];
-            zb.baseConfig.showCrossLinePoint = translatedPoint2;
-            zb.baseConfig.showCrossLine = YES;
-        }
-    }
+    
     NSString *className = NSStringFromClass([self class]);
     float startX = [className isEqual:@"ChartFSView"] ? 0 : [ChartTools getStartX:self.showFrame total:self.baseConfig.currentShowNum];
-    self.baseConfig.showIndex = self.baseConfig.currentIndex + (self.baseConfig.showCrossLinePoint.x - self.showFrame.origin.x - startX) / (self.showFrame.size.width - startX * 2) * self.baseConfig.currentShowNum;
+    self.baseConfig.showIndex = self.baseConfig.currentIndex + (translatedPoint.x - self.showFrame.origin.x - startX) / (self.showFrame.size.width - startX * 2) * self.baseConfig.currentShowNum;
     if (self.baseConfig.showIndex >= 0 && self.baseConfig.showIndex > [self dataNumber] - 1) {
         self.baseConfig.showIndex = (NSInteger)[self dataNumber] - 1;
     }else if (self.baseConfig.showIndex >= 0 && self.baseConfig.showIndex > self.baseConfig.currentIndex + self.baseConfig.currentShowNum - 1) {
@@ -393,6 +397,20 @@
         for (NSInteger i = 0 ; i < arr.count; i++) {
             ChartBaseView *zb = arr[i];
             [zb.baseConfig SyncParameter:self.baseConfig];
+        }
+    }
+    
+    CGPoint crossLinePoint = [self correctCrossLinePoint:translatedPoint];
+    self.baseConfig.showCrossLinePoint = crossLinePoint;
+    if (chartIsValidArr(self.ftViews)) {
+        NSArray *arr = [NSArray arrayWithArray:self.ftViews];
+        for (NSInteger i = 0 ; i < arr.count; i++) {
+            ChartBaseView *zb = arr[i];
+//            CGPoint translatedPoint2 = [recognizer locationInView:zb];
+//            CGPoint crossLinePoint2 = [zb correctCrossLinePoint:translatedPoint2];
+            CGPoint crossLinePoint2 = [zb correctCrossLinePoint:crossLinePoint];
+            zb.baseConfig.showCrossLinePoint = crossLinePoint2;
+            zb.baseConfig.showCrossLine = YES;
         }
     }
 }
@@ -436,4 +454,17 @@
     return YES;
 }
 
+- (CGPoint)correctCrossLinePoint:(CGPoint)crossLinePoint{
+    CGPoint point = crossLinePoint;
+    
+    NSString *className = NSStringFromClass([self class]);
+    float startX = [className isEqual:@"ChartFSView"] ? 0 : [ChartTools getStartX:self.showFrame total:self.baseConfig.currentShowNum];
+    CGFloat num = self.baseConfig.showIndex - self.baseConfig.currentIndex;
+    num = num >= 0 ? num : 0;
+    num = num / self.baseConfig.currentShowNum;
+    CGFloat x = startX + (self.showFrame.size.width - startX * 2) * num + (self.showFrame.size.width - startX * 2) / self.baseConfig.currentShowNum / 2;
+    
+    point.x = x;
+    return point;
+}
 @end

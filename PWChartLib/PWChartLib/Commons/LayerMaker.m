@@ -24,10 +24,12 @@
     if (points.count == 0) {
         return layer;
     }
+    __block BOOL currentPoint = NO;
     UIBezierPath *linePath = [UIBezierPath bezierPath];
     [points enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         CGPoint point = [points[idx] CGPointValue];
-        if (idx == 0) {
+        if (!currentPoint) {
+            currentPoint = YES;
             [linePath moveToPoint:point];
         }else{
             [linePath addLineToPoint:point];
@@ -76,15 +78,19 @@
     CGFloat height = showFrame.size.height;
     CGFloat mid = fabs(top - bottom);
     if (mid != 0) {
+        __block BOOL currentPoint = NO;
         [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            CGFloat value = [obj doubleValue] - bottom;
+            CGFloat value = (isnan([obj doubleValue]) || isinf([obj doubleValue]) ? 0 : [obj doubleValue]) - bottom;
             CGFloat x = startX +  width / (total - 1) * idx;
             CGFloat y = height * (1 - value / mid) + showFrame.origin.y;
             CGPoint point = CGPointMake(x, y);
-            if (idx == start) {
-                [linePath moveToPoint:point];
-            }else if (idx > start){
-                [linePath addLineToPoint:point];
+            if (idx >= start) {
+                if (!currentPoint) {
+                    currentPoint = YES;
+                    [linePath moveToPoint:point];
+                }else{
+                    [linePath addLineToPoint:point];
+                }
             }
         }];
     }
@@ -258,6 +264,40 @@ void processPathElement(void* info, const CGPathElement* element) {
         volLayer.strokeColor = color;
         [layer addSublayer:volLayer];
     }];
+    return layer;
+}
+
++ (CALayer *)drawImages:(CGRect)showFrame total:(float)total top:(float)top bottom:(float)bottom image:(UIImage *)image array:(NSArray *)array isBuy:(BOOL)isBuy{
+    CALayer *layer = [[CALayer alloc] init];
+    if (!image) {
+        return layer;
+    }
+    CGFloat startX = [ChartTools getStartX:showFrame total:total];
+    CGFloat width = (showFrame.size.width - 2 * startX) / total;
+    CGFloat height = showFrame.size.height;
+    CGFloat mid = fabs(top - bottom);
+    if (mid == 0) {
+        mid = 1;
+    }
+    __block CGFloat x = startX + width / 2;
+    CGImageRef imageRef = image.CGImage;
+    [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        CGFloat value = [obj doubleValue];
+        if (isnan(value) || isinf(value)) {
+            return;
+        }
+        x = startX + width / 2 + idx * width;
+        x = x - image.size.width / 2;
+        value = value - bottom;
+        CGFloat y = height * (1 - value / mid) + showFrame.origin.y;
+        y = isBuy ? (y + image.size.height / 2) : (y - image.size.height);
+        
+        CALayer *imageLayer = [[CALayer alloc] init];
+        imageLayer.frame = CGRectMake(x, y, image.size.width, image.size.height);
+        imageLayer.contents = (__bridge id _Nullable)(imageRef);
+        [layer addSublayer:imageLayer];
+    }];
+//    CGImageRelease(imageRef);
     return layer;
 }
 @end

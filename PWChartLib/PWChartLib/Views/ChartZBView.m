@@ -66,6 +66,17 @@
     }];
 }
 
+- (void)clearData{
+    [_config.zbDatas.datas removeAllObjects];
+    [self startDraw];
+}
+
+- (void)changeZB:(NSString *)zbName{
+    self.config.ftZBName = zbName;
+    [self.config getZBData];
+    [self startDraw];
+}
+
 - (void)setZtView:(ChartBaseView *)ztView{
     if (super.ztView) {
         [super.ztView.ftViews removeObject:self];
@@ -85,5 +96,11 @@
         [self.config getZBData];
         [self startDraw];
     }
+}
+
+- (CGPoint)correctCrossLinePoint:(CGPoint)crossLinePoint{
+    CGPoint point = [super correctCrossLinePoint:crossLinePoint];
+    point.y = -1;
+    return point;
 }
 @end

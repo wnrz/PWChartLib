@@ -43,6 +43,8 @@
 - (void)startDraw;
 
 - (void)setData:(id)data;
+- (void)clearData;
+- (void)changeZB:(NSString *)zbName;
 
 - (NSInteger)dataNumber;
 
@@ -51,4 +53,5 @@
 - (void)longPressedGesAction:(UILongPressGestureRecognizer *)recognizer;
 - (UIPanGestureRecognizer *)getPanGestureRecognizer;
 - (BOOL)canUsePanGestureRecognizer;
+- (CGPoint)correctCrossLinePoint:(CGPoint)crossLinePoint;
 @end

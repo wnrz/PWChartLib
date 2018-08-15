@@ -26,6 +26,8 @@
 
 @property (nonatomic , weak) IBOutlet ChartFXView *baseView2;
 @property (nonatomic , weak) IBOutlet ChartZBView *ftView2;
+
+@property (nonatomic , weak) IBOutlet UILabel *fxzblabel;
 @end
 
 @implementation ViewController
@@ -37,12 +39,12 @@
     
     fsBridge = [[FSDataBridge alloc] init];
     fsBridge.fsView = _baseView;
-//        fsBridge.codeId = @"AUTD";
-//        fsBridge.marketCode = @"SGE";
+        fsBridge.codeId = @"AUTD";
+        fsBridge.marketCode = @"SGE";
     
     //    fsBridge.codeId = @"EUR";
-    fsBridge.codeId = @"CNH";
-    fsBridge.marketCode = @"MSFX";
+//    fsBridge.codeId = @"CNH";
+//    fsBridge.marketCode = @"MSFX";
     
     fxBridge = [[FXDataBridge alloc] init];
     fxBridge.fxView = _baseView2;
@@ -101,6 +103,48 @@
 - (IBAction)loadFS:(id)sender{
     [fsBridge loadFS];
     [fxBridge loadFX:0];
+}
+
+- (IBAction)clearFS:(id)sender{
+    [_baseView clearData];
+    [_ftView clearData];
+}
+
+- (IBAction)clearFX:(id)sender{
+    [_baseView2 clearData];
+    [_ftView2 clearData];
+}
+
+- (IBAction)changeFSZB:(id)sender{
+    NSArray *arr = @[@"VOL",@"KDJ",@"MACD"];
+    NSInteger index = [arr indexOfObject:_ftView.config.ftZBName];
+    index = index + 1 >= arr.count ? 0 : index + 1;
+    [_ftView changeZB:arr[index]];
+}
+
+- (IBAction)changeFXZB:(id)sender{
+    NSArray *arr = @[@"VOL",@"MACD",@"CCI",@"KDJ",@"RSI",@"PSY",@"WR",@"ASI",@"OBV",@"ROC"];
+    NSInteger index = [arr indexOfObject:_ftView2.config.ftZBName];
+    index = index + 1 >= arr.count ? 0 : index + 1;
+    _fxzblabel.text = arr[index];
+    [_ftView2 changeZB:arr[index]];
+}
+
+- (IBAction)changeFXZQ:(id)sender{
+    NSInteger kline = _baseView2.fxConfig.fxLinetype;
+    kline = kline == KLineType_MONTH ? KLineType_1Min : kline + 1;
+    [_baseView2 changeZQ:kline];
+    [fxBridge loadFX:0];
+}
+
+- (IBAction)tszf:(id)sender{
+    [_baseView2 changeZQ:KLineType_DAY];
+    [fxBridge loadFX:0];
+    NSArray *arr = @[@"MA",@"特色"];
+    NSInteger index = [arr indexOfObject:_baseView2.fxConfig.ztZBName];
+    index = index + 1 >= arr.count ? 0 : index + 1;
+    _fxzblabel.text = arr[index];
+    [_baseView2 changeZB:arr[index]];
 }
 
 - (IBAction)showHide:(id)sender{
