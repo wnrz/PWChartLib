@@ -109,7 +109,7 @@
     [self startDraw];
 }
 
-- (void)changeZQ:(KLineType)fxLinetype{
+- (void)changeZQ:(NSInteger)fxLinetype{
     if (self.fxConfig.fxLinetype != fxLinetype) {
         [self clearData];
         NSArray *arr = [NSArray arrayWithArray:self.ftViews];

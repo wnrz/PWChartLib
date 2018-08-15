@@ -20,5 +20,5 @@
 - (void)saveDatas:(NSArray<ChartFXDataModel *> *)datas;
 
 - (void)showZB:(NSString *)zbName;
-- (void)changeZQ:(KLineType)fxLinetype;
+- (void)changeZQ:(NSInteger)fxLinetype;
 @end

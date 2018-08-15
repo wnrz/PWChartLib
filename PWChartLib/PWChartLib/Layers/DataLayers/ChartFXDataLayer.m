@@ -93,7 +93,7 @@
                 ChartFXDataModel *model = self.fxConfig.fxDatas[idx];
                 model.date = model.date.length > 8 ? model.date : [NSString stringWithFormat:@"%08ld" , (long)[model.date integerValue]];
                 model.time = model.time.length > 4 ? model.time : [NSString stringWithFormat:@"%04ld" , (long)[model.time integerValue]];
-                if (self.fxConfig.fxLinetype < 4) {
+                if (self.fxConfig.fxLinetype < self.fxConfig.dayLineNum) {
                     string = [NSString stringWithFormat:@"%@/%@ %@:%@" , [model.date substringWithRange:NSMakeRange(4, 2)] , [model.date substringWithRange:NSMakeRange(6, 2)] , [model.time substringToIndex:2] , [model.time substringFromIndex:2]];
                 }else{
                     string = [NSString stringWithFormat:@"%@/%@/%@" , [model.date substringToIndex:4] , [model.date substringWithRange:NSMakeRange(4, 2)] , [model.date substringWithRange:NSMakeRange(6, 2)]];

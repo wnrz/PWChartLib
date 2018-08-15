@@ -11,16 +11,6 @@
 #import "ChartBaseViewModel.h"
 #import "ChartZBDataModel.h"
 
-typedef NS_ENUM(NSInteger , KLineType){
-    KLineType_1Min = 0,
-    KLineType_5Min,
-    KLineType_30Min,
-    KLineType_60Min,
-    KLineType_DAY,
-    KLineType_WEEK,
-    KLineType_MONTH,
-};
-
 typedef enum{
     FXZTZBNone = 0,
     FXZTZBMA,
@@ -32,7 +22,8 @@ typedef enum{
 @property (nonatomic , strong)NSMutableArray<ChartFXDataModel *> *fxDatas;
 @property (nonatomic , weak)ChartBaseViewModel *baseConfig;
 //k线属性
-@property (nonatomic , assign)KLineType fxLinetype; // k线周期主图类型
+@property (nonatomic , assign)NSInteger dayLineNum; // 日k的编号 小于这个的type显示时间 大于等于这个的不现实时间之显示日期
+@property (nonatomic , assign)NSInteger fxLinetype; // k线周期主图类型
 
 
 @property (nonatomic , strong)ChartZBDataModel *zbDatas;

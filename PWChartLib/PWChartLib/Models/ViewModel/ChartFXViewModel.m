@@ -25,6 +25,7 @@
         _baseConfig = baseConfig;
         _fxDatas = [[NSMutableArray alloc] init];
         fxMapTable = [NSMapTable strongToWeakObjectsMapTable];
+        self.dayLineNum = 4;
         _baseConfig.maxShowNum = 150;
         _baseConfig.minShowNum = 20;
         _baseConfig.currentShowNum = 55;
@@ -152,7 +153,7 @@
     [_fxDatas addObjectsFromArray:datas];
 }
 
-- (void)setfxLinetype:(KLineType)fxLinetype{
+- (void)setfxLinetype:(NSInteger)fxLinetype{
     if (_fxLinetype != fxLinetype) {
         _fxLinetype = fxLinetype;
         [self.fxDatas removeAllObjects];
