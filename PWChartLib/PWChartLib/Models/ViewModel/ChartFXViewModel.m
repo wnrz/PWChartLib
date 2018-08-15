@@ -25,11 +25,11 @@
         _baseConfig = baseConfig;
         _fxDatas = [[NSMutableArray alloc] init];
         fxMapTable = [NSMapTable strongToWeakObjectsMapTable];
-        self.dayLineNum = 4;
         _baseConfig.maxShowNum = 150;
         _baseConfig.minShowNum = 20;
         _baseConfig.currentShowNum = 55;
         _zbDatas = [[ChartZBDataModel alloc] init];
+        _showBottomHourAndMin = YES;
     }
     return self;
 }

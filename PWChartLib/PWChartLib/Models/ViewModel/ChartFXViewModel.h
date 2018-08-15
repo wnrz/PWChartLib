@@ -22,7 +22,7 @@ typedef enum{
 @property (nonatomic , strong)NSMutableArray<ChartFXDataModel *> *fxDatas;
 @property (nonatomic , weak)ChartBaseViewModel *baseConfig;
 //k线属性
-@property (nonatomic , assign)NSInteger dayLineNum; // 日k的编号 小于这个的type显示时间 大于等于这个的不现实时间之显示日期
+@property (nonatomic , assign)BOOL showBottomHourAndMin; // 是否时间显示日期
 @property (nonatomic , assign)NSInteger fxLinetype; // k线周期主图类型
 
 
