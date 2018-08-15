@@ -52,22 +52,19 @@
     if (end < start) {
         return;
     }
-    __block CGFloat top = _baseConfig.topPrice;
-    __block CGFloat bottom = _baseConfig.bottomPrice;
+    CGFloat top = _baseConfig.topPrice;
+    CGFloat bottom = _baseConfig.bottomPrice;
     NSArray *arr = [_fxDatas subarrayWithRange:NSMakeRange(start, end - start)];
-    [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        ChartFXDataModel *model = obj;
-        top = [model.topPrice doubleValue] > top ? [model.topPrice doubleValue] : top;
-        top = [model.openPrice doubleValue] > top ? [model.openPrice doubleValue] : top;
-        top = [model.closePrice doubleValue] > top ? [model.closePrice doubleValue] : top;
-        top = [model.bottomPrice doubleValue] > top ? [model.bottomPrice doubleValue] : top;
-        
-        bottom = bottom ? bottom : top;
-        bottom = [model.topPrice doubleValue] < bottom ? [model.topPrice doubleValue] : bottom;
-        bottom = [model.openPrice doubleValue] < bottom ? [model.openPrice doubleValue] : bottom;
-        bottom = [model.closePrice doubleValue] < bottom ? [model.closePrice doubleValue] : bottom;
-        bottom = [model.bottomPrice doubleValue] < bottom ? [model.bottomPrice doubleValue] : bottom;
-    }];
+    NSArray *array = @[[arr valueForKeyPath:@"@max.topPrice"],
+                       [arr valueForKeyPath:@"@max.openPrice"],
+                       [arr valueForKeyPath:@"@max.closePrice"],
+                       [arr valueForKeyPath:@"@max.bottomPrice"],
+                       [arr valueForKeyPath:@"@min.topPrice"],
+                       [arr valueForKeyPath:@"@min.openPrice"],
+                       [arr valueForKeyPath:@"@min.closePrice"],
+                       [arr valueForKeyPath:@"@min.bottomPrice"]];
+    top = [[array valueForKeyPath:@"@max.self"] doubleValue];
+    bottom = [[array valueForKeyPath:@"@min.self"] doubleValue];
     if (_baseConfig.topPrice != top && _baseConfig.bottomPrice != bottom) {
         CGFloat mid = top - bottom;
         mid = mid * (5 / self.baseConfig.showFrame.size.height);

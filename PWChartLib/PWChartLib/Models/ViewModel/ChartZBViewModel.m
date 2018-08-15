@@ -106,23 +106,20 @@
     if (end < start) {
         return;
     }
-    __block CGFloat top = _baseConfig.topPrice;
-    __block CGFloat bottom = _baseConfig.bottomPrice;
+    CGFloat top = _baseConfig.topPrice;
+    CGFloat bottom = _baseConfig.bottomPrice;
     if (self.zbType == FTZBFSVOL || self.zbType == FTZBFXVOL) {
         NSArray *arr = [dataArr subarrayWithRange:NSMakeRange(start, end - start)];
-        [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (self->_fsConfig) {
-                ChartFSDataModel *model = obj;
-                top = [model.nowVol doubleValue] > top ? [model.nowVol doubleValue] : top;
-                bottom = bottom ? bottom : top;
-                bottom = [model.nowVol doubleValue] < bottom ? [model.nowVol doubleValue] : bottom;
-            }else{
-                ChartFXDataModel *model = obj;
-                top = [model.volume doubleValue] > top ? [model.volume doubleValue] : top;
-                bottom = bottom ? bottom : top;
-                bottom = [model.volume doubleValue] < bottom ? [model.volume doubleValue] : bottom;
-            }
-        }];
+        NSArray *array;
+        if (self.fsConfig) {
+            array = @[[arr valueForKeyPath:@"@max.nowVol"],
+                      [arr valueForKeyPath:@"@min.nowVol"]];
+        }else{
+            array = @[[arr valueForKeyPath:@"@max.volume"],
+                      [arr valueForKeyPath:@"@min.volume"]];
+        }
+        top = [[array valueForKeyPath:@"@max.self"] doubleValue];
+        bottom = [[array valueForKeyPath:@"@min.self"] doubleValue];
         _baseConfig.topPrice = top;
         _baseConfig.bottomPrice = bottom;
         _baseConfig.bottomPrice = 0;

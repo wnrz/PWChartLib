@@ -53,16 +53,16 @@
     if (end < start) {
         return;
     }
-    __block CGFloat top = _baseConfig.topPrice;
-    __block CGFloat bottom = _baseConfig.bottomPrice;
+    CGFloat top = _baseConfig.topPrice;
+    CGFloat bottom = _baseConfig.bottomPrice;
     NSArray *arr = [_fsDatas subarrayWithRange:NSMakeRange(start, end - start)];
-    [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        ChartFSDataModel *model = obj;
-        top = [model.nowPrice doubleValue] > top ? [model.nowPrice doubleValue] : top;
-        top = [model.nowPrice doubleValue] > top ? [model.avgPrice doubleValue] : top;
-        bottom = [model.nowPrice doubleValue] < bottom ? [model.nowPrice doubleValue] : bottom;
-        bottom = [model.nowPrice doubleValue] < bottom ? [model.avgPrice doubleValue] : bottom;
-    }];
+    NSArray *array = @[[arr valueForKeyPath:@"@max.nowPrice"],
+                       [arr valueForKeyPath:@"@max.avgPrice"],
+                       [arr valueForKeyPath:@"@min.nowPrice"],
+                       [arr valueForKeyPath:@"@min.avgPrice"]];
+    top = [[array valueForKeyPath:@"@max.self"] doubleValue];
+    bottom = [[array valueForKeyPath:@"@min.self"] doubleValue];
+    
     _baseConfig.topPrice = top;
     _baseConfig.bottomPrice = bottom;
 }
