@@ -61,7 +61,9 @@
     [self.formLayer redraw:^(ChartBaseLayer *obj) {
     }];
     
-    [self.chartsLayer drawKLine:_fxConfig];
+    if (self.fxConfig.drawKline) {
+        [self.chartsLayer drawKLine:_fxConfig];
+    }
     
     [_zbChartsLayer drawZB];
     

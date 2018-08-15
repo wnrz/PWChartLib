@@ -25,6 +25,7 @@ typedef enum{
 @property (nonatomic , assign)BOOL showBottomHourAndMin; // 是否时间显示日期
 @property (nonatomic , assign)NSInteger fxLinetype; // k线周期主图类型
 
+@property (nonatomic , assign)BOOL drawKline; //是否画k线 虚拟币的分时用fx图画 不显示k线
 
 @property (nonatomic , strong)ChartZBDataModel *zbDatas;
 @property (nonatomic , strong)NSString *ztZBName;

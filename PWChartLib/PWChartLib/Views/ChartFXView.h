@@ -17,6 +17,7 @@
 @property (nonatomic , strong)ZBChartsLayer *zbChartsLayer;
 @property (nonatomic , strong)ChartFXViewModel *fxConfig;
 
+
 - (void)saveDatas:(NSArray<ChartFXDataModel *> *)datas;
 
 - (void)showZB:(NSString *)zbName;
