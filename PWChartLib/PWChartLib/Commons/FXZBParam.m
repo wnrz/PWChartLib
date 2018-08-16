@@ -286,7 +286,7 @@ static FXZBParam* shareZBP=nil;
         float emaDea;
         float emaDeaOld;
         if (i == 120){
-            NSLog(@"");
+//            NSLog(@"");
         }
         if (i > 0) {
             ema1Old = [[ema1array objectAtIndex:i - 1] doubleValue];

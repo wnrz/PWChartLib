@@ -56,6 +56,9 @@
     if (baseConfig.topPrice == 0 && baseConfig.bottomPrice == 0) {
         baseConfig.topPrice = top;
         baseConfig.bottomPrice = bottom;
+    }else{
+        baseConfig.topPrice = baseConfig.topPrice > top ? baseConfig.topPrice : top;
+        baseConfig.bottomPrice = baseConfig.bottomPrice < bottom ? baseConfig.bottomPrice : bottom;
     }
 }
 @end

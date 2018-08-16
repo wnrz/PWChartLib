@@ -94,6 +94,9 @@
     float pageSize = 300.0f;
     BOOL more = (type == 1);
     BOOL last = (type == 2);
+    if (last && _fxView.fxConfig.fxDatas.count == 0) {
+        last = NO;
+    }
     if (!_fxView) {
         return;
     }
@@ -101,6 +104,8 @@
         if (_fxView.fxConfig.fxDatas.count < pageSize) {
             return;
         }
+    }else{
+        isLoadingMore = NO;
     }
     NSString *period = [self getPeriod];
     NSInteger pageNum = last ? 1 : more ? floor(_fxView.fxConfig.fxDatas.count / pageSize) + 1 : 1;
