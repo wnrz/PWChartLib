@@ -114,7 +114,8 @@
             frame = CGRectMake(point.x - size.width - 10, point.y - size.height / 2, isCross ? size.width + 10 : size.width, size.height);
         }
         frame = [self chackFrame:frame];
-        CATextLayer *layer = [LayerMaker getTextLayer:string point:point font:[UIFont systemFontOfSize:12] foregroundColor:[ChartColors colorByKey:(isCross ? kChartColorKey_TextBorderText : kChartColorKey_Text)] frame:frame];
+        UIColor *color = isCross ? [ChartColors colorByKey:(kChartColorKey_TextBorderText)] : !(isLeft ? _isLeftRiseFallColor : _isRightRiseFallColor) ? [ChartColors colorByKey:(kChartColorKey_Text)] : num > 0.5 ? [ChartColors colorByKey:(kChartColorKey_Rise)] : num < 0.5 ? [ChartColors colorByKey:(kChartColorKey_Fall)] : [ChartColors colorByKey:(kChartColorKey_Stay)];
+        CATextLayer *layer = [LayerMaker getTextLayer:string point:point font:[UIFont systemFontOfSize:12] foregroundColor:color frame:frame];
         if (isCross) {
             layer.backgroundColor = [ChartColors colorByKey:kChartColorKey_TextBorderBackground].CGColor;
             layer.borderColor = [ChartColors colorByKey:kChartColorKey_TextBorder].CGColor;

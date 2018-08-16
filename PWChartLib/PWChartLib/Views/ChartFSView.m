@@ -62,6 +62,8 @@
         [(ChartDataLayer *)obj setIsDrawRightText:YES];
         [(ChartDataLayer *)obj setIsDrawCrossLeftText:YES];
         [(ChartDataLayer *)obj setIsDrawCrossRightText:YES];
+        [(ChartDataLayer *)obj setIsLeftRiseFallColor:YES];
+        [(ChartDataLayer *)obj setIsRightRiseFallColor:YES];
     }];
     
     [_fsDataLayer redraw:^(ChartBaseLayer *obj) {

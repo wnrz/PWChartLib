@@ -18,4 +18,7 @@
 
 @property (nonatomic , assign) BOOL isDrawCrossLeftText;
 @property (nonatomic , assign) BOOL isDrawCrossRightText;
+
+@property (nonatomic , assign) BOOL isLeftRiseFallColor;
+@property (nonatomic , assign) BOOL isRightRiseFallColor;
 @end
