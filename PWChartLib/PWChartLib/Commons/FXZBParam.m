@@ -225,12 +225,12 @@ static FXZBParam* shareZBP=nil;
     for (NSInteger i = 0 ; i < [array count]; i++) {
         ChartFXDataModel *klm = [array objectAtIndex:i];
         
-        float ema1;
-        float ema1Old;
-        float ema2;
-        float ema2Old;
-        float emaDea;
-        float emaDeaOld;
+        float ema1 = 0;
+        float ema1Old = 0;
+        float ema2 = 0;
+        float ema2Old = 0;
+        float emaDea = 0;
+        float emaDeaOld = 0;
         if (i > 0) {
             ema1Old = [[ema1array objectAtIndex:i - 1] doubleValue];
             ema2Old = [[ema2array objectAtIndex:i - 1] doubleValue];
@@ -286,7 +286,7 @@ static FXZBParam* shareZBP=nil;
         float emaDea;
         float emaDeaOld;
         if (i == 120){
-//            NSLog(@"");
+            //            NSLog(@"");
         }
         if (i > 0) {
             ema1Old = [[ema1array objectAtIndex:i - 1] doubleValue];
@@ -1947,3 +1947,4 @@ static FXZBParam* shareZBP=nil;
     return result;
 }
 @end
+
