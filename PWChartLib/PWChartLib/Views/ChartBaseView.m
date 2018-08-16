@@ -464,7 +464,9 @@
     num = num / self.baseConfig.currentShowNum;
     CGFloat x = startX + (self.showFrame.size.width - startX * 2) * num + (self.showFrame.size.width - startX * 2) / self.baseConfig.currentShowNum / 2;
     
-    point.x = x;
+    if (!isnan(x) && !isinf(x)) {
+        point.x = x;
+    }
     return point;
 }
 @end
