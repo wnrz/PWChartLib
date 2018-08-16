@@ -10,6 +10,12 @@
 #import <PWDataBridge/PWDataBridge.h>
 #import "ChartHQDataModel.h"
 
+typedef enum{
+    BottomDataType_Time = 0,
+    BottomDataType_Date,
+    BottomDataType_DateAndTime,
+} BottomDataType;  //底部显示类型
+
 @interface ChartBaseViewModel : PWBaseDataBridge
 
 @property (nonatomic , strong)ChartHQDataModel *hqData;
@@ -46,6 +52,6 @@
 @property(nonatomic , assign)BOOL isDrawCrossLeftText;  //左侧是否显示十字星文字
 @property(nonatomic , assign)BOOL isDrawCrossRightText;  //右侧是否显示十字星文字
 
-@property (nonatomic , assign)BOOL showBottomHourAndMin; // 是否时间显示日期
+@property (nonatomic , assign)BottomDataType showBottomType; // 是否时间显示日期
 - (void)SyncParameter:(ChartBaseViewModel *)con;
 @end

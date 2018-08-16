@@ -29,6 +29,7 @@
         _topPrices = [[NSMutableDictionary alloc] init];
         _bottomPrices = [[NSMutableDictionary alloc] init];
         _isShowShadow = YES;
+        _baseConfig.showBottomType = BottomDataType_Time;
     }
     return self;
 }

@@ -76,10 +76,12 @@
                     idx = _fsConfig.fsDatas.count - 1;
                 }
                 ChartFSDataModel *model = _fsConfig.fsDatas[idx];
-                if (self.baseConfig.showBottomHourAndMin) {
+                if (self.baseConfig.showBottomType == BottomDataType_DateAndTime) {
                     string = [NSString stringWithFormat:@"%@/%@ %@:%@" , [model.date substringWithRange:NSMakeRange(4, 2)] , [model.date substringWithRange:NSMakeRange(6, 2)] , [model.time substringToIndex:2] , [model.time substringFromIndex:2]];
-                }else{
+                }else if (self.baseConfig.showBottomType == BottomDataType_Date) {
                     string = [NSString stringWithFormat:@"%@/%@/%@" , [model.date substringToIndex:4] , [model.date substringWithRange:NSMakeRange(4, 2)] , [model.date substringWithRange:NSMakeRange(6, 2)]];
+                }else if (self.baseConfig.showBottomType == BottomDataType_Time) {
+                    string = [NSString stringWithFormat:@"%@:%@" , [model.time substringToIndex:2] , [model.time substringFromIndex:2]];
                 }
             }
         }else{
@@ -99,10 +101,12 @@
                 NSInteger idx = index * (self.fsConfig.fsDatas.count - 1);
                 if (self.fsConfig.fsDatas.count > idx) {
                     ChartFSDataModel *model = self.fsConfig.fsDatas[idx];
-                    if (self.baseConfig.showBottomHourAndMin) {
+                    if (self.baseConfig.showBottomType == BottomDataType_DateAndTime) {
                         string = [NSString stringWithFormat:@"%@/%@ %@:%@" , [model.date substringWithRange:NSMakeRange(4, 2)] , [model.date substringWithRange:NSMakeRange(6, 2)] , [model.time substringToIndex:2] , [model.time substringFromIndex:2]];
-                    }else{
+                    }else if (self.baseConfig.showBottomType == BottomDataType_Date) {
                         string = [NSString stringWithFormat:@"%@/%@/%@" , [model.date substringToIndex:4] , [model.date substringWithRange:NSMakeRange(4, 2)] , [model.date substringWithRange:NSMakeRange(6, 2)]];
+                    }else if (self.baseConfig.showBottomType == BottomDataType_Time) {
+                        string = [NSString stringWithFormat:@"%@:%@" , [model.time substringToIndex:2] , [model.time substringFromIndex:2]];
                     }
                 }
             }
