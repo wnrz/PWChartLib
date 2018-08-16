@@ -65,11 +65,13 @@
                        [arr valueForKeyPath:@"@min.bottomPrice"]];
     top = [[array valueForKeyPath:@"@max.self"] doubleValue];
     bottom = [[array valueForKeyPath:@"@min.self"] doubleValue];
+    CGFloat mid = top - bottom;
+    mid = mid * (10 / self.baseConfig.showFrame.size.height);
+    top = top + mid;
+    bottom = bottom - mid;
     if (_baseConfig.topPrice != top && _baseConfig.bottomPrice != bottom) {
-        CGFloat mid = top - bottom;
-        mid = mid * (5 / self.baseConfig.showFrame.size.height);
-        _baseConfig.topPrice = top + mid;
-        _baseConfig.bottomPrice = bottom - mid;
+        _baseConfig.topPrice = top;
+        _baseConfig.bottomPrice = bottom;
     }
     [self.zbDatas chackTopAndBottomPrice:_baseConfig];
 }
