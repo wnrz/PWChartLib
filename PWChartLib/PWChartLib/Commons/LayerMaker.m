@@ -85,6 +85,9 @@
             CGFloat y = height * (1 - value / mid) + showFrame.origin.y;
             CGPoint point = CGPointMake(x, y);
             if (idx >= start) {
+                if (isnan(point.x) || isinf(point.x) || isnan(point.y) || isinf(point.y)) {
+                    NSLog(@"");
+                }
                 if (!currentPoint) {
                     currentPoint = YES;
                     [linePath moveToPoint:point];

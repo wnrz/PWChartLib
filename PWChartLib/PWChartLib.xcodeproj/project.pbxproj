@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		47DD4016A8EF6235D6B7DDD4 /* libPods-PWChartLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91D3DD52D7573EADD4195CC2 /* libPods-PWChartLib.a */; };
+		92294B9E2125BDF70017783A /* ChartFormLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 92294B9C2125BDF70017783A /* ChartFormLayer.m */; };
+		92294B9F2125BDF70017783A /* ChartFormLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 92294B9D2125BDF70017783A /* ChartFormLayer.h */; };
 		928732AD211A980B00FB2771 /* PWChartLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928732A3211A980B00FB2771 /* PWChartLib.framework */; };
 		928732B2211A980B00FB2771 /* PWChartLibTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 928732B1211A980B00FB2771 /* PWChartLibTests.m */; };
 		928732B4211A980B00FB2771 /* PWChartLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 928732A6211A980B00FB2771 /* PWChartLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -43,8 +45,6 @@
 		928732FF211A9ABC00FB2771 /* FXZBParam.h in Headers */ = {isa = PBXBuildFile; fileRef = 928732FB211A9ABC00FB2771 /* FXZBParam.h */; };
 		92873302211A9F5800FB2771 /* ChartTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 92873300211A9F5800FB2771 /* ChartTools.h */; };
 		92873303211A9F5800FB2771 /* ChartTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 92873301211A9F5800FB2771 /* ChartTools.m */; };
-		92873309211AC75A00FB2771 /* ChartBaseFormLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 92873307211AC75900FB2771 /* ChartBaseFormLayer.h */; };
-		9287330A211AC75A00FB2771 /* ChartBaseFormLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 92873308211AC75900FB2771 /* ChartBaseFormLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +60,8 @@
 /* Begin PBXFileReference section */
 		01229CAE4708BAE40171FA3A /* Pods-PWChartLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PWChartLib.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PWChartLib/Pods-PWChartLib.debug.xcconfig"; sourceTree = "<group>"; };
 		91D3DD52D7573EADD4195CC2 /* libPods-PWChartLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PWChartLib.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		92294B9C2125BDF70017783A /* ChartFormLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartFormLayer.m; sourceTree = "<group>"; };
+		92294B9D2125BDF70017783A /* ChartFormLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartFormLayer.h; sourceTree = "<group>"; };
 		928732A3211A980B00FB2771 /* PWChartLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PWChartLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		928732A6211A980B00FB2771 /* PWChartLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWChartLib.h; sourceTree = "<group>"; };
 		928732A7211A980B00FB2771 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -98,8 +100,6 @@
 		928732FB211A9ABC00FB2771 /* FXZBParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXZBParam.h; sourceTree = "<group>"; };
 		92873300211A9F5800FB2771 /* ChartTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChartTools.h; sourceTree = "<group>"; };
 		92873301211A9F5800FB2771 /* ChartTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChartTools.m; sourceTree = "<group>"; };
-		92873307211AC75900FB2771 /* ChartBaseFormLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChartBaseFormLayer.h; sourceTree = "<group>"; };
-		92873308211AC75900FB2771 /* ChartBaseFormLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChartBaseFormLayer.m; sourceTree = "<group>"; };
 		FAA0F4488ACD4F8CEC02D990 /* Pods-PWChartLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PWChartLib.release.xcconfig"; path = "Pods/Target Support Files/Pods-PWChartLib/Pods-PWChartLib.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -264,8 +264,8 @@
 		92873304211AC72700FB2771 /* FormLayers */ = {
 			isa = PBXGroup;
 			children = (
-				92873307211AC75900FB2771 /* ChartBaseFormLayer.h */,
-				92873308211AC75900FB2771 /* ChartBaseFormLayer.m */,
+				92294B9D2125BDF70017783A /* ChartFormLayer.h */,
+				92294B9C2125BDF70017783A /* ChartFormLayer.m */,
 			);
 			path = FormLayers;
 			sourceTree = "<group>";
@@ -303,6 +303,7 @@
 				92873302211A9F5800FB2771 /* ChartTools.h in Headers */,
 				928732DF211A983E00FB2771 /* ChartZBView.h in Headers */,
 				928732E4211A983E00FB2771 /* ChartFSView.h in Headers */,
+				92294B9F2125BDF70017783A /* ChartFormLayer.h in Headers */,
 				928732F3211A983E00FB2771 /* ChartFXDataModel.h in Headers */,
 				928732E2211A983E00FB2771 /* ChartBaseView.h in Headers */,
 				928732E7211A983E00FB2771 /* ChartBaseViewModel.h in Headers */,
@@ -315,7 +316,6 @@
 				928732FF211A9ABC00FB2771 /* FXZBParam.h in Headers */,
 				928732E0211A983E00FB2771 /* ChartFXView.h in Headers */,
 				928732EF211A983E00FB2771 /* ChartFSDataModel.h in Headers */,
-				92873309211AC75A00FB2771 /* ChartBaseFormLayer.h in Headers */,
 				928732E9211A983E00FB2771 /* ChartFSViewModel.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -457,7 +457,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9287330A211AC75A00FB2771 /* ChartBaseFormLayer.m in Sources */,
+				92294B9E2125BDF70017783A /* ChartFormLayer.m in Sources */,
 				928732F2211A983E00FB2771 /* ChartHQDataModel.m in Sources */,
 				928732E1211A983E00FB2771 /* ChartFSView.m in Sources */,
 				928732E3211A983E00FB2771 /* ChartZBView.m in Sources */,

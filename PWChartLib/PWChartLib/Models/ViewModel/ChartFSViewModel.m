@@ -26,6 +26,9 @@
         _baseConfig = baseConfig;
         _fsDatas = [[NSMutableArray alloc] init];
         fsMapTable = [NSMapTable strongToWeakObjectsMapTable];
+        _topPrices = [[NSMutableDictionary alloc] init];
+        _bottomPrices = [[NSMutableDictionary alloc] init];
+        _isShowShadow = YES;
     }
     return self;
 }
@@ -40,31 +43,48 @@
     _baseConfig = nil;
     
     _times = nil;
+    
+    [_topPrices removeAllObjects];
+    _topPrices = nil;
+    [_bottomPrices removeAllObjects];
+    _bottomPrices = nil;
 }
 
 - (void)chackTopAndBottomPrice{
+    if (!_independentTopBottomPrice) {
+        NSDictionary * dict = [self chackTopAndBottomPrice:@[@"nowPrice",@"avgPrice"]];
+        _baseConfig.topPrice = [dict[@"top"] doubleValue];
+        _baseConfig.bottomPrice = [dict[@"bottom"] doubleValue];
+    }
+}
+
+- (NSDictionary *)chackTopAndBottomPrice:(NSArray *)keys{
     if (_fsDatas.count == 0) {
-        return;
+        return @{@"top":@(0),@"bottom":@(0)};
     }
     NSInteger start = _baseConfig.currentIndex;
-    NSInteger end = _baseConfig.currentIndex + _baseConfig.currentShowNum;
+    NSInteger length = _baseConfig.currentShowNum;
     start = start < 0 ? 0 : start;
-    end =  end > _fsDatas.count ? _fsDatas.count - 1 : 0;
-    if (end < start) {
-        return;
-    }
+    length =  length > (_fsDatas.count -  _baseConfig.currentIndex) ? _fsDatas.count -  _baseConfig.currentIndex : length;
+    length = length < 0 ? 0 : length;
     CGFloat top = _baseConfig.topPrice;
     CGFloat bottom = _baseConfig.bottomPrice;
-    NSArray *arr = [_fsDatas subarrayWithRange:NSMakeRange(start, end - start)];
-    NSArray *array = @[[arr valueForKeyPath:@"@max.nowPrice.doubleValue"],
-                       [arr valueForKeyPath:@"@max.avgPrice.doubleValue"],
-                       [arr valueForKeyPath:@"@min.nowPrice.doubleValue"],
-                       [arr valueForKeyPath:@"@min.avgPrice.doubleValue"]];
+    NSArray *arr = [_fsDatas subarrayWithRange:NSMakeRange(start, length)];
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    [keys enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *string1 = [NSString stringWithFormat:@"@max.%@.doubleValue" , obj];
+        NSString *string2 = [NSString stringWithFormat:@"@min.%@.doubleValue" , obj];
+        [array addObject:[arr valueForKeyPath:string1]];
+        [array addObject:[arr valueForKeyPath:string2]];
+    }];
     top = [[array valueForKeyPath:@"@max.self"] doubleValue];
     bottom = [[array valueForKeyPath:@"@min.self"] doubleValue];
     
-    _baseConfig.topPrice = top;
-    _baseConfig.bottomPrice = bottom;
+    if (_independentTopBottomPrice) {
+        [_topPrices setObject:@(top) forKey:keys];
+        [_bottomPrices setObject:@(bottom) forKey:keys];
+    }
+    return @{@"top":@(top),@"bottom":@(bottom)};
 }
 
 - (void)saveDatas:(NSArray<ChartFSDataModel *> *)datas{

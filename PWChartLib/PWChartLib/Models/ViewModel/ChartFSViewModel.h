@@ -21,8 +21,15 @@
 @property (nonatomic , weak)ChartBaseViewModel *baseConfig;
 @property (nonatomic , strong)NSArray<ChartFSTimeModel *> *times;
 @property (nonatomic , assign)BOOL isShowMA;
+@property (nonatomic , assign)BOOL isShowShadow;
+@property (nonatomic , assign)BOOL independentTopBottomPrice;
+
+@property(nonatomic , strong)NSMutableDictionary *topPrices;  //最高价格 字典 根据数据的属性名作为key 虚拟币可能有多个线 和多个左侧单位
+@property(nonatomic , strong)NSMutableDictionary *bottomPrices;  //最低价格 字典 根据数据的属性名作为key 虚拟币可能有多个线 和多个左侧单位
 
 - (instancetype)initWithBaseConfig:(ChartBaseViewModel *)baseConfig;
 - (void)saveDatas:(NSArray<ChartFSDataModel *> *)datas;
 - (void)updateTopAndBottomTimeByHQData:(ChartHQDataModel *)model;
+- (void)chackTopAndBottomPrice;
+- (NSDictionary *)chackTopAndBottomPrice:(NSArray *)keys;
 @end

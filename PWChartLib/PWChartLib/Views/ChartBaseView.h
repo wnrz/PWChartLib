@@ -47,6 +47,7 @@
 - (void)changeZB:(NSString *)zbName;
 
 - (NSInteger)dataNumber;
+- (void)SyncParameterConfigs;
 
 - (void)panGesAction:(UIPanGestureRecognizer*)recognizer;
 - (void)twoFingerPinch:(UIPinchGestureRecognizer *)recognizer;

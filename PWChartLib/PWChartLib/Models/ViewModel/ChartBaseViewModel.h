@@ -39,5 +39,13 @@
 @property(nonatomic , strong)NSArray *verticalSeparateDottedArr; //有多少个 横向 分割线 虚线 最小0 最大1
 @property(nonatomic , strong)NSArray *horizontalSeparateDottedArr;  //有多少个 纵向 分割线 虚线 最小0 最大1
 
+@property(nonatomic , assign)BOOL isLeftRiseFallColor;  //左侧是否显示涨跌色
+@property(nonatomic , assign)BOOL isRightRiseFallColor;  //右侧是否显示涨跌色
+@property(nonatomic , assign)BOOL isDrawLeftText;  //左侧是否显示文字
+@property(nonatomic , assign)BOOL isDrawRightText;  //右侧是否显示文字
+@property(nonatomic , assign)BOOL isDrawCrossLeftText;  //左侧是否显示十字星文字
+@property(nonatomic , assign)BOOL isDrawCrossRightText;  //右侧是否显示十字星文字
+
+@property (nonatomic , assign)BOOL showBottomHourAndMin; // 是否时间显示日期
 - (void)SyncParameter:(ChartBaseViewModel *)con;
 @end

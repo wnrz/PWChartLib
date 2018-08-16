@@ -65,17 +65,38 @@
             [nowArray addObject:@(model.nowPrice.doubleValue)];
             [avgArray addObject:@(model.avgPrice.doubleValue)];
         }];
-        CAShapeLayer *nowLayer = [LayerMaker getLineChartLayer:self.baseConfig.showFrame total:self.baseConfig.maxPointCount top:self.baseConfig.topPrice bottom:self.baseConfig.bottomPrice arr:nowArray start:0 startX:0];
+        
+        CGFloat top;
+        CGFloat bottom;
+        if (!self.fsConfig.independentTopBottomPrice) {
+            top = self.baseConfig.topPrice;
+            bottom = self.baseConfig.bottomPrice;
+        }else{
+            NSDictionary * dict = [self.fsConfig chackTopAndBottomPrice:@[@"nowPrice"]];
+            top = [dict[@"top"] doubleValue];
+            bottom = [dict[@"bottom"] doubleValue];
+        }
+        CAShapeLayer *nowLayer = [LayerMaker getLineChartLayer:self.baseConfig.showFrame total:self.baseConfig.maxPointCount top:top bottom:bottom   arr:nowArray start:0 startX:0];
         nowLayer.lineWidth = .5;
         nowLayer.strokeColor = [ChartColors colorByKey:kChartColorKey_XJ].CGColor;
         [self addSublayer:nowLayer];
         
-        CAGradientLayer *gradientLayer = [LayerMaker drawGredientLayer:self.baseConfig.showFrame path:nowLayer.path color:[ChartColors colorByKey:kChartColorKey_XJ]];
-        gradientLayer.frame = self.baseConfig.showFrame;
-        [self addSublayer:gradientLayer];
+        if (fsConfig.isShowShadow) {
+            CAGradientLayer *gradientLayer = [LayerMaker drawGredientLayer:self.baseConfig.showFrame path:nowLayer.path color:[ChartColors colorByKey:kChartColorKey_XJ]];
+            gradientLayer.frame = self.baseConfig.showFrame;
+            [self addSublayer:gradientLayer];
+        }
         
         if (fsConfig.isShowMA) {
-            CAShapeLayer *avgLayer = [LayerMaker getLineChartLayer:self.baseConfig.showFrame total:self.baseConfig.maxPointCount top:self.baseConfig.topPrice bottom:self.baseConfig.bottomPrice arr:avgArray start:0 startX:0];
+            if (!self.fsConfig.independentTopBottomPrice) {
+                top = self.baseConfig.topPrice;
+                bottom = self.baseConfig.bottomPrice;
+            }else{
+                NSDictionary * dict = [self.fsConfig chackTopAndBottomPrice:@[@"avgPrice"]];
+                top = [dict[@"top"] doubleValue];
+                bottom = [dict[@"bottom"] doubleValue];
+            }
+            CAShapeLayer *avgLayer = [LayerMaker getLineChartLayer:self.baseConfig.showFrame total:self.baseConfig.maxPointCount top:top bottom:bottom arr:avgArray start:0 startX:0];
             avgLayer.lineWidth = .5;
             avgLayer.strokeColor = [ChartColors colorByKey:kChartColorKey_JJ].CGColor;
             [self addSublayer:avgLayer];

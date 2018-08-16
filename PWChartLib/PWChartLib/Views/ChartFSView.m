@@ -35,6 +35,12 @@
     [self.layer insertSublayer:_fsDataLayer above:self.dataLayer];
     
     self.enableScale = NO;
+    self.baseConfig.isDrawLeftText = YES;
+    self.baseConfig.isDrawRightText = YES;
+    self.baseConfig.isDrawCrossLeftText = YES;
+    self.baseConfig.isDrawCrossRightText = YES;
+    self.baseConfig.isLeftRiseFallColor = YES;
+    self.baseConfig.isRightRiseFallColor = YES;
 }
 
 - (void)initFormLayer{
@@ -58,12 +64,12 @@
     }];
     
     [self.dataLayer redraw:^(ChartBaseLayer *obj) {
-        [(ChartDataLayer *)obj setIsDrawLeftText:YES];
-        [(ChartDataLayer *)obj setIsDrawRightText:YES];
-        [(ChartDataLayer *)obj setIsDrawCrossLeftText:YES];
-        [(ChartDataLayer *)obj setIsDrawCrossRightText:YES];
-        [(ChartDataLayer *)obj setIsLeftRiseFallColor:YES];
-        [(ChartDataLayer *)obj setIsRightRiseFallColor:YES];
+        [(ChartDataLayer *)obj setIsDrawLeftText:self.fsDataLayer.baseConfig.isDrawLeftText];
+        [(ChartDataLayer *)obj setIsDrawRightText:self.fsDataLayer.baseConfig.isDrawRightText];
+        [(ChartDataLayer *)obj setIsDrawCrossLeftText:self.fsDataLayer.baseConfig.isDrawCrossLeftText];
+        [(ChartDataLayer *)obj setIsDrawCrossRightText:self.fsDataLayer.baseConfig.isDrawCrossRightText];
+        [(ChartDataLayer *)obj setIsLeftRiseFallColor:self.fsDataLayer.baseConfig.isLeftRiseFallColor];
+        [(ChartDataLayer *)obj setIsRightRiseFallColor:self.fsDataLayer.baseConfig.isRightRiseFallColor];
     }];
     
     [_fsDataLayer redraw:^(ChartBaseLayer *obj) {
@@ -98,11 +104,7 @@
 
 - (void)setTimes:(NSArray<ChartFSTimeModel *> *)times{
     _fsConfig.times = times;
-    NSArray *arr = [NSArray arrayWithArray:self.ftViews];
-    [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        ChartZBView *zbView = obj;
-        [zbView.baseConfig SyncParameter:self->_fsConfig.baseConfig];
-    }];
+    [self SyncParameterConfigs];
 }
 
 - (void)updateTopAndBottomTimeByHQData:(ChartHQDataModel *)model{

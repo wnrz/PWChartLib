@@ -29,7 +29,7 @@
         _baseConfig.minShowNum = 20;
         _baseConfig.currentShowNum = 55;
         _zbDatas = [[ChartZBDataModel alloc] init];
-        _showBottomHourAndMin = YES;
+        _baseConfig.showBottomHourAndMin = YES;
         _drawKline = YES;
     }
     return self;

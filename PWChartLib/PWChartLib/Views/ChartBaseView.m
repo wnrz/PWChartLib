@@ -104,8 +104,6 @@
     _showFrame = showFrame;
     
     _baseConfig.showFrame = showFrame;
-    
-    [self startDraw];
 }
 
 - (void)startDraw{
@@ -140,6 +138,14 @@
 
 - (NSInteger)dataNumber{
     return 0;
+}
+
+- (void)SyncParameterConfigs{
+    NSArray *arr = [NSArray arrayWithArray:self.ftViews];
+    [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        ChartBaseView *zbView = obj;
+        [zbView.baseConfig SyncParameter:self->_baseConfig];
+    }];
 }
 
 - (void)setEnableTap:(BOOL)enableTap{

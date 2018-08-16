@@ -110,19 +110,21 @@
     CGFloat bottom = _baseConfig.bottomPrice;
     if (self.zbType == FTZBFSVOL || self.zbType == FTZBFXVOL) {
         NSArray *arr = [dataArr subarrayWithRange:NSMakeRange(start, end - start)];
-        NSArray *array;
-        if (self.fsConfig) {
-            array = @[[arr valueForKeyPath:@"@max.nowVol.doubleValue"],
-                      [arr valueForKeyPath:@"@min.nowVol.doubleValue"]];
-        }else{
-            array = @[[arr valueForKeyPath:@"@max.volume.doubleValue"],
-                      [arr valueForKeyPath:@"@min.volume.doubleValue"]];
+        if (arr.count > 0) {
+            NSArray *array;
+            if (self.fsConfig) {
+                array = @[[arr valueForKeyPath:@"@max.nowVol.doubleValue"],
+                          [arr valueForKeyPath:@"@min.nowVol.doubleValue"]];
+            }else{
+                array = @[[arr valueForKeyPath:@"@max.volume.doubleValue"],
+                          [arr valueForKeyPath:@"@min.volume.doubleValue"]];
+            }
+            top = [[array valueForKeyPath:@"@max.self"] doubleValue];
+            bottom = [[array valueForKeyPath:@"@min.self"] doubleValue];
+            _baseConfig.topPrice = top;
+            _baseConfig.bottomPrice = bottom;
+            _baseConfig.bottomPrice = 0; 
         }
-        top = [[array valueForKeyPath:@"@max.self"] doubleValue];
-        bottom = [[array valueForKeyPath:@"@min.self"] doubleValue];
-        _baseConfig.topPrice = top;
-        _baseConfig.bottomPrice = bottom;
-        _baseConfig.bottomPrice = 0;
     }
     [self.zbDatas chackTopAndBottomPrice:_baseConfig];
 }

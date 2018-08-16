@@ -44,6 +44,11 @@
     _zbChartsLayer.baseConfig = self.baseConfig;
     _zbChartsLayer.fxConfig = _fxConfig;
     [self.layer insertSublayer:_zbChartsLayer above:self.chartsLayer];
+    
+    self.baseConfig.isDrawLeftText = YES;
+    self.baseConfig.isDrawRightText = NO;
+    self.baseConfig.isDrawCrossLeftText = YES;
+    self.baseConfig.isDrawCrossRightText = NO;
 }
 
 - (NSInteger)dataNumber{
@@ -71,10 +76,10 @@
     }];
     
     [self.dataLayer redraw:^(ChartBaseLayer *obj) {
-        [(ChartDataLayer *)obj setIsDrawLeftText:YES];
-        [(ChartDataLayer *)obj setIsDrawRightText:NO];
-        [(ChartDataLayer *)obj setIsDrawCrossLeftText:YES];
-        [(ChartDataLayer *)obj setIsDrawCrossRightText:NO];
+        [(ChartDataLayer *)obj setIsDrawLeftText:self.baseConfig.isDrawLeftText];
+        [(ChartDataLayer *)obj setIsDrawRightText:self.baseConfig.isDrawRightText];
+        [(ChartDataLayer *)obj setIsDrawCrossLeftText:self.baseConfig.isDrawCrossLeftText];
+        [(ChartDataLayer *)obj setIsDrawCrossRightText:self.baseConfig.isDrawCrossRightText];
     }];
     
     [_fxDataLayer redraw:^(ChartBaseLayer *obj) {

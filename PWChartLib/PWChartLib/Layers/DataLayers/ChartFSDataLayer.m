@@ -61,7 +61,7 @@
 }
 
 - (void)drawBottomWithNum:(NSInteger)index num:(CGFloat)num isCross:(BOOL)isCross{
-    if (self.baseConfig && self.fsConfig.times.count >= index) {
+    if (self.baseConfig) {
         CGFloat width = self.baseConfig.showFrame.size.width;
         CGFloat x = width * num + self.baseConfig.showFrame.origin.x;
         
@@ -76,19 +76,35 @@
                     idx = _fsConfig.fsDatas.count - 1;
                 }
                 ChartFSDataModel *model = _fsConfig.fsDatas[idx];
-                string = [NSString stringWithFormat:@"%@:%@" , [model.time substringToIndex:2] , [model.time substringFromIndex:2]];
+                if (self.baseConfig.showBottomHourAndMin) {
+                    string = [NSString stringWithFormat:@"%@/%@ %@:%@" , [model.date substringWithRange:NSMakeRange(4, 2)] , [model.date substringWithRange:NSMakeRange(6, 2)] , [model.time substringToIndex:2] , [model.time substringFromIndex:2]];
+                }else{
+                    string = [NSString stringWithFormat:@"%@/%@/%@" , [model.date substringToIndex:4] , [model.date substringWithRange:NSMakeRange(4, 2)] , [model.date substringWithRange:NSMakeRange(6, 2)]];
+                }
             }
         }else{
-            if (index == 0) {
-                ChartFSTimeModel *model = self.fsConfig.times[index];
-                string = [NSString stringWithFormat:@"%02ld:%02ld" , model.start / 60 , model.start % 60];
-            }else if (index == self.fsConfig.times.count){
-                ChartFSTimeModel *model = self.fsConfig.times[index - 1];
-                string = [NSString stringWithFormat:@"%02ld:%02ld" , model.end % (60 * 24) / 60 , model.end % 60];
+            if (self.fsConfig.times.count != 0 && self.fsConfig.times.count >= index) {
+                if (index == 0) {
+                    ChartFSTimeModel *model = self.fsConfig.times[index];
+                    string = [NSString stringWithFormat:@"%02ld:%02ld" , model.start / 60 , model.start % 60];
+                }else if (index == self.fsConfig.times.count){
+                    ChartFSTimeModel *model = self.fsConfig.times[index - 1];
+                    string = [NSString stringWithFormat:@"%02ld:%02ld" , model.end % (60 * 24) / 60 , model.end % 60];
+                }else{
+                    ChartFSTimeModel *model1 = self.fsConfig.times[index - 1];
+                    ChartFSTimeModel *model2 = self.fsConfig.times[index];
+                    string = [NSString stringWithFormat:@"%02ld:%02ld/%02ld:%02ld" , model1.end % (60 * 24) / 60 , model1.end % 60 , model2.start / 60 , model2.start % 60];
+                }
             }else{
-                ChartFSTimeModel *model1 = self.fsConfig.times[index - 1];
-                ChartFSTimeModel *model2 = self.fsConfig.times[index];
-                string = [NSString stringWithFormat:@"%02ld:%02ld/%02ld:%02ld" , model1.end % (60 * 24) / 60 , model1.end % 60 , model2.start / 60 , model2.start % 60];
+                NSInteger idx = index * (self.fsConfig.fsDatas.count - 1);
+                if (self.fsConfig.fsDatas.count > idx) {
+                    ChartFSDataModel *model = self.fsConfig.fsDatas[idx];
+                    if (self.baseConfig.showBottomHourAndMin) {
+                        string = [NSString stringWithFormat:@"%@/%@ %@:%@" , [model.date substringWithRange:NSMakeRange(4, 2)] , [model.date substringWithRange:NSMakeRange(6, 2)] , [model.time substringToIndex:2] , [model.time substringFromIndex:2]];
+                    }else{
+                        string = [NSString stringWithFormat:@"%@/%@/%@" , [model.date substringToIndex:4] , [model.date substringWithRange:NSMakeRange(4, 2)] , [model.date substringWithRange:NSMakeRange(6, 2)]];
+                    }
+                }
             }
         }
         
