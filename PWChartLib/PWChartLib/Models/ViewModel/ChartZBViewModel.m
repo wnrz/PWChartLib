@@ -120,14 +120,6 @@
         }
         top = [[array valueForKeyPath:@"@max.self"] doubleValue];
         bottom = [[array valueForKeyPath:@"@min.self"] doubleValue];
-        [dataArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (self.fsConfig) {
-                ChartFSDataModel *fsmodel = obj;
-                if (top < fsmodel.nowVol.doubleValue) {
-                    top = fsmodel.nowVol.doubleValue;
-                }
-            }
-        }];
         _baseConfig.topPrice = top;
         _baseConfig.bottomPrice = bottom;
         _baseConfig.bottomPrice = 0;
