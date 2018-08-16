@@ -133,6 +133,7 @@
 - (IBAction)changeFXZQ:(id)sender{
     NSInteger kline = _baseView2.fxConfig.fxLinetype;
     kline = kline == KLineType_MONTH ? KLineType_1Min : kline + 1;
+    _baseView2.fxConfig.showBottomHourAndMin = kline >= 4;
     [_baseView2 changeZQ:kline];
     [fxBridge loadFX:0];
 }

@@ -29,6 +29,8 @@
         _baseConfig.minShowNum = 20;
         _baseConfig.currentShowNum = 55;
         _zbDatas = [[ChartZBDataModel alloc] init];
+        _showBottomHourAndMin = YES;
+        _drawKline = YES;
     }
     return self;
 }
@@ -154,7 +156,7 @@
     [_fxDatas addObjectsFromArray:datas];
 }
 
-- (void)setfxLinetype:(KLineType)fxLinetype{
+- (void)setfxLinetype:(NSInteger)fxLinetype{
     if (_fxLinetype != fxLinetype) {
         _fxLinetype = fxLinetype;
         [self.fxDatas removeAllObjects];

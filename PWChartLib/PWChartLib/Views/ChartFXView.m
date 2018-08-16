@@ -61,7 +61,9 @@
     [self.formLayer redraw:^(ChartBaseLayer *obj) {
     }];
     
-    [self.chartsLayer drawKLine:_fxConfig];
+    if (self.fxConfig.drawKline) {
+        [self.chartsLayer drawKLine:_fxConfig];
+    }
     
     [_zbChartsLayer drawZB];
     
@@ -109,7 +111,7 @@
     [self startDraw];
 }
 
-- (void)changeZQ:(KLineType)fxLinetype{
+- (void)changeZQ:(NSInteger)fxLinetype{
     if (self.fxConfig.fxLinetype != fxLinetype) {
         [self clearData];
         NSArray *arr = [NSArray arrayWithArray:self.ftViews];
