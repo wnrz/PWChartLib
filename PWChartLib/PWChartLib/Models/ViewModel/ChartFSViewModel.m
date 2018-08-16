@@ -56,10 +56,10 @@
     CGFloat top = _baseConfig.topPrice;
     CGFloat bottom = _baseConfig.bottomPrice;
     NSArray *arr = [_fsDatas subarrayWithRange:NSMakeRange(start, end - start)];
-    NSArray *array = @[[arr valueForKeyPath:@"@max.nowPrice"],
-                       [arr valueForKeyPath:@"@max.avgPrice"],
-                       [arr valueForKeyPath:@"@min.nowPrice"],
-                       [arr valueForKeyPath:@"@min.avgPrice"]];
+    NSArray *array = @[[arr valueForKeyPath:@"@max.nowPrice.doubleValue"],
+                       [arr valueForKeyPath:@"@max.avgPrice.doubleValue"],
+                       [arr valueForKeyPath:@"@min.nowPrice.doubleValue"],
+                       [arr valueForKeyPath:@"@min.avgPrice.doubleValue"]];
     top = [[array valueForKeyPath:@"@max.self"] doubleValue];
     bottom = [[array valueForKeyPath:@"@min.self"] doubleValue];
     

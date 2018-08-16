@@ -50,25 +50,25 @@
     NSInteger start = _baseConfig.currentIndex;
     NSInteger end = _baseConfig.currentIndex + _baseConfig.currentShowNum;
     start = start < 0 ? 0 : start;
-    end =  end > _fxDatas.count ? _fxDatas.count - 1 : end;
+    end =  end > _fxDatas.count ? _fxDatas.count : end;
     if (end < start) {
         return;
     }
     CGFloat top = _baseConfig.topPrice;
     CGFloat bottom = _baseConfig.bottomPrice;
     NSArray *arr = [_fxDatas subarrayWithRange:NSMakeRange(start, end - start)];
-    NSArray *array = @[[arr valueForKeyPath:@"@max.topPrice"],
-                       [arr valueForKeyPath:@"@max.openPrice"],
-                       [arr valueForKeyPath:@"@max.closePrice"],
-                       [arr valueForKeyPath:@"@max.bottomPrice"],
-                       [arr valueForKeyPath:@"@min.topPrice"],
-                       [arr valueForKeyPath:@"@min.openPrice"],
-                       [arr valueForKeyPath:@"@min.closePrice"],
-                       [arr valueForKeyPath:@"@min.bottomPrice"]];
+    NSArray *array = @[[arr valueForKeyPath:@"@max.topPrice.doubleValue"],
+                       [arr valueForKeyPath:@"@max.openPrice.doubleValue"],
+                       [arr valueForKeyPath:@"@max.closePrice.doubleValue"],
+                       [arr valueForKeyPath:@"@max.bottomPrice.doubleValue"],
+                       [arr valueForKeyPath:@"@min.topPrice.doubleValue"],
+                       [arr valueForKeyPath:@"@min.openPrice.doubleValue"],
+                       [arr valueForKeyPath:@"@min.closePrice.doubleValue"],
+                       [arr valueForKeyPath:@"@min.bottomPrice.doubleValue"]];
     top = [[array valueForKeyPath:@"@max.self"] doubleValue];
     bottom = [[array valueForKeyPath:@"@min.self"] doubleValue];
     CGFloat mid = top - bottom;
-    mid = mid * (10 / self.baseConfig.showFrame.size.height);
+    mid = mid * (15 / self.baseConfig.showFrame.size.height);
     top = top + mid;
     bottom = bottom - mid;
     if (_baseConfig.topPrice != top && _baseConfig.bottomPrice != bottom) {

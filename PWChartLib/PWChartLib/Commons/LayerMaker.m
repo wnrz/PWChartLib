@@ -290,7 +290,7 @@ void processPathElement(void* info, const CGPathElement* element) {
         x = x - image.size.width / 2;
         value = value - bottom;
         CGFloat y = height * (1 - value / mid) + showFrame.origin.y;
-        y = isBuy ? (y + image.size.height / 2) : (y - image.size.height);
+        y = isBuy ? (y) : (y - image.size.height);
         
         CALayer *imageLayer = [[CALayer alloc] init];
         imageLayer.frame = CGRectMake(x, y, image.size.width, image.size.height);

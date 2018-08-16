@@ -102,24 +102,32 @@
     NSInteger start = _baseConfig.currentIndex;
     NSInteger end = _baseConfig.currentIndex + _baseConfig.currentShowNum;
     start = start < 0 ? 0 : start;
-    end =  end > dataArr.count ? dataArr.count - 1 : end;
+    end =  end > dataArr.count ? dataArr.count : end;
     if (end < start) {
         return;
     }
-    CGFloat top = _baseConfig.topPrice;
+    __block CGFloat top = _baseConfig.topPrice;
     CGFloat bottom = _baseConfig.bottomPrice;
     if (self.zbType == FTZBFSVOL || self.zbType == FTZBFXVOL) {
         NSArray *arr = [dataArr subarrayWithRange:NSMakeRange(start, end - start)];
         NSArray *array;
         if (self.fsConfig) {
-            array = @[[arr valueForKeyPath:@"@max.nowVol"],
-                      [arr valueForKeyPath:@"@min.nowVol"]];
+            array = @[[arr valueForKeyPath:@"@max.nowVol.doubleValue"],
+                      [arr valueForKeyPath:@"@min.nowVol.doubleValue"]];
         }else{
-            array = @[[arr valueForKeyPath:@"@max.volume"],
-                      [arr valueForKeyPath:@"@min.volume"]];
+            array = @[[arr valueForKeyPath:@"@max.volume.doubleValue"],
+                      [arr valueForKeyPath:@"@min.volume.doubleValue"]];
         }
         top = [[array valueForKeyPath:@"@max.self"] doubleValue];
         bottom = [[array valueForKeyPath:@"@min.self"] doubleValue];
+        [dataArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (self.fsConfig) {
+                ChartFSDataModel *fsmodel = obj;
+                if (top < fsmodel.nowVol.doubleValue) {
+                    top = fsmodel.nowVol.doubleValue;
+                }
+            }
+        }];
         _baseConfig.topPrice = top;
         _baseConfig.bottomPrice = bottom;
         _baseConfig.bottomPrice = 0;

@@ -22,32 +22,40 @@
     }
 }
 - (void)chackTopAndBottomPrice:(ChartBaseViewModel *)baseConfig{
-    NSInteger start = baseConfig.currentIndex;
-    NSInteger end = baseConfig.currentShowNum;
-    start = start < 0 ? 0 : start;
-    end =  end > _numCount - start - 1 ? _numCount - start - 1 : end;
-    if (end < 0) {
-        return;
-    }
     NSArray *arr = [NSArray arrayWithArray:_zbDatas];
-    __block CGFloat top = baseConfig.topPrice;
-    __block CGFloat bottom = baseConfig.bottomPrice;
+    __block CGFloat top = 0;
+    __block CGFloat bottom = 0;
     [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSInteger start = baseConfig.currentIndex;
+        NSInteger length = baseConfig.currentShowNum;
+        start = start < 0 ? 0 : start;
+        length =  length > self->_numCount - start - 1 ? self->_numCount - start - 1 : length;
+        if (length < 0) {
+            return;
+        }
         NSDictionary *d = obj;
         NSArray *array = d[@"linesArray"];
         NSInteger after = [d[@"start"] integerValue];
-        NSArray *a = [array subarrayWithRange:NSMakeRange(start, end - after > 0 ? end - after : 0)];
+        NSInteger num = self.numCount - array.count;
+        NSArray *a = [array subarrayWithRange:NSMakeRange(start - num > 0 ? start - num : 0, length)];
         [a enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx2, BOOL * _Nonnull stop) {
             if (after <= idx2 + start) {
                 CGFloat value = [obj doubleValue];
-                if (!isnan(value) && !isinf(value)) {
-                    top = top > value ? top : value;
-                    bottom = bottom < value ? bottom : value;
+                if (top == 0 && bottom == 0) {
+                    top = value;
+                    bottom = value;
+                }else {
+                    if (!isnan(value) && !isinf(value)) {
+                        top = top > value ? top : value;
+                        bottom = bottom < value ? bottom : value;
+                    }
                 }
             }
         }];
     }];
-    baseConfig.topPrice = top;
-    baseConfig.bottomPrice = bottom;
+    if (baseConfig.topPrice == 0 && baseConfig.bottomPrice == 0) {
+        baseConfig.topPrice = top;
+        baseConfig.bottomPrice = bottom;
+    }
 }
 @end
