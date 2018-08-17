@@ -81,7 +81,7 @@
         __block BOOL currentPoint = NO;
         [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             CGFloat value = (isnan([obj doubleValue]) || isinf([obj doubleValue]) ? 0 : [obj doubleValue]) - bottom;
-            CGFloat x = startX +  width / (total - 1) * idx;
+            CGFloat x = showFrame.origin.x + startX +  width / (total - 1) * idx;
             CGFloat y = height * (1 - value / mid) + showFrame.origin.y;
             CGPoint point = CGPointMake(x, y);
             if (idx >= start) {
@@ -171,7 +171,7 @@ void processPathElement(void* info, const CGPathElement* element) {
     }
     __block CGFloat x = startX + width / 2;
     [models enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        x = startX + width / 2 + idx * width;
+        x = showFrame.origin.x + startX + width / 2 + idx * width;
         CandlestickModel *model = obj;
         
         CGFloat value = model.open - bottom;
@@ -249,7 +249,7 @@ void processPathElement(void* info, const CGPathElement* element) {
     }
     __block CGFloat x = startX + width / 2;
     [models enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        x = startX + width / 2 + idx * width;
+        x = showFrame.origin.x + startX + width / 2 + idx * width;
         StickModel *model = obj;
         
         CGFloat value = model.value - bottom;
@@ -289,7 +289,7 @@ void processPathElement(void* info, const CGPathElement* element) {
         if (isnan(value) || isinf(value)) {
             return;
         }
-        x = startX + width / 2 + idx * width;
+        x = showFrame.origin.x + startX + width / 2 + idx * width;
         x = x - image.size.width / 2;
         value = value - bottom;
         CGFloat y = height * (1 - value / mid) + showFrame.origin.y;
