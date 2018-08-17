@@ -43,6 +43,10 @@
 }
 */
 
+- (void)layoutSubviews{
+    [self startDraw];
+}
+
 - (void)install{
     _ftViews = [[NSMutableArray alloc] init];
     _baseConfig = [[ChartBaseViewModel alloc] init];
