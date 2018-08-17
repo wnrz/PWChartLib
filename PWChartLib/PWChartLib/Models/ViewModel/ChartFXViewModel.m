@@ -71,7 +71,10 @@
     mid = mid * (15 / self.baseConfig.showFrame.size.height);
     top = top + mid;
     bottom = bottom - mid;
-    if (_baseConfig.topPrice != top && _baseConfig.bottomPrice != bottom) {
+    if (self.baseConfig.topPrice == 0 && self.baseConfig.bottomPrice == 0) {
+        self.baseConfig.topPrice = top;
+        self.baseConfig.bottomPrice = bottom;
+    }else if (_baseConfig.topPrice != top && _baseConfig.bottomPrice != bottom) {
         _baseConfig.topPrice = top;
         _baseConfig.bottomPrice = bottom;
     }
