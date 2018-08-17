@@ -80,7 +80,10 @@
     }];
     top = [[array valueForKeyPath:@"@max.self"] doubleValue];
     bottom = [[array valueForKeyPath:@"@min.self"] doubleValue];
-    
+    if (top == bottom && top != 0) {
+        top = top * 1.01;
+        bottom = bottom * 0.99;
+    }
     if (_independentTopBottomPrice) {
         [_topPrices setObject:@(top) forKey:keys];
         [_bottomPrices setObject:@(bottom) forKey:keys];

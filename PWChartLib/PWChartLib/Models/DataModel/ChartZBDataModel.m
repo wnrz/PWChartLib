@@ -56,6 +56,10 @@
             }
         }];
     }];
+    if (top == bottom && top != 0) {
+        top = top * 1.01;
+        bottom = bottom * 0.99;
+    }
     if (baseConfig.topPrice == 0 && baseConfig.bottomPrice == 0) {
         baseConfig.topPrice = top;
         baseConfig.bottomPrice = bottom;
