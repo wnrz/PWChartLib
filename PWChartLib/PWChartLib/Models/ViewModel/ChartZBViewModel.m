@@ -126,6 +126,12 @@
             _baseConfig.bottomPrice = 0; 
         }
     }
+    if (isnan(self.baseConfig.topPrice)) {
+        NSLog(@"");
+    }
     [self.zbDatas chackTopAndBottomPrice:_baseConfig];
+    if (isnan(self.baseConfig.topPrice)) {
+        NSLog(@"");
+    }
 }
 @end
