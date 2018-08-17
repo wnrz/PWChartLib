@@ -165,15 +165,15 @@
 
 - (void)setZtZBName:(NSString *)ztZBName{
     _ztZBName = ztZBName;
-    [ztZBName isEqualToString:@"MA"] ? self.ztZBType = FXZTZBMA : 0;
-    [ztZBName isEqualToString:@"特色"] ? self.ztZBType = FXZTZBTSZF : 0;
+    [ztZBName isEqualToString:@"MA"] ? self.ztZBType = PWFXZTZBMA : 0;
+    [ztZBName isEqualToString:@"特色"] ? self.ztZBType = PWFXZTZBTSZF : 0;
 }
 
 - (void)getZBData{
     NSMutableDictionary *dict;
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.fxDatas];
-    (self.ztZBType == FXZTZBMA) ? dict = [[PWFXZBParam shareFXZBParam] getPriMAResult:array] : 0;
-    (self.ztZBType == FXZTZBTSZF) ? dict = [[PWFXZBParam shareFXZBParam] getTSZF0Result:array] : 0;
+    (self.ztZBType == PWFXZTZBMA) ? dict = [[PWFXZBParam shareFXZBParam] getPriMAResult:array] : 0;
+    (self.ztZBType == PWFXZTZBTSZF) ? dict = [[PWFXZBParam shareFXZBParam] getTSZF0Result:array] : 0;
     self.zbDatas.datas = dict;
 }
 @end

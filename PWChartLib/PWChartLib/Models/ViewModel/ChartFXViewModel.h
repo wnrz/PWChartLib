@@ -12,10 +12,10 @@
 #import "ChartZBDataModel.h"
 
 typedef enum{
-    FXZTZBNone = 0,
-    FXZTZBMA,
-    FXZTZBTSZF,
-} DrawFXZTZBType;  //k线主图
+    PWFXZTZBNone = 0,
+    PWFXZTZBMA,
+    PWFXZTZBTSZF,
+} PWDrawFXZTZBType;  //k线主图
 
 @interface ChartFXViewModel : NSObject
 
@@ -28,7 +28,7 @@ typedef enum{
 
 @property (nonatomic , strong)ChartZBDataModel *zbDatas;
 @property (nonatomic , strong)NSString *ztZBName;
-@property (nonatomic , assign)DrawFXZTZBType ztZBType; // k线主图类型
+@property (nonatomic , assign)PWDrawFXZTZBType ztZBType; // k线主图类型
 
 
 - (instancetype)initWithBaseConfig:(ChartBaseViewModel *)baseConfig;
