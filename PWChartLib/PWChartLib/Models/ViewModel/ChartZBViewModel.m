@@ -50,20 +50,20 @@
     }
     _ftZBName = ftZBName;
     if (_fsConfig) {
-        ([ftZBName isEqualToString:@"VOL"]) ? self.zbType = FTZBFSVOL : 0;
-        ([ftZBName isEqualToString:@"MACD"]) ? self.zbType = FTZBFSMACD : 0;
-        ([ftZBName isEqualToString:@"KDJ"]) ? self.zbType = FTZBFSKDJ : 0;
+        ([ftZBName isEqualToString:@"VOL"]) ? self.zbType = PWFTZBFSVOL : 0;
+        ([ftZBName isEqualToString:@"MACD"]) ? self.zbType = PWFTZBFSMACD : 0;
+        ([ftZBName isEqualToString:@"KDJ"]) ? self.zbType = PWFTZBFSKDJ : 0;
     }else if (_fxConfig) {
-        ([ftZBName isEqualToString:@"VOL"]) ? self.zbType = FTZBFXVOL : 0;
-        ([ftZBName isEqualToString:@"CCI"]) ? self.zbType = FTZBFXCCI : 0;
-        ([ftZBName isEqualToString:@"KDJ"]) ? self.zbType = FTZBFXKDJ : 0;
-        ([ftZBName isEqualToString:@"MACD"]) ? self.zbType = FTZBFXMACD : 0;
-        ([ftZBName isEqualToString:@"RSI"]) ? self.zbType = FTZBFXRSI : 0;
-        ([ftZBName isEqualToString:@"WR"]) ? self.zbType = FTZBFXWR : 0;
-        ([ftZBName isEqualToString:@"OBV"]) ? self.zbType = FTZBFXOBV : 0;
-        ([ftZBName isEqualToString:@"ASI"]) ? self.zbType = FTZBFXASI : 0;
-        ([ftZBName isEqualToString:@"ROC"]) ? self.zbType = FTZBFXROC : 0;
-        ([ftZBName isEqualToString:@"PSY"]) ? self.zbType = FTZBFXPSY : 0;
+        ([ftZBName isEqualToString:@"VOL"]) ? self.zbType = PWFTZBFXVOL : 0;
+        ([ftZBName isEqualToString:@"CCI"]) ? self.zbType = PWFTZBFXCCI : 0;
+        ([ftZBName isEqualToString:@"KDJ"]) ? self.zbType = PWFTZBFXKDJ : 0;
+        ([ftZBName isEqualToString:@"MACD"]) ? self.zbType = PWFTZBFXMACD : 0;
+        ([ftZBName isEqualToString:@"RSI"]) ? self.zbType = PWFTZBFXRSI : 0;
+        ([ftZBName isEqualToString:@"WR"]) ? self.zbType = PWFTZBFXWR : 0;
+        ([ftZBName isEqualToString:@"OBV"]) ? self.zbType = PWFTZBFXOBV : 0;
+        ([ftZBName isEqualToString:@"ASI"]) ? self.zbType = PWFTZBFXASI : 0;
+        ([ftZBName isEqualToString:@"ROC"]) ? self.zbType = PWFTZBFXROC : 0;
+        ([ftZBName isEqualToString:@"PSY"]) ? self.zbType = PWFTZBFXPSY : 0;
     }
 }
 
@@ -71,20 +71,20 @@
     NSMutableDictionary *dict;
     if (_fsConfig) {
         NSMutableArray *array = [NSMutableArray arrayWithArray:_fsConfig.fsDatas];
-        (self.zbType == FTZBFSMACD) ? dict = [[PWFSZBParam shareFSZBParam] getMACDResult:array] : 0;
-        (self.zbType == FTZBFSKDJ) ? dict = [[PWFSZBParam shareFSZBParam] getKDJResult:array] : 0;
+        (self.zbType == PWFTZBFSMACD) ? dict = [[PWFSZBParam shareFSZBParam] getMACDResult:array] : 0;
+        (self.zbType == PWFTZBFSKDJ) ? dict = [[PWFSZBParam shareFSZBParam] getKDJResult:array] : 0;
     }else if (_fxConfig) {
         NSMutableArray *array = [NSMutableArray arrayWithArray:_fxConfig.fxDatas];
-        (self.zbType == FTZBFXVOL) ? dict = [[PWFXZBParam shareFXZBParam] getVOLMAResult:array] : 0;
-        (self.zbType == FTZBFXCCI) ? dict = [[PWFXZBParam shareFXZBParam] getCCIResult:array] : 0;
-        (self.zbType == FTZBFXKDJ) ? dict = [[PWFXZBParam shareFXZBParam] getKDJResult:array] : 0;
-        (self.zbType == FTZBFXMACD) ? dict = [[PWFXZBParam shareFXZBParam] getMACDResult:array] : 0;
-        (self.zbType == FTZBFXRSI) ? dict = [[PWFXZBParam shareFXZBParam] getRSIResult:array] : 0;
-        (self.zbType == FTZBFXWR) ? dict = [[PWFXZBParam shareFXZBParam] getWRResult:array] : 0;
-        (self.zbType == FTZBFXOBV) ? dict = [[PWFXZBParam shareFXZBParam] getOBVResult:array] : 0;
-        (self.zbType == FTZBFXASI) ? dict = [[PWFXZBParam shareFXZBParam] getASI2Result:array] : 0;
-        (self.zbType == FTZBFXROC) ? dict = [[PWFXZBParam shareFXZBParam] getROCResult:array] : 0;
-        (self.zbType == FTZBFXPSY) ? dict = [[PWFXZBParam shareFXZBParam] getPSYResult:array] : 0;
+        (self.zbType == PWFTZBFXVOL) ? dict = [[PWFXZBParam shareFXZBParam] getVOLMAResult:array] : 0;
+        (self.zbType == PWFTZBFXCCI) ? dict = [[PWFXZBParam shareFXZBParam] getCCIResult:array] : 0;
+        (self.zbType == PWFTZBFXKDJ) ? dict = [[PWFXZBParam shareFXZBParam] getKDJResult:array] : 0;
+        (self.zbType == PWFTZBFXMACD) ? dict = [[PWFXZBParam shareFXZBParam] getMACDResult:array] : 0;
+        (self.zbType == PWFTZBFXRSI) ? dict = [[PWFXZBParam shareFXZBParam] getRSIResult:array] : 0;
+        (self.zbType == PWFTZBFXWR) ? dict = [[PWFXZBParam shareFXZBParam] getWRResult:array] : 0;
+        (self.zbType == PWFTZBFXOBV) ? dict = [[PWFXZBParam shareFXZBParam] getOBVResult:array] : 0;
+        (self.zbType == PWFTZBFXASI) ? dict = [[PWFXZBParam shareFXZBParam] getASI2Result:array] : 0;
+        (self.zbType == PWFTZBFXROC) ? dict = [[PWFXZBParam shareFXZBParam] getROCResult:array] : 0;
+        (self.zbType == PWFTZBFXPSY) ? dict = [[PWFXZBParam shareFXZBParam] getPSYResult:array] : 0;
     }
     self.zbDatas.datas = dict;
 }
@@ -108,7 +108,7 @@
     }
     __block CGFloat top = _baseConfig.topPrice;
     CGFloat bottom = _baseConfig.bottomPrice;
-    if (self.zbType == FTZBFSVOL || self.zbType == FTZBFXVOL) {
+    if (self.zbType == PWFTZBFSVOL || self.zbType == PWFTZBFXVOL) {
         NSArray *arr = [dataArr subarrayWithRange:NSMakeRange(start, end - start)];
         if (arr.count > 0) {
             NSArray *array;

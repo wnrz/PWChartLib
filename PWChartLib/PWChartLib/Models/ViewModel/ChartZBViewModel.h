@@ -13,33 +13,33 @@
 #import "ChartFXViewModel.h"
 
 typedef enum{
-    FTZBNone = 0,
+    PWFTZBNone = 0,
     
     //分时幅图指标类型
-    FTZBFSVOL,
-    FTZBFSMACD,
-    FTZBFSKDJ,
+    PWFTZBFSVOL,
+    PWFTZBFSMACD,
+    PWFTZBFSKDJ,
     
     //k线幅图指标类型
-    FTZBFXARBR,
-    FTZBFXATR,
-    FTZBFXBIAS,
-    FTZBFXCCI,
-    FTZBFXDKBY,
-    FTZBFXKD,
-    FTZBFXKDJ,
-    FTZBFXLWR,
-    FTZBFXMACD,
-    FTZBFXQHLSR,
-    FTZBFXRSI,
-    FTZBFXWR,
-    FTZBFXVOL,
-    FTZBFXOBV,
-    FTZBFXASI,
-    FTZBFXROC,
-    FTZBFXPSY,
-    FTZBFXTSZF0
-} DrawFTZBType;  //幅图指标类型
+    PWFTZBFXARBR,
+    PWFTZBFXATR,
+    PWFTZBFXBIAS,
+    PWFTZBFXCCI,
+    PWFTZBFXDKBY,
+    PWFTZBFXKD,
+    PWFTZBFXKDJ,
+    PWFTZBFXLWR,
+    PWFTZBFXMACD,
+    PWFTZBFXQHLSR,
+    PWFTZBFXRSI,
+    PWFTZBFXWR,
+    PWFTZBFXVOL,
+    PWFTZBFXOBV,
+    PWFTZBFXASI,
+    PWFTZBFXROC,
+    PWFTZBFXPSY,
+    PWFTZBFXTSZF0
+} PWDrawFTZBType;  //幅图指标类型
 
 @interface ChartZBViewModel : NSObject
 
@@ -49,7 +49,7 @@ typedef enum{
 @property (nonatomic , weak)ChartFXViewModel *fxConfig;
 
 @property (nonatomic , strong)NSString *ftZBName;
-@property (nonatomic , assign)DrawFTZBType zbType;
+@property (nonatomic , assign)PWDrawFTZBType zbType;
 
 - (instancetype)initWithBaseConfig:(ChartBaseViewModel *)baseConfig;
 
