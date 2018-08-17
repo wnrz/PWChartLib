@@ -118,6 +118,7 @@
         }];
         p = [[bezierPoints lastObject] CGPointValue];
         [linePath addLineToPoint:CGPointMake(p.x, showFrame.origin.y + showFrame.size.height)];
+        [linePath closePath];
     }
     
     CAShapeLayer *layer = [CAShapeLayer layer];

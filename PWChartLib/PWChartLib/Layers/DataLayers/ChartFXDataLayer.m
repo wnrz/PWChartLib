@@ -48,7 +48,7 @@
     if (self.baseConfig.showCrossLine) {
         if (self.baseConfig.showCrossLinePoint.x >= self.baseConfig.showFrame.origin.x && self.baseConfig.showCrossLinePoint.x <= self.baseConfig.showFrame.size.width + self.baseConfig.showFrame.origin.x) {
             CGFloat num = 0;
-            num = (self.baseConfig.showCrossLinePoint.x - [ChartTools getStartX:self.baseConfig.showFrame total:self.baseConfig.currentShowNum]) / (self.baseConfig.showFrame.size.width - [ChartTools getStartX:self.baseConfig.showFrame total:self.baseConfig.currentShowNum] * 2);
+            num = (self.baseConfig.showCrossLinePoint.x - [ChartTools getStartX:self.baseConfig.showFrame total:self.baseConfig.currentShowNum] - self.baseConfig.showFrame.origin.x) / (self.baseConfig.showFrame.size.width - [ChartTools getStartX:self.baseConfig.showFrame total:self.baseConfig.currentShowNum] * 2);
             if (self.baseConfig && self.isDrawCrossBottomText && self.fxConfig) {
                 [self drawBottomWithNum:num num:num isCross:YES];
             }

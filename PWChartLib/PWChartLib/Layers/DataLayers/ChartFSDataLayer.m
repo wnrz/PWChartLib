@@ -41,7 +41,7 @@
     if (self.baseConfig.showCrossLine) {
         if (self.baseConfig.showCrossLinePoint.y >= self.baseConfig.showFrame.origin.y && self.baseConfig.showCrossLinePoint.y <= self.baseConfig.showFrame.size.height + self.baseConfig.showFrame.origin.y) {
             CGFloat num = 0;
-            num = self.baseConfig.showCrossLinePoint.x / (self.baseConfig.showFrame.size.width);
+            num = (self.baseConfig.showCrossLinePoint.x - self.baseConfig.showFrame.origin.x) / (self.baseConfig.showFrame.size.width);
             if (self.baseConfig && self.isDrawCrossBottomText && self.fsConfig) {
                 [self drawBottomWithNum:0 num:num isCross:YES];
             }
@@ -72,7 +72,7 @@
         if (isCross) {
             if (self.fsConfig.fsDatas.count != 0) {
                 NSInteger idx = num * self.baseConfig.maxPointCount;
-                if (idx > self.fsConfig.fsDatas.count) {
+                if (idx >= self.fsConfig.fsDatas.count) {
                     idx = _fsConfig.fsDatas.count - 1;
                 }
                 ChartFSDataModel *model = _fsConfig.fsDatas[idx];

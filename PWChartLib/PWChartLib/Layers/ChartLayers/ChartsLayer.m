@@ -83,7 +83,12 @@
         
         if (fsConfig.isShowShadow) {
             CAGradientLayer *gradientLayer = [LayerMaker drawGredientLayer:self.baseConfig.showFrame path:nowLayer.path color:[PWChartColors colorByKey:kChartColorKey_XJ]];
-            gradientLayer.frame = self.baseConfig.showFrame;
+            CGRect f = self.baseConfig.showFrame;
+            f.size.width = f.size.width + f.origin.x;
+            f.origin.x = 0;
+            f.size.height = f.size.height + f.origin.y;
+            f.origin.y = 0;
+            gradientLayer.frame = f;
             [self addSublayer:gradientLayer];
         }
         

@@ -45,7 +45,7 @@
     if (self.baseConfig.showCrossLine) {
         if (self.baseConfig.showCrossLinePoint.y >= self.baseConfig.showFrame.origin.y && self.baseConfig.showCrossLinePoint.y <= self.baseConfig.showFrame.size.height + self.baseConfig.showFrame.origin.y) {
             CGFloat num = 0;
-            num = self.baseConfig.showCrossLinePoint.y / (self.baseConfig.showFrame.size.height);
+            num = (self.baseConfig.showCrossLinePoint.y - self.baseConfig.showFrame.origin.y) / (self.baseConfig.showFrame.size.height);
             if (self.baseConfig && self.isDrawCrossLeftText) {
                 [self drawLeftWithNum:num isCross:YES];
             }
@@ -98,7 +98,7 @@
         CGFloat maxX = self.baseConfig.showFrame.origin.x + self.baseConfig.showFrame.size.width;
         CGFloat height = self.baseConfig.showFrame.size.height;
         
-        CGFloat y = height * num;
+        CGFloat y = self.baseConfig.showFrame.origin.y + height * num;
         CGPoint point = CGPointMake(x, y);
         
         CGFloat value2 = value * (1 - num) + bottom;

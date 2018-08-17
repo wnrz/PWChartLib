@@ -24,7 +24,7 @@
     [key isEqual:kChartColorKey_Fall] ? color = PWCColorRGB(0x07A168) : 0;
     [key isEqual:kChartColorKey_Stay] ? color = PWCColorRGB(0xaaaaaa) : 0;
     
-    [key isEqual:kChartColorKey_Text] ? color = PWCColorRGB(0x31343A) : 0;
+//    [key isEqual:kChartColorKey_Text] ? color = PWCColorRGB(0x31343A) : 0;
     
     [key isEqual:kChartColorKey_Text] ? color = PWCColorRGB(0x999FAA) : 0;
     

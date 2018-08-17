@@ -478,7 +478,7 @@
     CGFloat num = self.baseConfig.showIndex - self.baseConfig.currentIndex;
     num = num >= 0 ? num : 0;
     num = num / self.baseConfig.currentShowNum;
-    CGFloat x = startX + (self.showFrame.size.width - startX * 2) * num + (self.showFrame.size.width - startX * 2) / self.baseConfig.currentShowNum / 2;
+    CGFloat x = self.showFrame.origin.x + startX + (self.showFrame.size.width - startX * 2) * num + (self.showFrame.size.width - startX * 2) / self.baseConfig.currentShowNum / 2;
     
     if (!isnan(x) && !isinf(x)) {
         point.x = x;

@@ -44,14 +44,14 @@
         if (point.y < self.baseConfig.showFrame.origin.y || point.y > self.baseConfig.showFrame.origin.y + self.baseConfig.showFrame.size.height) {
             return;
         }
-        startPoint = CGPointMake(self.baseConfig.showFrame.origin.x , self.baseConfig.showFrame.origin.y + point.y);
-        endPoint = CGPointMake(self.baseConfig.showFrame.origin.x + self.baseConfig.showFrame.size.width, self.baseConfig.showFrame.origin.y + point.y);
+        startPoint = CGPointMake(self.baseConfig.showFrame.origin.x , point.y);
+        endPoint = CGPointMake(self.baseConfig.showFrame.origin.x + self.baseConfig.showFrame.size.width, point.y);
     }else{
         if (point.x < self.baseConfig.showFrame.origin.x || point.x > self.baseConfig.showFrame.origin.x + self.baseConfig.showFrame.size.width) {
             return;
         }
-        startPoint = CGPointMake(self.baseConfig.showFrame.origin.x + point.x, self.baseConfig.showFrame.origin.y);
-        endPoint = CGPointMake(self.baseConfig.showFrame.origin.x + point.x, self.baseConfig.showFrame.origin.y + self.baseConfig.showFrame.size.height);
+        startPoint = CGPointMake(point.x, self.baseConfig.showFrame.origin.y);
+        endPoint = CGPointMake(point.x, self.baseConfig.showFrame.origin.y + self.baseConfig.showFrame.size.height);
     }
     
     CAShapeLayer *layer = [LayerMaker getLineLayer:startPoint toPoint:endPoint isDot:NO];
