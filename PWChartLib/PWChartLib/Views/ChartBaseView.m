@@ -104,9 +104,15 @@
     _showFrame = showFrame;
     
     _baseConfig.showFrame = showFrame;
+    
+    _baseConfig.offsetLeft = showFrame.origin.x;
+    _baseConfig.offsetTop = showFrame.origin.y;
+    _baseConfig.offsetRight = self.frame.size.width - showFrame.origin.x - showFrame.size.width;
+    _baseConfig.offsetBottom = self.frame.size.height - showFrame.origin.y - showFrame.size.height;
 }
 
 - (void)startDraw{
+    self.showFrame = CGRectMake(0 + self.baseConfig.offsetLeft, 0 + self.baseConfig.offsetTop, self.frame.size.width - self.baseConfig.offsetLeft - self.baseConfig.offsetRight, self.frame.size.height - self.baseConfig.offsetTop - self.baseConfig.offsetBottom);
     if (!_baseConfig.hqData) {
         return;
     }

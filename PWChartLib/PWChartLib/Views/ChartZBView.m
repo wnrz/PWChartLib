@@ -35,6 +35,7 @@
 }
 
 - (void)startDraw{
+    self.showFrame = CGRectMake(0 + self.baseConfig.offsetLeft, 0 + self.baseConfig.offsetTop, self.frame.size.width - self.baseConfig.offsetLeft - self.baseConfig.offsetRight, self.frame.size.height - self.baseConfig.offsetTop - self.baseConfig.offsetBottom);
     self.baseConfig.topPrice = 0;
     self.baseConfig.bottomPrice = 0;
     

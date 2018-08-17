@@ -21,6 +21,10 @@ typedef enum{
 @property (nonatomic , strong)ChartHQDataModel *hqData;
 
 @property(nonatomic , assign)CGRect showFrame;
+@property(nonatomic , assign)CGFloat offsetLeft;
+@property(nonatomic , assign)CGFloat offsetTop;
+@property(nonatomic , assign)CGFloat offsetRight;
+@property(nonatomic , assign)CGFloat offsetBottom;
 
 @property(nonatomic , assign)double topPrice;  //最高价格
 @property(nonatomic , assign)double bottomPrice;  //最低价格
