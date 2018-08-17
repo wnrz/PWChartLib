@@ -6,19 +6,19 @@
 //  Copyright (c) 2014年 mac. All rights reserved.
 //
 
-#import "FXZBParam.h"
+#import "PWFXZBParam.h"
 #import "ChartTools.h"
 
-@implementation FXZBParam
+@implementation PWFXZBParam
 @synthesize VOL_MAS;
 @synthesize Pri_MAS;
 
-static FXZBParam* shareZBP=nil;
-+(FXZBParam*)shareFXZBParam{
+static PWFXZBParam* shareZBP=nil;
++(PWFXZBParam*)shareFXZBParam{
     //同步防止多线程访问,这里本来想用instance来作为锁对象的，但是当instance为nil的时候不能作为锁对象
     @synchronized(self){
         if (!shareZBP) {
-            shareZBP= [[FXZBParam alloc] init];
+            shareZBP= [[PWFXZBParam alloc] init];
             shareZBP.VOL_MAS = @[@5,@10];//,@20,@60
             shareZBP.Pri_MAS = @[@5,@10,@20];//,@30
             

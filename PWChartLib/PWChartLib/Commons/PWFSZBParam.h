@@ -18,7 +18,7 @@
 #import "ChartFSDataModel.h"
 #import "ChartHQDataModel.h"
 
-@interface FSZBParam : NSObject
+@interface PWFSZBParam : NSObject
 @property(nonatomic , retain)NSArray *VOL_MAS;
 
 @property(nonatomic)float MACD_Short;
@@ -29,7 +29,7 @@
 @property(nonatomic)float KDJ_M1;
 @property(nonatomic)float KDJ_M2;
 
-+(FSZBParam*)shareFSZBParam;
++(PWFSZBParam*)shareFSZBParam;
 
 //主图指标
 

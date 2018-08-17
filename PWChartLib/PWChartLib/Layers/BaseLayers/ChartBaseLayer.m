@@ -7,7 +7,7 @@
 //
 
 #import "ChartBaseLayer.h"
-#import "ChartColors.h"
+#import "PWChartColors.h"
 
 @implementation ChartBaseLayer
 
@@ -44,7 +44,7 @@
 
 - (void)install{
     self.lineWidth = 1;
-    self.lineColor = [ChartColors colorByKey:kChartColorKey_Form];
+    self.lineColor = [PWChartColors colorByKey:kChartColorKey_Form];
 }
 
 - (void)startDraw{

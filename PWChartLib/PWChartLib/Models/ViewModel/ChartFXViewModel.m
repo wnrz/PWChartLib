@@ -8,7 +8,7 @@
 //
 
 #import "ChartFXViewModel.h"
-#import "FXZBParam.h"
+#import "PWFXZBParam.h"
 #import "ChartTools.h"
 
 @interface ChartFXViewModel () {
@@ -172,8 +172,8 @@
 - (void)getZBData{
     NSMutableDictionary *dict;
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.fxDatas];
-    (self.ztZBType == FXZTZBMA) ? dict = [[FXZBParam shareFXZBParam] getPriMAResult:array] : 0;
-    (self.ztZBType == FXZTZBTSZF) ? dict = [[FXZBParam shareFXZBParam] getTSZF0Result:array] : 0;
+    (self.ztZBType == FXZTZBMA) ? dict = [[PWFXZBParam shareFXZBParam] getPriMAResult:array] : 0;
+    (self.ztZBType == FXZTZBTSZF) ? dict = [[PWFXZBParam shareFXZBParam] getTSZF0Result:array] : 0;
     self.zbDatas.datas = dict;
 }
 @end

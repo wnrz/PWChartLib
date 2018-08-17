@@ -8,7 +8,7 @@
 #import "ChartsLayer.h"
 #import "ChartFSDataModel.h"
 #import "ChartFXDataModel.h"
-#import "ChartColors.h"
+#import "PWChartColors.h"
 
 @implementation ChartsLayer
 
@@ -48,7 +48,7 @@
             }
         }
         
-        CALayer *layer = [LayerMaker getCandlestickLine:self.baseConfig.showFrame total:self.baseConfig.currentShowNum top:self.baseConfig.topPrice bottom:self.baseConfig.bottomPrice models:models clrUp:[ChartColors colorByKey:kChartColorKey_Rise] clrDown:[ChartColors colorByKey:kChartColorKey_Fall] clrBal:[ChartColors colorByKey:kChartColorKey_Stay] start:0 lineType:1];
+        CALayer *layer = [LayerMaker getCandlestickLine:self.baseConfig.showFrame total:self.baseConfig.currentShowNum top:self.baseConfig.topPrice bottom:self.baseConfig.bottomPrice models:models clrUp:[PWChartColors colorByKey:kChartColorKey_Rise] clrDown:[PWChartColors colorByKey:kChartColorKey_Fall] clrBal:[PWChartColors colorByKey:kChartColorKey_Stay] start:0 lineType:1];
         [self addSublayer:layer];
     }
 }
@@ -78,11 +78,11 @@
         }
         CAShapeLayer *nowLayer = [LayerMaker getLineChartLayer:self.baseConfig.showFrame total:self.baseConfig.maxPointCount top:top bottom:bottom   arr:nowArray start:0 startX:0];
         nowLayer.lineWidth = .5;
-        nowLayer.strokeColor = [ChartColors colorByKey:kChartColorKey_XJ].CGColor;
+        nowLayer.strokeColor = [PWChartColors colorByKey:kChartColorKey_XJ].CGColor;
         [self addSublayer:nowLayer];
         
         if (fsConfig.isShowShadow) {
-            CAGradientLayer *gradientLayer = [LayerMaker drawGredientLayer:self.baseConfig.showFrame path:nowLayer.path color:[ChartColors colorByKey:kChartColorKey_XJ]];
+            CAGradientLayer *gradientLayer = [LayerMaker drawGredientLayer:self.baseConfig.showFrame path:nowLayer.path color:[PWChartColors colorByKey:kChartColorKey_XJ]];
             gradientLayer.frame = self.baseConfig.showFrame;
             [self addSublayer:gradientLayer];
         }
@@ -98,7 +98,7 @@
             }
             CAShapeLayer *avgLayer = [LayerMaker getLineChartLayer:self.baseConfig.showFrame total:self.baseConfig.maxPointCount top:top bottom:bottom arr:avgArray start:0 startX:0];
             avgLayer.lineWidth = .5;
-            avgLayer.strokeColor = [ChartColors colorByKey:kChartColorKey_JJ].CGColor;
+            avgLayer.strokeColor = [PWChartColors colorByKey:kChartColorKey_JJ].CGColor;
             [self addSublayer:avgLayer];
         }
     }
@@ -128,11 +128,11 @@
             StickModel *sModel = [[StickModel alloc] init];
             if (self.fsConfig) {
                 ChartFSDataModel *model = obj;
-                sModel.color = [model.nowPrice doubleValue] > [model.perFSModel.nowPrice doubleValue] ? [ChartColors colorByKey:kChartColorKey_Rise] : [model.nowPrice doubleValue] < [model.perFSModel.nowPrice doubleValue] ? [ChartColors colorByKey:kChartColorKey_Fall] : [ChartColors colorByKey:kChartColorKey_Stay];
+                sModel.color = [model.nowPrice doubleValue] > [model.perFSModel.nowPrice doubleValue] ? [PWChartColors colorByKey:kChartColorKey_Rise] : [model.nowPrice doubleValue] < [model.perFSModel.nowPrice doubleValue] ? [PWChartColors colorByKey:kChartColorKey_Fall] : [PWChartColors colorByKey:kChartColorKey_Stay];
                 sModel.value = model.nowVol.doubleValue;
             }else if (self.fxConfig) {
                 ChartFXDataModel *model = obj;
-                sModel.color = [model.closePrice doubleValue] > [model.openPrice doubleValue] ? [ChartColors colorByKey:kChartColorKey_Rise] : [model.closePrice doubleValue] < [model.openPrice doubleValue] ? [ChartColors colorByKey:kChartColorKey_Fall] : [model.closePrice doubleValue] > [model.perFXModel.closePrice doubleValue] ? [ChartColors colorByKey:kChartColorKey_Rise] : [model.closePrice doubleValue] < [model.perFXModel.closePrice doubleValue] ? [ChartColors colorByKey:kChartColorKey_Fall] : [ChartColors colorByKey:kChartColorKey_Stay];
+                sModel.color = [model.closePrice doubleValue] > [model.openPrice doubleValue] ? [PWChartColors colorByKey:kChartColorKey_Rise] : [model.closePrice doubleValue] < [model.openPrice doubleValue] ? [PWChartColors colorByKey:kChartColorKey_Fall] : [model.closePrice doubleValue] > [model.perFXModel.closePrice doubleValue] ? [PWChartColors colorByKey:kChartColorKey_Rise] : [model.closePrice doubleValue] < [model.perFXModel.closePrice doubleValue] ? [PWChartColors colorByKey:kChartColorKey_Fall] : [PWChartColors colorByKey:kChartColorKey_Stay];
                 sModel.value = model.volume.doubleValue;
             }
             [volArray addObject:sModel];

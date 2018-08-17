@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface ChartColors : NSObject
+@interface PWChartColors : NSObject
 
 #define kChartColorKey_Form @"kChartColorKey_Form"
 #define kChartColorKey_CrossLine @"kChartColorKey_CrossLine"

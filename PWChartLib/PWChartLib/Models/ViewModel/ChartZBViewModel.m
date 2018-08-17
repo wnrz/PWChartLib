@@ -7,8 +7,8 @@
 //
 
 #import "ChartZBViewModel.h"
-#import "FSZBParam.h"
-#import "FXZBParam.h"
+#import "PWFSZBParam.h"
+#import "PWFXZBParam.h"
 #import "ChartTools.h"
 
 @implementation ChartZBViewModel
@@ -71,20 +71,20 @@
     NSMutableDictionary *dict;
     if (_fsConfig) {
         NSMutableArray *array = [NSMutableArray arrayWithArray:_fsConfig.fsDatas];
-        (self.zbType == FTZBFSMACD) ? dict = [[FSZBParam shareFSZBParam] getMACDResult:array] : 0;
-        (self.zbType == FTZBFSKDJ) ? dict = [[FSZBParam shareFSZBParam] getKDJResult:array] : 0;
+        (self.zbType == FTZBFSMACD) ? dict = [[PWFSZBParam shareFSZBParam] getMACDResult:array] : 0;
+        (self.zbType == FTZBFSKDJ) ? dict = [[PWFSZBParam shareFSZBParam] getKDJResult:array] : 0;
     }else if (_fxConfig) {
         NSMutableArray *array = [NSMutableArray arrayWithArray:_fxConfig.fxDatas];
-        (self.zbType == FTZBFXVOL) ? dict = [[FXZBParam shareFXZBParam] getVOLMAResult:array] : 0;
-        (self.zbType == FTZBFXCCI) ? dict = [[FXZBParam shareFXZBParam] getCCIResult:array] : 0;
-        (self.zbType == FTZBFXKDJ) ? dict = [[FXZBParam shareFXZBParam] getKDJResult:array] : 0;
-        (self.zbType == FTZBFXMACD) ? dict = [[FXZBParam shareFXZBParam] getMACDResult:array] : 0;
-        (self.zbType == FTZBFXRSI) ? dict = [[FXZBParam shareFXZBParam] getRSIResult:array] : 0;
-        (self.zbType == FTZBFXWR) ? dict = [[FXZBParam shareFXZBParam] getWRResult:array] : 0;
-        (self.zbType == FTZBFXOBV) ? dict = [[FXZBParam shareFXZBParam] getOBVResult:array] : 0;
-        (self.zbType == FTZBFXASI) ? dict = [[FXZBParam shareFXZBParam] getASI2Result:array] : 0;
-        (self.zbType == FTZBFXROC) ? dict = [[FXZBParam shareFXZBParam] getROCResult:array] : 0;
-        (self.zbType == FTZBFXPSY) ? dict = [[FXZBParam shareFXZBParam] getPSYResult:array] : 0;
+        (self.zbType == FTZBFXVOL) ? dict = [[PWFXZBParam shareFXZBParam] getVOLMAResult:array] : 0;
+        (self.zbType == FTZBFXCCI) ? dict = [[PWFXZBParam shareFXZBParam] getCCIResult:array] : 0;
+        (self.zbType == FTZBFXKDJ) ? dict = [[PWFXZBParam shareFXZBParam] getKDJResult:array] : 0;
+        (self.zbType == FTZBFXMACD) ? dict = [[PWFXZBParam shareFXZBParam] getMACDResult:array] : 0;
+        (self.zbType == FTZBFXRSI) ? dict = [[PWFXZBParam shareFXZBParam] getRSIResult:array] : 0;
+        (self.zbType == FTZBFXWR) ? dict = [[PWFXZBParam shareFXZBParam] getWRResult:array] : 0;
+        (self.zbType == FTZBFXOBV) ? dict = [[PWFXZBParam shareFXZBParam] getOBVResult:array] : 0;
+        (self.zbType == FTZBFXASI) ? dict = [[PWFXZBParam shareFXZBParam] getASI2Result:array] : 0;
+        (self.zbType == FTZBFXROC) ? dict = [[PWFXZBParam shareFXZBParam] getROCResult:array] : 0;
+        (self.zbType == FTZBFXPSY) ? dict = [[PWFXZBParam shareFXZBParam] getPSYResult:array] : 0;
     }
     self.zbDatas.datas = dict;
 }

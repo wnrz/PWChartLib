@@ -98,7 +98,7 @@
 #import "ChartFXDataModel.h"
 #import "ChartHQDataModel.h"
 
-@interface FXZBParam : NSObject
+@interface PWFXZBParam : NSObject
 @property(nonatomic , retain)NSArray *Pri_MAS;
 @property(nonatomic , retain)NSArray *VOL_MAS;
 
@@ -169,7 +169,7 @@
 
 @property(nonatomic)float CYZB_Value;
 
-+(FXZBParam*)shareFXZBParam;
++(PWFXZBParam*)shareFXZBParam;
 
 //主图指标
 - (NSMutableDictionary *)getPriMAResult:(NSMutableArray *)array;
