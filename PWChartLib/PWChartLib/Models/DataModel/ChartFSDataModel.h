@@ -12,6 +12,7 @@
 
 @property(nonatomic , copy)NSString *avgPrice;
 @property(nonatomic , copy)NSString *nowPrice;
+@property(nonatomic , copy)NSString *thirdLine;
 @property(nonatomic , copy)NSString *avgVol;
 @property(nonatomic , copy)NSString *nowVol;
 @property(nonatomic , copy)NSString *time;

@@ -35,6 +35,7 @@
     
     [key isEqual:kChartColorKey_XJ] ? color = PWCColorRGB(0x99CCFD) : 0;
     [key isEqual:kChartColorKey_JJ] ? color = PWCColorRGB(0xF2B415) : 0;
+    [key isEqual:kChartColorKey_ThirdLine] ? color = PWCColorRGB(0x01d162) : 0;
     
     return color;
     /*

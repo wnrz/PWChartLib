@@ -29,6 +29,10 @@ typedef enum{
 @property(nonatomic , assign)double topPrice;  //最高价格
 @property(nonatomic , assign)double bottomPrice;  //最低价格
 
+@property (nonatomic , assign)BOOL independentTopBottomPrice; //是否分开处理最高最低值 虚拟币绘图时会有用到
+@property(nonatomic , strong)NSMutableDictionary *topPrices;  //最高价格 字典 根据数据的属性名作为key 虚拟币可能有多个线 和多个左侧单位
+@property(nonatomic , strong)NSMutableDictionary *bottomPrices;  //最低价格 字典 根据数据的属性名作为key 虚拟币可能有多个线 和多个左侧单位
+
 @property(nonatomic , assign)BOOL showCrossLine;  //是否显示交叉线
 @property(nonatomic , assign)CGPoint showCrossLinePoint;  //交叉线坐标
 

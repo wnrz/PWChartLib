@@ -25,6 +25,7 @@
 
 #define kChartColorKey_XJ @"kChartColorKey_XJ"
 #define kChartColorKey_JJ @"kChartColorKey_JJ"
+#define kChartColorKey_ThirdLine @"kChartColorKey_ThirdLine"
 
 
 

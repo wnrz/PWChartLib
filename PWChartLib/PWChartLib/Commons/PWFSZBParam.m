@@ -8,6 +8,7 @@
 
 #import "PWFSZBParam.h"
 #import "ChartTools.h"
+#import "PWChartColors.h"
 
 @implementation PWFSZBParam
 @synthesize VOL_MAS;
@@ -158,21 +159,9 @@ static PWFSZBParam* shareZBP=nil;
     [result setObject:@(array.count) forKey:@"nCount"];
     NSMutableArray *arr = [[NSMutableArray alloc] init];
     [result setObject:arr forKey:@"linesArray"];
-    [arr addObject:@{@"type":@6,
-                     @"sName":@"MACD",
-                     @"linesArray":macd,
-                     @"start":@0
-                     }];
-    [arr addObject:@{@"type":@0,
-                     @"sName":@"DIF",
-                     @"linesArray":dif,
-                     @"start":@0
-                     }];
-    [arr addObject:@{@"type":@0,
-                     @"sName":@"DEA",
-                     @"linesArray":dea,
-                     @"start":@0
-                     }];
+    [arr addObject:[PWFSZBParam makeZBData:@6 sName:@"MACD" linesArray:macd start:@0 color:[PWChartColors drawColorByIndex:0]]];
+    [arr addObject:[PWFSZBParam makeZBData:@0 sName:@"DIF" linesArray:dif start:@0 color:[PWChartColors drawColorByIndex:1]]];
+    [arr addObject:[PWFSZBParam makeZBData:@0 sName:@"DEA" linesArray:dea start:@0 color:[PWChartColors drawColorByIndex:2]]];
     
     return result;
 }
@@ -294,22 +283,22 @@ static PWFSZBParam* shareZBP=nil;
     [result setObject:@(array.count) forKey:@"nCount"];
     NSMutableArray *arr = [[NSMutableArray alloc] init];
     [result setObject:arr forKey:@"linesArray"];
-    [arr addObject:@{@"type":@0,
-                     @"sName":@"K",
-                     @"linesArray":k,
-                     @"start":@0
-                     }];
-    [arr addObject:@{@"type":@0,
-                     @"sName":@"D",
-                     @"linesArray":d,
-                     @"start":@0
-                     }];
-    [arr addObject:@{@"type":@0,
-                     @"sName":@"J",
-                     @"linesArray":j,
-                     @"start":@0
-                     }];
+    [arr addObject:[PWFSZBParam makeZBData:@0 sName:@"K" linesArray:k start:@0 color:[PWChartColors drawColorByIndex:0]]];
+    [arr addObject:[PWFSZBParam makeZBData:@0 sName:@"D" linesArray:d start:@0 color:[PWChartColors drawColorByIndex:1]]];
+    [arr addObject:[PWFSZBParam makeZBData:@0 sName:@"J" linesArray:j start:@0 color:[PWChartColors drawColorByIndex:2]]];
     
     return result;
+}
+
++ (NSDictionary *)makeZBData:(NSNumber *)type sName:(NSString *)sName linesArray:(NSArray *)linesArray start:(NSNumber *)start color:(UIColor *)color{
+    sName = sName ? sName : @"";
+    linesArray = linesArray ? linesArray : @[];
+    NSDictionary *dict = @{@"type":type,
+                           @"sName":sName,
+                           @"linesArray":linesArray,
+                           @"start":start,
+                           @"color":color
+                           };
+    return dict;
 }
 @end

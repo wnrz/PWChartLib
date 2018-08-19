@@ -26,8 +26,6 @@
         _baseConfig = baseConfig;
         _fsDatas = [[NSMutableArray alloc] init];
         fsMapTable = [NSMapTable strongToWeakObjectsMapTable];
-        _topPrices = [[NSMutableDictionary alloc] init];
-        _bottomPrices = [[NSMutableDictionary alloc] init];
         _isShowShadow = YES;
         _baseConfig.showBottomType = BottomDataType_Time;
     }
@@ -45,14 +43,11 @@
     
     _times = nil;
     
-    [_topPrices removeAllObjects];
-    _topPrices = nil;
-    [_bottomPrices removeAllObjects];
-    _bottomPrices = nil;
+//    _leftRightDataKey = nil;
 }
 
 - (void)chackTopAndBottomPrice{
-    if (!_independentTopBottomPrice) {
+    if (!_baseConfig.independentTopBottomPrice) {
         NSDictionary * dict = [self chackTopAndBottomPrice:@[@"nowPrice",@"avgPrice"]];
         _baseConfig.topPrice = [dict[@"top"] doubleValue];
         _baseConfig.bottomPrice = [dict[@"bottom"] doubleValue];
@@ -75,18 +70,21 @@
     [keys enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSString *string1 = [NSString stringWithFormat:@"@max.%@.doubleValue" , obj];
         NSString *string2 = [NSString stringWithFormat:@"@min.%@.doubleValue" , obj];
-        [array addObject:[arr valueForKeyPath:string1]];
-        [array addObject:[arr valueForKeyPath:string2]];
+        NSString *obj1 = [arr valueForKeyPath:string1];
+        NSString *obj2 = [arr valueForKeyPath:string2];
+        [array addObject:obj1];
+        [array addObject:obj2];
+        
+        if (self.baseConfig.independentTopBottomPrice) {
+            [self.baseConfig.topPrices setObject:obj1 forKey:obj];
+            [self.baseConfig.bottomPrices setObject:obj2 forKey:obj];
+        }
     }];
     top = [[array valueForKeyPath:@"@max.self"] doubleValue];
     bottom = [[array valueForKeyPath:@"@min.self"] doubleValue];
     if (top == bottom && top != 0) {
         top = top * 1.01;
         bottom = bottom * 0.99;
-    }
-    if (_independentTopBottomPrice) {
-        [_topPrices setObject:@(top) forKey:keys];
-        [_bottomPrices setObject:@(bottom) forKey:keys];
     }
     return @{@"top":@(top),@"bottom":@(bottom)};
 }

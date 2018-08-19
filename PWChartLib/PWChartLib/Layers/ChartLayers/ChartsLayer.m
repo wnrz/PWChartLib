@@ -59,16 +59,18 @@
     if (_fsConfig && [_fsConfig.fsDatas count] > 0) {
         __block NSMutableArray *nowArray = [[NSMutableArray alloc] init];
         __block NSMutableArray *avgArray = [[NSMutableArray alloc] init];
+        __block NSMutableArray *thirdArray = [[NSMutableArray alloc] init];
         NSArray *arr = [NSArray arrayWithArray:_fsConfig.fsDatas];
         [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             ChartFSDataModel *model = obj;
             [nowArray addObject:@(model.nowPrice.doubleValue)];
             [avgArray addObject:@(model.avgPrice.doubleValue)];
+            [thirdArray addObject:@(model.thirdLine.doubleValue)];
         }];
         
         CGFloat top;
         CGFloat bottom;
-        if (!self.fsConfig.independentTopBottomPrice) {
+        if (!self.baseConfig.independentTopBottomPrice) {
             top = self.baseConfig.topPrice;
             bottom = self.baseConfig.bottomPrice;
         }else{
@@ -93,7 +95,7 @@
         }
         
         if (fsConfig.isShowMA) {
-            if (!self.fsConfig.independentTopBottomPrice) {
+            if (!self.baseConfig.independentTopBottomPrice) {
                 top = self.baseConfig.topPrice;
                 bottom = self.baseConfig.bottomPrice;
             }else{
@@ -104,6 +106,21 @@
             CAShapeLayer *avgLayer = [LayerMaker getLineChartLayer:self.baseConfig.showFrame total:self.baseConfig.maxPointCount top:top bottom:bottom arr:avgArray start:0 startX:0];
             avgLayer.lineWidth = .5;
             avgLayer.strokeColor = [PWChartColors colorByKey:kChartColorKey_JJ].CGColor;
+            [self addSublayer:avgLayer];
+        }
+        
+        if (fsConfig.isShowThirdLine) {
+            if (!self.baseConfig.independentTopBottomPrice) {
+                top = self.baseConfig.topPrice;
+                bottom = self.baseConfig.bottomPrice;
+            }else{
+                NSDictionary * dict = [self.fsConfig chackTopAndBottomPrice:@[@"thirdLine"]];
+                top = [dict[@"top"] doubleValue];
+                bottom = [dict[@"bottom"] doubleValue];
+            }
+            CAShapeLayer *avgLayer = [LayerMaker getLineChartLayer:self.baseConfig.showFrame total:self.baseConfig.maxPointCount top:top bottom:bottom arr:thirdArray start:0 startX:0];
+            avgLayer.lineWidth = .5;
+            avgLayer.strokeColor = [PWChartColors colorByKey:kChartColorKey_ThirdLine].CGColor;
             [self addSublayer:avgLayer];
         }
     }

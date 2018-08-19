@@ -223,5 +223,5 @@
 
 //- (NSMutableDictionary*)getCYZBResult:(NSMutableArray *)array datas:(NSMutableArray *)datas;
 
-
++ (NSDictionary *)makeZBData:(NSNumber *)type sName:(NSString *)sName linesArray:(NSArray *)linesArray start:(NSNumber *)start color:(UIColor *)color;
 @end

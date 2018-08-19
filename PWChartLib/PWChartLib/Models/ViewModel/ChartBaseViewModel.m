@@ -25,6 +25,11 @@
     _horizontalSeparateArr = nil;
     _verticalSeparateDottedArr = nil;
     _horizontalSeparateDottedArr = nil;
+    
+    [_topPrices removeAllObjects];
+    _topPrices = nil;
+    [_bottomPrices removeAllObjects];
+    _bottomPrices = nil;
 }
 
 - (void)setMaxPointCount:(NSInteger)maxPointCount{
@@ -41,6 +46,9 @@
     _verticalSeparateDottedArr = @[@.25,@.5,@.75];
     
     _hqData = [[ChartHQDataModel alloc] init];
+    
+    _topPrices = [[NSMutableDictionary alloc] init];
+    _bottomPrices = [[NSMutableDictionary alloc] init];
 //
 //    _hqData.digit = 2;
 //
