@@ -94,6 +94,7 @@
 //        datas = [self sortByTimeStamp:datas];
         [self setPerModel:datas];
         _fsDatas = [NSMutableArray arrayWithArray:datas];
+        self.baseConfig.showIndex = _fsDatas.count - 1;
     }else{
         NSMutableArray *arr = [self filterByMapTable:datas];
         [self increaseNewDatas:arr];

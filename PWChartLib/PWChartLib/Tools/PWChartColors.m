@@ -46,10 +46,14 @@
 }
 
 + (UIColor *)drawColorByIndex:(NSInteger)index{
-    NSArray *colorArr = @[@(0x005C78),@(0xFF9E00),@(0xD71A7B),@(0x9B59B6),@(0xE74C3C),@(0xF5BB25),@(0x4FCAD3)];
+    NSArray *colorArr = [self colors];
     index = index % colorArr.count;
     
     UIColor *color = PWCColorRGB([colorArr[index] integerValue]);
     return color;
+}
+
++ (NSArray *)colors{
+    return @[@(0x005C78),@(0xFF9E00),@(0xD71A7B),@(0x9B59B6),@(0xE74C3C),@(0xF5BB25),@(0x4FCAD3)];
 }
 @end

@@ -32,4 +32,5 @@
 + (UIColor *)colorByKey:(NSString *)key;
 
 + (UIColor *)drawColorByIndex:(NSInteger)index;
++ (NSArray *)colors;
 @end
