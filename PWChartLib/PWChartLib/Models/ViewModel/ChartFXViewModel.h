@@ -30,7 +30,7 @@ typedef enum{
 
 
 - (instancetype)initWithBaseConfig:(ChartBaseViewModel *)baseConfig;
-- (void)chackTopAndBottomPrice;
+- (void)checkTopAndBottomPrice;
 - (void)saveDatas:(NSArray<ChartFXDataModel *> *)datas;
 - (void)getZBData;
 @end

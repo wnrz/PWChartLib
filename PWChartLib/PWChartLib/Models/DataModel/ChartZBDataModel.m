@@ -21,7 +21,7 @@
         _zbDatas = nil;
     }
 }
-- (void)chackTopAndBottomPrice:(ChartBaseViewModel *)baseConfig{
+- (void)checkTopAndBottomPrice:(ChartBaseViewModel *)baseConfig{
     NSArray *arr = [NSArray arrayWithArray:_zbDatas];
     __block CGFloat top = 0;
     __block CGFloat bottom = 0;

@@ -43,7 +43,7 @@
     _fxDatas = nil;
 }
 
-- (void)chackTopAndBottomPrice{
+- (void)checkTopAndBottomPrice{
     if (_fxDatas.count == 0) {
         return;
     }
@@ -82,7 +82,7 @@
         _baseConfig.topPrice = top;
         _baseConfig.bottomPrice = bottom;
     }
-    [self.zbDatas chackTopAndBottomPrice:_baseConfig];
+    [self.zbDatas checkTopAndBottomPrice:_baseConfig];
 }
 
 - (void)saveDatas:(NSArray<ChartFXDataModel *> *)datas{

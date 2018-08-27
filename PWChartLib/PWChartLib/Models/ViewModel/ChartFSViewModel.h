@@ -27,6 +27,6 @@
 - (instancetype)initWithBaseConfig:(ChartBaseViewModel *)baseConfig;
 - (void)saveDatas:(NSArray<ChartFSDataModel *> *)datas;
 - (void)updateTopAndBottomTimeByHQData:(ChartHQDataModel *)model;
-- (void)chackTopAndBottomPrice;
-- (NSDictionary *)chackTopAndBottomPrice:(NSArray *)keys;
+- (void)checkTopAndBottomPrice;
+- (NSDictionary *)checkTopAndBottomPrice:(NSArray *)keys;
 @end

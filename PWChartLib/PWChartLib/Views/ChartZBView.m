@@ -45,7 +45,7 @@
     [self.formLayer redraw:^(ChartBaseLayer *obj) {
     }];
     
-    [self.config chackTopAndBottomPrice];
+    [self.config checkTopAndBottomPrice];
     if ([self.ztView isKindOfClass:[ChartFSView class]] && self.config.zbType == PWFTZBFSVOL) {
         [self.chartsLayer drawVOL:[(ChartFSView *)self.ztView fsConfig]];
     }else if ([self.ztView isKindOfClass:[ChartFXView class]] && self.config.zbType == PWFTZBFXVOL) {

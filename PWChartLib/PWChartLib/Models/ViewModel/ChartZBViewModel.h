@@ -54,5 +54,5 @@ typedef enum{
 - (instancetype)initWithBaseConfig:(ChartBaseViewModel *)baseConfig;
 
 - (void)getZBData;
-- (void)chackTopAndBottomPrice;
+- (void)checkTopAndBottomPrice;
 @end

@@ -46,15 +46,15 @@
 //    _leftRightDataKey = nil;
 }
 
-- (void)chackTopAndBottomPrice{
+- (void)checkTopAndBottomPrice{
     if (!_baseConfig.independentTopBottomPrice) {
-        NSDictionary * dict = [self chackTopAndBottomPrice:@[@"nowPrice",@"avgPrice"]];
+        NSDictionary * dict = [self checkTopAndBottomPrice:@[@"nowPrice",@"avgPrice"]];
         _baseConfig.topPrice = [dict[@"top"] doubleValue];
         _baseConfig.bottomPrice = [dict[@"bottom"] doubleValue];
     }
 }
 
-- (NSDictionary *)chackTopAndBottomPrice:(NSArray *)keys{
+- (NSDictionary *)checkTopAndBottomPrice:(NSArray *)keys{
     if (_fsDatas.count == 0) {
         return @{@"top":@(0),@"bottom":@(0)};
     }

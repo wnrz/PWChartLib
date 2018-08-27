@@ -89,7 +89,7 @@
     self.zbDatas.datas = dict;
 }
 
-- (void)chackTopAndBottomPrice{
+- (void)checkTopAndBottomPrice{
     NSArray *dataArr;
     if (_fsConfig) {
         dataArr = _fsConfig.fsDatas;
@@ -129,7 +129,7 @@
     if (isnan(self.baseConfig.topPrice)) {
         NSLog(@"");
     }
-    [self.zbDatas chackTopAndBottomPrice:_baseConfig];
+    [self.zbDatas checkTopAndBottomPrice:_baseConfig];
     if (isnan(self.baseConfig.topPrice)) {
         NSLog(@"");
     }

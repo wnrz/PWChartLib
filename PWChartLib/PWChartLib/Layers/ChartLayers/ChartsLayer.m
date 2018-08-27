@@ -74,7 +74,7 @@
             top = self.baseConfig.topPrice;
             bottom = self.baseConfig.bottomPrice;
         }else{
-            NSDictionary * dict = [self.fsConfig chackTopAndBottomPrice:@[@"nowPrice"]];
+            NSDictionary * dict = [self.fsConfig checkTopAndBottomPrice:@[@"nowPrice"]];
             top = [dict[@"top"] doubleValue];
             bottom = [dict[@"bottom"] doubleValue];
         }
@@ -99,7 +99,7 @@
                 top = self.baseConfig.topPrice;
                 bottom = self.baseConfig.bottomPrice;
             }else{
-                NSDictionary * dict = [self.fsConfig chackTopAndBottomPrice:@[@"avgPrice"]];
+                NSDictionary * dict = [self.fsConfig checkTopAndBottomPrice:@[@"avgPrice"]];
                 top = [dict[@"top"] doubleValue];
                 bottom = [dict[@"bottom"] doubleValue];
             }
@@ -114,7 +114,7 @@
                 top = self.baseConfig.topPrice;
                 bottom = self.baseConfig.bottomPrice;
             }else{
-                NSDictionary * dict = [self.fsConfig chackTopAndBottomPrice:@[@"thirdLine"]];
+                NSDictionary * dict = [self.fsConfig checkTopAndBottomPrice:@[@"thirdLine"]];
                 top = [dict[@"top"] doubleValue];
                 bottom = [dict[@"bottom"] doubleValue];
             }

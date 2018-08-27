@@ -15,5 +15,5 @@
 @property(nonatomic , strong)NSMutableArray *zbDatas;
 @property(nonatomic , strong)NSMutableDictionary *datas;
 
-- (void)chackTopAndBottomPrice:(ChartBaseViewModel *)baseConfig;
+- (void)checkTopAndBottomPrice:(ChartBaseViewModel *)baseConfig;
 @end
