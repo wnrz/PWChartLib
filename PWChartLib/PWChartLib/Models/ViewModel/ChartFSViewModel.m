@@ -49,8 +49,15 @@
 - (void)checkTopAndBottomPrice{
     if (!_baseConfig.independentTopBottomPrice) {
         NSDictionary * dict = [self checkTopAndBottomPrice:@[@"nowPrice",@"avgPrice"]];
-        _baseConfig.topPrice = _baseConfig.topPrice < [dict[@"top"] doubleValue] ? [dict[@"top"] doubleValue] : _baseConfig.topPrice;
-        _baseConfig.bottomPrice = _baseConfig.bottomPrice > [dict[@"bottom"] doubleValue] ? [dict[@"bottom"] doubleValue] : _baseConfig.bottomPrice;
+        if (_baseConfig.topPrice == _baseConfig.topPrice && _baseConfig.topPrice == 0) {
+            _baseConfig.topPrice = [dict[@"top"] doubleValue];
+            _baseConfig.bottomPrice = [dict[@"bottom"] doubleValue];
+        }else{
+            if (!([dict[@"top"] doubleValue] == [dict[@"bottom"] doubleValue] && [dict[@"top"] doubleValue] == 0)) {
+                _baseConfig.topPrice = _baseConfig.topPrice < [dict[@"top"] doubleValue] ? [dict[@"top"] doubleValue] : _baseConfig.topPrice;
+                _baseConfig.bottomPrice = _baseConfig.bottomPrice > [dict[@"bottom"] doubleValue] ? [dict[@"bottom"] doubleValue] : _baseConfig.bottomPrice;
+            }
+        }
     }
 }
 
