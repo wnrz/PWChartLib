@@ -36,7 +36,8 @@
         NSDictionary *d = obj;
         NSArray *array = d[@"linesArray"];
         NSInteger after = [d[@"start"] integerValue];
-        start = start - after;
+        NSInteger num = self.numCount - array.count;
+        start = start - num;
         if (start < 0) {
             start = 0;
         }
