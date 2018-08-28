@@ -37,10 +37,14 @@
         NSArray *array = d[@"linesArray"];
         NSInteger after = [d[@"start"] integerValue];
         NSInteger num = self.numCount - array.count;
-        if (length + start > array.count) {
-            length = array.count - start;
+        start = start - num;
+        if (start < 0) {
+            start = 0;
         }
-        NSArray *a = [array subarrayWithRange:NSMakeRange(start - num > 0 ? start - num : 0, length)];
+        if (length + start > array.count - 1) {
+            length = array.count - 1 - start;
+        }
+        NSArray *a = [array subarrayWithRange:NSMakeRange(start, length)];
         [a enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx2, BOOL * _Nonnull stop) {
             if (after <= idx2 + start) {
                 CGFloat value = [obj doubleValue];

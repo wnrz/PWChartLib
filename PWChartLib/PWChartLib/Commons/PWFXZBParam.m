@@ -1316,9 +1316,9 @@ static PWFXZBParam* shareZBP=nil;
     [result setObject:@(array.count) forKey:@"nCount"];
     NSMutableArray *arr = [[NSMutableArray alloc] init];
     [result setObject:arr forKey:@"linesArray"];
-    [arr addObject:[PWFXZBParam makeZBData:@0 sName:@"RSI1" linesArray:RSI1 start:@0 color:[PWChartColors drawColorByIndex:0]]];
-    [arr addObject:[PWFXZBParam makeZBData:@0 sName:@"RSI1" linesArray:RSI1 start:@0 color:[PWChartColors drawColorByIndex:1]]];
-    [arr addObject:[PWFXZBParam makeZBData:@0 sName:@"RSI3" linesArray:RSI3 start:@0 color:[PWChartColors drawColorByIndex:2]]];
+    [arr addObject:[PWFXZBParam makeZBData:@0 sName:@"RSI1" linesArray:RSI1 start:@3 color:[PWChartColors drawColorByIndex:0]]];
+    [arr addObject:[PWFXZBParam makeZBData:@0 sName:@"RSI2" linesArray:RSI2 start:@3 color:[PWChartColors drawColorByIndex:1]]];
+    [arr addObject:[PWFXZBParam makeZBData:@0 sName:@"RSI3" linesArray:RSI3 start:@3 color:[PWChartColors drawColorByIndex:2]]];
     
     return result;
 }

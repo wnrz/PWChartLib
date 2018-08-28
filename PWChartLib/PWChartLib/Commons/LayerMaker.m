@@ -79,21 +79,34 @@
     CGFloat mid = fabs(top - bottom);
     if (mid != 0) {
         __block BOOL currentPoint = NO;
+        __block CGFloat perValue = NAN;
         [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            CGFloat value = (isnan([obj doubleValue]) || isinf([obj doubleValue]) ? 0 : [obj doubleValue]) - bottom;
-            CGFloat x = showFrame.origin.x + startX +  width / (total - 1) * idx;
-            CGFloat y = height * (1 - value / mid) + showFrame.origin.y;
-            CGPoint point = CGPointMake(x, y);
-            if (idx >= start) {
-                if (isnan(point.x) || isinf(point.x) || isnan(point.y) || isinf(point.y)) {
-                    NSLog(@"");
+            CGFloat value = 0.0;// = (isnan([obj doubleValue]) || isinf([obj doubleValue]) ? 0 : [obj doubleValue]) - bottom;
+            if (isnan([obj doubleValue]) || isinf([obj doubleValue])) {
+                if (!isnan(perValue) && !isinf(perValue)) {
+                    value = perValue;
                 }
-                if (!currentPoint) {
-                    currentPoint = YES;
-                    [linePath moveToPoint:point];
-                }else{
-                    [linePath addLineToPoint:point];
+            }else{
+                value = [obj doubleValue] - bottom;
+            }
+            if (!isnan(value) && !isinf(value)) {
+                perValue = value;
+                
+                CGFloat x = showFrame.origin.x + startX +  width / (total - 1) * idx;
+                CGFloat y = height * (1 - value / mid) + showFrame.origin.y;
+                CGPoint point = CGPointMake(x, y);
+                if (idx >= start) {
+                    if (isnan(point.x) || isinf(point.x) || isnan(point.y) || isinf(point.y)) {
+                        NSLog(@"");
+                    }
+                    if (!currentPoint) {
+                        currentPoint = YES;
+                        [linePath moveToPoint:point];
+                    }else{
+                        [linePath addLineToPoint:point];
+                    }
                 }
+                
             }
         }];
     }
