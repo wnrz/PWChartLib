@@ -49,7 +49,7 @@
 - (void)checkTopAndBottomPrice{
     if (!_baseConfig.independentTopBottomPrice) {
         NSDictionary * dict = [self checkTopAndBottomPrice:@[@"nowPrice",@"avgPrice"]];
-        if (_baseConfig.topPrice == _baseConfig.topPrice && _baseConfig.topPrice == 0) {
+        if (_baseConfig.topPrice == _baseConfig.bottomPrice && _baseConfig.topPrice == 0) {
             _baseConfig.topPrice = [dict[@"top"] doubleValue];
             _baseConfig.bottomPrice = [dict[@"bottom"] doubleValue];
         }else{
