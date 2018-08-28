@@ -49,8 +49,8 @@
 - (void)checkTopAndBottomPrice{
     if (!_baseConfig.independentTopBottomPrice) {
         NSDictionary * dict = [self checkTopAndBottomPrice:@[@"nowPrice",@"avgPrice"]];
-        _baseConfig.topPrice = [dict[@"top"] doubleValue];
-        _baseConfig.bottomPrice = [dict[@"bottom"] doubleValue];
+        _baseConfig.topPrice = _baseConfig.topPrice < [dict[@"top"] doubleValue] ? [dict[@"top"] doubleValue] : _baseConfig.topPrice;
+        _baseConfig.bottomPrice = _baseConfig.bottomPrice > [dict[@"bottom"] doubleValue] ? [dict[@"bottom"] doubleValue] : _baseConfig.bottomPrice;
     }
 }
 
@@ -72,19 +72,27 @@
         NSString *string2 = [NSString stringWithFormat:@"@min.%@.doubleValue" , obj];
         NSString *obj1 = [arr valueForKeyPath:string1];
         NSString *obj2 = [arr valueForKeyPath:string2];
-        [array addObject:obj1];
-        [array addObject:obj2];
+        if ([obj1 floatValue] != 0) {
+            [array addObject:obj1];
+        }
+        if ([obj2 floatValue] != 0) {
+            [array addObject:obj2];
+        }
         
         if (self.baseConfig.independentTopBottomPrice) {
-            [self.baseConfig.topPrices setObject:obj1 forKey:obj];
-            [self.baseConfig.bottomPrices setObject:obj2 forKey:obj];
+            if ([obj1 floatValue] != 0) {
+                [self.baseConfig.topPrices setObject:obj1 forKey:obj];
+            }
+            if ([obj2 floatValue] != 0) {
+                [self.baseConfig.bottomPrices setObject:obj2 forKey:obj];
+            }
         }
     }];
     top = [[array valueForKeyPath:@"@max.self"] doubleValue];
     bottom = [[array valueForKeyPath:@"@min.self"] doubleValue];
     if (top == bottom && top != 0) {
-        top = top * 1.01;
-        bottom = bottom * 0.99;
+        top = top + fabs(top) * 0.01;
+        bottom = bottom - fabs(bottom) * 0.01;
     }
     return @{@"top":@(top),@"bottom":@(bottom)};
 }

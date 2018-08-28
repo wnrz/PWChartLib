@@ -61,8 +61,8 @@
         }];
     }];
     if (top == bottom && top != 0) {
-        top = top * 1.01;
-        bottom = bottom * 0.99;
+        top = top + fabs(top) * 0.01;
+        bottom = bottom - fabs(bottom) * 0.01;
     }
     if (baseConfig.topPrice == 0 && baseConfig.bottomPrice == 0) {
         baseConfig.topPrice = top;

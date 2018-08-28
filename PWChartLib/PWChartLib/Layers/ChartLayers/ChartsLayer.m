@@ -71,6 +71,7 @@
         CGFloat top;
         CGFloat bottom;
         if (!self.baseConfig.independentTopBottomPrice) {
+            [self.fsConfig checkTopAndBottomPrice];
             top = self.baseConfig.topPrice;
             bottom = self.baseConfig.bottomPrice;
         }else{
