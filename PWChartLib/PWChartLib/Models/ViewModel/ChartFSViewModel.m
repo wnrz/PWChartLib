@@ -58,6 +58,14 @@
                 _baseConfig.bottomPrice = _baseConfig.bottomPrice > [dict[@"bottom"] doubleValue] ? [dict[@"bottom"] doubleValue] : _baseConfig.bottomPrice;
             }
         }
+        if (!(_baseConfig.topPrice == _baseConfig.bottomPrice && _baseConfig.topPrice == 0)) {
+            if (_baseConfig.hqData.yclosePrice != 0) {
+                CGFloat p = fabs(_baseConfig.topPrice - [_baseConfig.hqData.yclosePrice doubleValue]);
+                p = p > fabs(_baseConfig.bottomPrice - [_baseConfig.hqData.yclosePrice doubleValue]) ? p : fabs(_baseConfig.bottomPrice - [_baseConfig.hqData.yclosePrice doubleValue]);
+                _baseConfig.topPrice = [_baseConfig.hqData.yclosePrice doubleValue] + p;
+                _baseConfig.bottomPrice = [_baseConfig.hqData.yclosePrice doubleValue] - p;
+            }
+        }
     }
 }
 
