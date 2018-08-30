@@ -48,7 +48,7 @@
 
 - (void)checkTopAndBottomPrice{
     if (!_baseConfig.independentTopBottomPrice) {
-        CGFloat mid = [_baseConfig.hqData.yclosePrice doubleValue] != 0 ? [_baseConfig.hqData.yclosePrice doubleValue] : (_baseConfig.topPrice - _baseConfig.bottomPrice) / 2 + _baseConfig.bottomPrice;
+        CGFloat mid = [_baseConfig.hqData.closePrice doubleValue] != 0 ? [_baseConfig.hqData.closePrice doubleValue] : (_baseConfig.topPrice - _baseConfig.bottomPrice) / 2 + _baseConfig.bottomPrice;
         NSDictionary * dict = [self checkTopAndBottomPrice:@[@"nowPrice",@"avgPrice"]];
         if (_baseConfig.topPrice == _baseConfig.bottomPrice && _baseConfig.topPrice == 0) {
             _baseConfig.topPrice = [dict[@"top"] doubleValue];
@@ -60,7 +60,7 @@
             }
         }
         if (!(_baseConfig.topPrice == _baseConfig.bottomPrice && _baseConfig.topPrice == 0)) {
-            if (_baseConfig.hqData.yclosePrice != 0) {
+            if (_baseConfig.hqData.closePrice != 0) {
                 CGFloat p = fabs(_baseConfig.topPrice - mid);
                 p = p > fabs(_baseConfig.bottomPrice - mid) ? p : fabs(_baseConfig.bottomPrice - mid);
                 _baseConfig.topPrice = mid + p;
