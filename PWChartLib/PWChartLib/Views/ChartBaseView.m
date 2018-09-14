@@ -9,6 +9,11 @@
 #import "ChartBaseView.h"
 #import "ChartTools.h"
 
+@interface ChartBaseView (){
+    
+}
+
+@end
 @implementation ChartBaseView
 
 - (instancetype)init{
@@ -485,4 +490,17 @@
     }
     return point;
 }
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)panGestureRecognizer {
+    if ([panGestureRecognizer isEqual:_panGes]) {
+        CGPoint velocity = [(UIPanGestureRecognizer *)panGestureRecognizer velocityInView:self];
+        return fabs(velocity.y) < fabs(velocity.x);
+    }
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+    return YES;
+}
+
 @end
