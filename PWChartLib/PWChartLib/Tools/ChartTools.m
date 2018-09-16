@@ -7,6 +7,7 @@
 //
 
 #import "ChartTools.h"
+#import "ChartConfig.h"
 
 @implementation ChartTools
 
@@ -160,7 +161,7 @@ float chartValid(float value) {
 {
     //    假设最大CGSize maxSize = CGSizeMake(MAXFLOAT, MAXFLOAT);
     //计算文本的大小
-    CGSize nameSize = [text boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:fontSize]} context:nil].size;
+    CGSize nameSize = [text boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont fontWithName:[ChartConfig shareConfig].fontName size:fontSize]} context:nil].size;
     return nameSize;
 }
 
