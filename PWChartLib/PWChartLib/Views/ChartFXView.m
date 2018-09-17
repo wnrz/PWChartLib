@@ -81,6 +81,8 @@
         [(ChartDataLayer *)obj setIsDrawRightText:self.baseConfig.isDrawRightText];
         [(ChartDataLayer *)obj setIsDrawCrossLeftText:self.baseConfig.isDrawCrossLeftText];
         [(ChartDataLayer *)obj setIsDrawCrossRightText:self.baseConfig.isDrawCrossRightText];
+        [(ChartDataLayer *)obj setIsLeftRiseFallColor:self.baseConfig.isLeftRiseFallColor];
+        [(ChartDataLayer *)obj setIsRightRiseFallColor:self.baseConfig.isRightRiseFallColor];
     }];
     
     [_fxDataLayer redraw:^(ChartBaseLayer *obj) {

@@ -65,12 +65,12 @@
     }];
     
     [self.dataLayer redraw:^(ChartBaseLayer *obj) {
-        [(ChartDataLayer *)obj setIsDrawLeftText:self.fsDataLayer.baseConfig.isDrawLeftText];
-        [(ChartDataLayer *)obj setIsDrawRightText:self.fsDataLayer.baseConfig.isDrawRightText];
-        [(ChartDataLayer *)obj setIsDrawCrossLeftText:self.fsDataLayer.baseConfig.isDrawCrossLeftText];
-        [(ChartDataLayer *)obj setIsDrawCrossRightText:self.fsDataLayer.baseConfig.isDrawCrossRightText];
-        [(ChartDataLayer *)obj setIsLeftRiseFallColor:self.fsDataLayer.baseConfig.isLeftRiseFallColor];
-        [(ChartDataLayer *)obj setIsRightRiseFallColor:self.fsDataLayer.baseConfig.isRightRiseFallColor];
+        [(ChartDataLayer *)obj setIsDrawLeftText:self.baseConfig.isDrawLeftText];
+        [(ChartDataLayer *)obj setIsDrawRightText:self.baseConfig.isDrawRightText];
+        [(ChartDataLayer *)obj setIsDrawCrossLeftText:self.baseConfig.isDrawCrossLeftText];
+        [(ChartDataLayer *)obj setIsDrawCrossRightText:self.baseConfig.isDrawCrossRightText];
+        [(ChartDataLayer *)obj setIsLeftRiseFallColor:self.baseConfig.isLeftRiseFallColor];
+        [(ChartDataLayer *)obj setIsRightRiseFallColor:self.baseConfig.isRightRiseFallColor];
     }];
     
     [_fsDataLayer redraw:^(ChartBaseLayer *obj) {

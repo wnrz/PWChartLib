@@ -20,17 +20,17 @@
     UIColor *color;
     [key isEqual:kChartColorKey_Form] ? color = PWCColorRGB(0x999FAA) : 0;
     
-    [key isEqual:kChartColorKey_Rise] ? color = PWCColorRGB(0xF55449) : 0;
-    [key isEqual:kChartColorKey_Fall] ? color = PWCColorRGB(0x07A168) : 0;
-    [key isEqual:kChartColorKey_Stay] ? color = PWCColorRGB(0xaaaaaa) : 0;
+    [key isEqual:kChartColorKey_Rise] ? color = PWCColorRGB(0xff4147) : 0;
+    [key isEqual:kChartColorKey_Fall] ? color = PWCColorRGB(0x0b956) : 0;
+    [key isEqual:kChartColorKey_Stay] ? color = PWCColorRGB(0x666666) : 0;
     
 //    [key isEqual:kChartColorKey_Text] ? color = PWCColorRGB(0x31343A) : 0;
     
-    [key isEqual:kChartColorKey_Text] ? color = PWCColorRGB(0x999FAA) : 0;
+    [key isEqual:kChartColorKey_Text] ? color = PWCColorRGB(0x666666) : 0;
     
-    [key isEqual:kChartColorKey_TextBorderText] ? color = PWCColorRGB(0xFFFFFF) : 0;
-    [key isEqual:kChartColorKey_TextBorder] ? color = PWCColorRGB(0x999FAA) : 0;
-    [key isEqual:kChartColorKey_TextBorderBackground] ? color = PWCColorRGB(0x999FAA) : 0;
+    [key isEqual:kChartColorKey_TextBorderText] ? color = PWCColorRGB(0x666666) : 0;
+    [key isEqual:kChartColorKey_TextBorder] ? color = PWCColorRGB(0x666666) : 0;
+    [key isEqual:kChartColorKey_TextBorderBackground] ? color = PWCColorRGB(0xffffff) : 0;
     [key isEqual:kChartColorKey_CrossLine] ? color = PWCColorRGB(0x999FAA) : 0;
     
     [key isEqual:kChartColorKey_XJ] ? color = PWCColorRGB(0x99CCFD) : 0;
