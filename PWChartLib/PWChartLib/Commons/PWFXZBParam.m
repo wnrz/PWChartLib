@@ -20,7 +20,7 @@ static PWFXZBParam* shareZBP=nil;
     @synchronized(self){
         if (!shareZBP) {
             shareZBP= [[PWFXZBParam alloc] init];
-            shareZBP.VOL_MAS = @[@5,@10];//,@20,@60
+            shareZBP.VOL_MAS = @[@5,@10,@20];//,@20,@60
             shareZBP.Pri_MAS = @[@5,@10,@20];//,@30
             
             shareZBP.MACD_Short = 12.0f;
@@ -139,14 +139,24 @@ static PWFXZBParam* shareZBP=nil;
     [result setObject:@(array.count) forKey:@"nCount"];
     NSMutableArray *arr = [[NSMutableArray alloc] init];
     [result setObject:arr forKey:@"linesArray"];
-    [mas enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+    [Pri_MAS enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *key = [NSString stringWithFormat:@"%@" , obj];
+        
         NSMutableDictionary *zbDict = [[NSMutableDictionary alloc] init];
         [zbDict setObject:@"0" forKey:@"type"];
         [zbDict setObject:[NSString stringWithFormat:@"MA%@" , key] forKey:@"sName"];
-        [zbDict setObject:obj forKey:@"linesArray"];
+        [zbDict setObject:mas[key] forKey:@"linesArray"];
         [zbDict setObject:@([key integerValue] - 1) forKey:@"start"];
         [arr addObject:zbDict];
     }];
+//    [mas enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+//        NSMutableDictionary *zbDict = [[NSMutableDictionary alloc] init];
+//        [zbDict setObject:@"0" forKey:@"type"];
+//        [zbDict setObject:[NSString stringWithFormat:@"MA%@" , key] forKey:@"sName"];
+//        [zbDict setObject:obj forKey:@"linesArray"];
+//        [zbDict setObject:@([key integerValue] - 1) forKey:@"start"];
+//        [arr addObject:zbDict];
+//    }];
     
     return result;
 }
@@ -192,14 +202,24 @@ static PWFXZBParam* shareZBP=nil;
     [result setObject:@(array.count) forKey:@"nCount"];
     NSMutableArray *arr = [[NSMutableArray alloc] init];
     [result setObject:arr forKey:@"linesArray"];
-    [vols enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+    [VOL_MAS enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *key = [NSString stringWithFormat:@"%@" , obj];
+        
         NSMutableDictionary *zbDict = [[NSMutableDictionary alloc] init];
         [zbDict setObject:@"0" forKey:@"type"];
         [zbDict setObject:[NSString stringWithFormat:@"MA%@" , key] forKey:@"sName"];
-        [zbDict setObject:obj forKey:@"linesArray"];
+        [zbDict setObject:vols[key] forKey:@"linesArray"];
         [zbDict setObject:@([key integerValue] - 1) forKey:@"start"];
         [arr addObject:zbDict];
     }];
+//    [vols enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+//        NSMutableDictionary *zbDict = [[NSMutableDictionary alloc] init];
+//        [zbDict setObject:@"0" forKey:@"type"];
+//        [zbDict setObject:[NSString stringWithFormat:@"MA%@" , key] forKey:@"sName"];
+//        [zbDict setObject:obj forKey:@"linesArray"];
+//        [zbDict setObject:@([key integerValue] - 1) forKey:@"start"];
+//        [arr addObject:zbDict];
+//    }];
     
     return result;
 }

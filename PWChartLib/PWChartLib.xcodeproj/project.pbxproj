@@ -64,7 +64,7 @@
 		92294B9D2125BDF70017783A /* ChartFormLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartFormLayer.h; sourceTree = "<group>"; };
 		928732A3211A980B00FB2771 /* PWChartLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PWChartLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		928732A6211A980B00FB2771 /* PWChartLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWChartLib.h; sourceTree = "<group>"; };
-		928732A7211A980B00FB2771 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		928732A7211A980B00FB2771 /* PWChartLib-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PWChartLib-Info.plist"; sourceTree = "<group>"; };
 		928732AC211A980B00FB2771 /* PWChartLibTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PWChartLibTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		928732B1211A980B00FB2771 /* PWChartLibTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWChartLibTests.m; sourceTree = "<group>"; };
 		928732B3211A980B00FB2771 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -161,7 +161,7 @@
 				928732BE211A983D00FB2771 /* Tools */,
 				928732C0211A983D00FB2771 /* Views */,
 				928732A6211A980B00FB2771 /* PWChartLib.h */,
-				928732A7211A980B00FB2771 /* Info.plist */,
+				928732A7211A980B00FB2771 /* PWChartLib-Info.plist */,
 			);
 			path = PWChartLib;
 			sourceTree = "<group>";
@@ -622,7 +622,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = PWChartLib/Info.plist;
+				INFOPLIST_FILE = "PWChartLib/PWChartLib-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -646,7 +646,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = PWChartLib/Info.plist;
+				INFOPLIST_FILE = "PWChartLib/PWChartLib-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
