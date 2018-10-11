@@ -109,7 +109,7 @@
             string = isnan(value2) || isinf(value2) ? @"" : [NSString stringWithFormat:@"%.2f%%" , value2];
             point = CGPointMake(maxX, y);
         }
-        CGSize size = [ChartTools sizeWithText:string maxSize:CGSizeMake(1000, 1000) fontSize:12];
+        CGSize size = [ChartTools sizeWithText:string maxSize:CGSizeMake(1000, 1000) fontSize:[ChartConfig shareConfig].fontSize];
         CGRect frame = CGRectMake(isCross ? point.x : point.x + 5, point.y - size.height / 2, isCross ? size.width + 10 : size.width, size.height);
         if (!isLeft) {
             frame = CGRectMake(point.x - size.width - 10, point.y - size.height / 2, isCross ? size.width + 10 : size.width, size.height);

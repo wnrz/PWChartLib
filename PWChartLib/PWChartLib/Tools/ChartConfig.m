@@ -16,6 +16,7 @@
     dispatch_once(&onceToken, ^{
         shareInstance = [[ChartConfig alloc] init];
         shareInstance.fontName = @"Helvetica Neue";
+        shareInstance.fontSize = 10;
     });
     return shareInstance;
 }

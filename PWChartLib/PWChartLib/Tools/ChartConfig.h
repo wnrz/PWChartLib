@@ -10,5 +10,6 @@
 @interface ChartConfig : PWBaseDataBridge
 
 @property (nonatomic , copy) NSString *fontName;
+@property (nonatomic , assign) int fontSize;
 + (ChartConfig *)shareConfig;
 @end

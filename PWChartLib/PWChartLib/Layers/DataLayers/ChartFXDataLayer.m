@@ -103,7 +103,7 @@
                 }
             }
             
-            CGSize size = [ChartTools sizeWithText:string maxSize:CGSizeMake(1000, 1000) fontSize:12];
+            CGSize size = [ChartTools sizeWithText:string maxSize:CGSizeMake(1000, 1000) fontSize:[ChartConfig shareConfig].fontSize];
             point.x = point.x - size.width / (isCross ? 2 : 1);
             //        point.y = point.y - size.height;
             CGRect frame = CGRectMake(point.x, point.y, size.width, size.height);
