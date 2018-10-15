@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "ChartConfig.h"
 
 @interface PWChartColors : NSObject
 
@@ -24,10 +25,10 @@
 #define kChartColorKey_TextBorderBackground @"kChartColorKey_TextBorderBackground"
 
 #define kChartColorKey_XJ @"kChartColorKey_XJ"
+#define kChartColorKey_XJFrom @"kChartColorKey_XJFrom"
+#define kChartColorKey_XJTo @"kChartColorKey_XJTo"
 #define kChartColorKey_JJ @"kChartColorKey_JJ"
 #define kChartColorKey_ThirdLine @"kChartColorKey_ThirdLine"
-
-
 
 + (UIColor *)colorByKey:(NSString *)key;
 

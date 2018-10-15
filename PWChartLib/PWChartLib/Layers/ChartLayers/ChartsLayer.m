@@ -80,12 +80,12 @@
             bottom = [dict[@"bottom"] doubleValue];
         }
         CAShapeLayer *nowLayer = [LayerMaker getLineChartLayer:self.baseConfig.showFrame total:self.baseConfig.maxPointCount top:top bottom:bottom   arr:nowArray start:0 startX:0];
-        nowLayer.lineWidth = .5;
+        nowLayer.lineWidth = [ChartConfig shareConfig].chartLineWidth;
         nowLayer.strokeColor = [PWChartColors colorByKey:kChartColorKey_XJ].CGColor;
         [self addSublayer:nowLayer];
         
         if (fsConfig.isShowShadow) {
-            CAGradientLayer *gradientLayer = [LayerMaker drawGredientLayer:self.baseConfig.showFrame path:nowLayer.path color:[PWChartColors colorByKey:kChartColorKey_XJ]];
+            CAGradientLayer *gradientLayer = [LayerMaker drawGredientLayer:self.baseConfig.showFrame path:nowLayer.path fromColor:[PWChartColors colorByKey:kChartColorKey_XJFrom] toColor:[PWChartColors colorByKey:kChartColorKey_XJTo]];
             CGRect f = self.baseConfig.showFrame;
             f.size.width = f.size.width + f.origin.x;
             f.origin.x = 0;
@@ -105,7 +105,7 @@
                 bottom = [dict[@"bottom"] doubleValue];
             }
             CAShapeLayer *avgLayer = [LayerMaker getLineChartLayer:self.baseConfig.showFrame total:self.baseConfig.maxPointCount top:top bottom:bottom arr:avgArray start:0 startX:0];
-            avgLayer.lineWidth = .5;
+            avgLayer.lineWidth = [ChartConfig shareConfig].chartLineWidth;
             avgLayer.strokeColor = [PWChartColors colorByKey:kChartColorKey_JJ].CGColor;
             [self addSublayer:avgLayer];
         }
@@ -120,7 +120,7 @@
                 bottom = [dict[@"bottom"] doubleValue];
             }
             CAShapeLayer *avgLayer = [LayerMaker getLineChartLayer:self.baseConfig.showFrame total:self.baseConfig.maxPointCount top:top bottom:bottom arr:thirdArray start:0 startX:0];
-            avgLayer.lineWidth = .5;
+            avgLayer.lineWidth = [ChartConfig shareConfig].chartLineWidth;
             avgLayer.strokeColor = [PWChartColors colorByKey:kChartColorKey_ThirdLine].CGColor;
             [self addSublayer:avgLayer];
         }

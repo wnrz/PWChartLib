@@ -117,7 +117,7 @@
     return layer;
 }
 
-+ (CAGradientLayer *)drawGredientLayer:(CGRect)showFrame path:(CGPathRef)path color:(UIColor *)color{
++ (CAGradientLayer *)drawGredientLayer:(CGRect)showFrame path:(CGPathRef)path fromColor:(UIColor *)fromColor toColor:(UIColor *)toColor{
     NSMutableArray *bezierPoints = [NSMutableArray array];
     CGPathApply(path, (__bridge void *)(bezierPoints), processPathElement);
 
@@ -138,8 +138,8 @@
     layer.path = linePath.CGPath;
     
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    UIColor *color2 = [ChartTools getNewColorWith:color alpha:.2];
-    gradientLayer.colors = @[(__bridge id)color.CGColor,(__bridge id)color2.CGColor];
+//    UIColor *color2 = [ChartTools getNewColorWith:color alpha:.2];
+    gradientLayer.colors = @[(__bridge id)fromColor.CGColor,(__bridge id)toColor.CGColor];
     
     gradientLayer.locations=@[@0.0,@1.0];
     gradientLayer.startPoint = CGPointMake(0.0,0.0);

@@ -17,6 +17,7 @@
         shareInstance = [[ChartConfig alloc] init];
         shareInstance.fontName = @"Helvetica Neue";
         shareInstance.fontSize = 10;
+        shareInstance.chartLineWidth = 1;
     });
     return shareInstance;
 }

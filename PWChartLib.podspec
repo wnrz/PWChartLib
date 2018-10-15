@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
 
 s.name         = "PWChartLib"
-s.version      = "0.0.43"
+s.version      = "0.0.44"
 s.summary      = "图表库"
 
 
