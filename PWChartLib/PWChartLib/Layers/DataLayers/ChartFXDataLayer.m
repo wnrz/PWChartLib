@@ -27,8 +27,8 @@
 - (void)startDraw{
     if (!self.baseConfig.showCrossLine) {
         NSInteger idx = self.baseConfig.showIndex;
-        if (idx != MIN(self.fxConfig.fxDatas.count - 1, self.baseConfig.currentShowNum + self.baseConfig.currentIndex)) {
-            idx = MIN(self.fxConfig.fxDatas.count - 1, self.baseConfig.currentShowNum + self.baseConfig.currentIndex);
+        if (idx != MIN(self.fxConfig.fxDatas.count - 1, self.baseConfig.currentShowNum + self.baseConfig.currentIndex - 1)) {
+            idx = MIN(self.fxConfig.fxDatas.count - 1, self.baseConfig.currentShowNum + self.baseConfig.currentIndex - 1);
             self.baseConfig.showIndex = idx;
         }
     }
@@ -74,8 +74,8 @@
         if (idx < self.baseConfig.currentIndex) {
             idx = self.baseConfig.currentIndex;
         }
-        if (idx > self.baseConfig.currentShowNum + self.baseConfig.currentIndex){
-            idx = self.baseConfig.currentShowNum + self.baseConfig.currentIndex;
+        if (idx >= self.baseConfig.currentShowNum + self.baseConfig.currentIndex){
+            idx = self.baseConfig.currentShowNum + self.baseConfig.currentIndex - 1;
         }
         if (idx >= self.fxConfig.fxDatas.count) {
             idx = self.fxConfig.fxDatas.count - 1;

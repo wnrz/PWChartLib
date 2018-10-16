@@ -29,7 +29,7 @@
         NSInteger start = baseConfig.currentIndex;
         NSInteger length = baseConfig.currentShowNum;
         start = start < 0 ? 0 : start;
-        length =  length > self->_numCount - start - 1 ? self->_numCount - start - 1 : length;
+        length =  length > self->_numCount - start - 1 ? self->_numCount - start - 0 : length;
         if (length < 0) {
             return;
         }
@@ -42,7 +42,7 @@
             start = 0;
         }
         if (length + start > array.count - 1) {
-            length = array.count - 1 - start;
+            length = array.count - 0 - start;
         }
         NSArray *a = [array subarrayWithRange:NSMakeRange(start, length)];
         [a enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx2, BOOL * _Nonnull stop) {
