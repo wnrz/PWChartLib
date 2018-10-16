@@ -112,7 +112,7 @@
         CGSize size = [ChartTools sizeWithText:string maxSize:CGSizeMake(1000, 1000) fontSize:[ChartConfig shareConfig].fontSize];
         CGRect frame = CGRectMake(isCross ? point.x : point.x + 5, point.y - size.height / 2, isCross ? size.width + 10 : size.width, size.height);
         if (!isLeft) {
-            frame = CGRectMake(point.x - size.width - 10, point.y - size.height / 2, isCross ? size.width + 10 : size.width, size.height);
+            frame = CGRectMake(point.x - size.width - 5, point.y - size.height / 2, isCross ? size.width + 10 : size.width, size.height);
         }
         frame = [self checkFrame:frame];
         UIColor *color = isCross ? [PWChartColors colorByKey:(kChartColorKey_TextBorderText)] : !(isLeft ? _isLeftRiseFallColor : _isRightRiseFallColor) ? [PWChartColors colorByKey:(kChartColorKey_Text)] : num < 0.5 ? [PWChartColors colorByKey:(kChartColorKey_Rise)] : num > 0.5 ? [PWChartColors colorByKey:(kChartColorKey_Fall)] : [PWChartColors colorByKey:(kChartColorKey_Stay)];

@@ -114,6 +114,10 @@
     layer.path = linePath.CGPath;
     
 //    [layer addSublayer:gradientLayer];
+    CAShapeLayer *maksLayer = [CAShapeLayer layer];
+    UIBezierPath *path = [UIBezierPath bezierPathWithRect:showFrame];
+    maksLayer.path = path.CGPath;
+    layer.mask = maksLayer;
     return layer;
 }
 
@@ -249,6 +253,10 @@ void processPathElement(void* info, const CGPathElement* element) {
         }
     }];
     
+    CAShapeLayer *maksLayer = [CAShapeLayer layer];
+    UIBezierPath *path = [UIBezierPath bezierPathWithRect:showFrame];
+    maksLayer.path = path.CGPath;
+    layer.mask = maksLayer;
     return layer;
 }
 
@@ -281,6 +289,10 @@ void processPathElement(void* info, const CGPathElement* element) {
         volLayer.strokeColor = color;
         [layer addSublayer:volLayer];
     }];
+    CAShapeLayer *maksLayer = [CAShapeLayer layer];
+    UIBezierPath *path = [UIBezierPath bezierPathWithRect:showFrame];
+    maksLayer.path = path.CGPath;
+    layer.mask = maksLayer;
     return layer;
 }
 
@@ -315,6 +327,10 @@ void processPathElement(void* info, const CGPathElement* element) {
         [layer addSublayer:imageLayer];
     }];
 //    CGImageRelease(imageRef);
+    CAShapeLayer *maksLayer = [CAShapeLayer layer];
+    UIBezierPath *path = [UIBezierPath bezierPathWithRect:showFrame];
+    maksLayer.path = path.CGPath;
+    layer.mask = maksLayer;
     return layer;
 }
 @end
