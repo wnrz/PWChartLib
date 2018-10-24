@@ -260,8 +260,8 @@ static PWFXZBParam* shareZBP=nil;
             ema2 = (2 * [klm.closePrice doubleValue] + ema2Old * (MACD_Long - 1))/(MACD_Long + 1);
             emaDea = (2 * (ema1 - ema2) + emaDeaOld * (MACD_Mid - 1))/(MACD_Mid + 1);
         }else{
-            ema1Old = [klm.closePrice doubleValue];
-            ema2Old = [klm.closePrice doubleValue];
+//            ema1Old = [klm.closePrice doubleValue];
+//            ema2Old = [klm.closePrice doubleValue];
             emaDea = 0;
         }
         

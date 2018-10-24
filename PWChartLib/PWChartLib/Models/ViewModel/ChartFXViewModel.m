@@ -54,8 +54,8 @@
     if (end < start) {
         return;
     }
-    CGFloat top = _baseConfig.topPrice;
-    CGFloat bottom = _baseConfig.bottomPrice;
+    CGFloat top;// = _baseConfig.topPrice;
+    CGFloat bottom;// = _baseConfig.bottomPrice;
     NSArray *arr = [_fxDatas subarrayWithRange:NSMakeRange(start, end - start)];
     NSArray *array = @[[arr valueForKeyPath:@"@max.topPrice.doubleValue"],
                        [arr valueForKeyPath:@"@max.openPrice.doubleValue"],

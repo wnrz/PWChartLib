@@ -12,7 +12,7 @@
 
 @interface ChartBaseModel : NSObject<NSCopying>
 
-@property(nonatomic , copy)NSMutableDictionary *dict;
+@property(nonatomic , strong)NSMutableDictionary *dict;
 
 - (id)initWithDictionary:(id)d;
 - (id)objectForKey:(id)aKey;

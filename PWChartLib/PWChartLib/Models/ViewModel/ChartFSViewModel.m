@@ -79,8 +79,8 @@
     start = start < 0 ? 0 : start;
     length =  length > (_fsDatas.count -  _baseConfig.currentIndex) ? _fsDatas.count -  _baseConfig.currentIndex : length;
     length = length < 0 ? 0 : length;
-    CGFloat top = _baseConfig.topPrice;
-    CGFloat bottom = _baseConfig.bottomPrice;
+    CGFloat top;// = _baseConfig.topPrice;
+    CGFloat bottom;// = _baseConfig.bottomPrice;
     NSArray *arr = [_fsDatas subarrayWithRange:NSMakeRange(start, length)];
     NSMutableArray *array = [[NSMutableArray alloc] init];
     [keys enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

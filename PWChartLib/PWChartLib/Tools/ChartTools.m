@@ -59,7 +59,7 @@ float chartValid(float value) {
             ema1Old = [[a objectAtIndex:i - 1] doubleValue];
             ema1 = (2 * f + ema1Old * (d - 1))/(d + 1);
         }else{
-            ema1Old = f;
+//            ema1Old = f;
         }
         
         double num = ema1;

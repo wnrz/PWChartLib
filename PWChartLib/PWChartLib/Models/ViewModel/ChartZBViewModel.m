@@ -106,8 +106,8 @@
     if (end < start) {
         return;
     }
-    __block CGFloat top = _baseConfig.topPrice;
-    CGFloat bottom = _baseConfig.bottomPrice;
+    CGFloat top;// = _baseConfig.topPrice;
+    CGFloat bottom;// = _baseConfig.bottomPrice;
     if (self.zbType == PWFTZBFSVOL || self.zbType == PWFTZBFXVOL) {
         NSArray *arr = [dataArr subarrayWithRange:NSMakeRange(start, end - start)];
         if (arr.count > 0) {

@@ -76,8 +76,8 @@ static PWFSZBParam* shareZBP=nil;
             ema2 = (2 * [klm.nowPrice doubleValue] + ema2Old * (MACD_Long - 1))/(MACD_Long + 1);
             emaDea = (2 * (ema1 - ema2) + emaDeaOld * (MACD_Mid - 1))/(MACD_Mid + 1);
         }else{
-            ema1Old = [klm.nowPrice doubleValue];
-            ema2Old = [klm.nowPrice doubleValue];
+//            ema1Old = [klm.nowPrice doubleValue];
+//            ema2Old = [klm.nowPrice doubleValue];
             emaDea = 0;
         }
         

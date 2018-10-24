@@ -155,7 +155,7 @@
                 sModel.value = model.nowVol.doubleValue;
             }else if (self.fxConfig) {
                 ChartFXDataModel *model = obj;
-                sModel.color = [model.closePrice doubleValue] > [model.openPrice doubleValue] ? [PWChartColors colorByKey:kChartColorKey_Rise] : [model.closePrice doubleValue] < [model.openPrice doubleValue] ? [PWChartColors colorByKey:kChartColorKey_Fall] : [model.closePrice doubleValue] > [model.perFXModel.closePrice doubleValue] ? [PWChartColors colorByKey:kChartColorKey_Rise] : [model.closePrice doubleValue] < [model.perFXModel.closePrice doubleValue] ? [PWChartColors colorByKey:kChartColorKey_Fall] : [PWChartColors colorByKey:kChartColorKey_Stay];
+                sModel.color = [model.closePrice doubleValue] > [model.openPrice doubleValue] ? [PWChartColors colorByKey:kChartColorKey_Rise] : [model.closePrice doubleValue] < [model.openPrice doubleValue] ? [PWChartColors colorByKey:kChartColorKey_Fall] : [model.closePrice doubleValue] > [model.perFXModel.closePrice doubleValue] ? [PWChartColors colorByKey:kChartColorKey_Rise] : [model.closePrice doubleValue] < [model.perFXModel.closePrice doubleValue] ? [PWChartColors colorByKey:kChartColorKey_Fall] : [PWChartColors colorByKey:kChartColorKey_Rise];
                 sModel.value = model.volume.doubleValue;
             }
             [volArray addObject:sModel];
