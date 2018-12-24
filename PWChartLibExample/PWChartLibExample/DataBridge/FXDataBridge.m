@@ -143,7 +143,7 @@
             model.date = [NSString stringWithFormat:@"%@" , data[@"kDate"]];
             
             NSString *dayTime = [NSString stringWithFormat:@"%08zd%04zd" , [data[@"kDate"] integerValue] , [data[@"kTime"] integerValue]];
-            model.timeStamp = [BaseTool date2SstringStamp:dayTime format:@"yyyyMMddHHmm"];
+            model.timeStamp = [BaseTool date2StringStamp:dayTime format:@"yyyyMMddHHmm"];
         }];
         [self.fxView saveDatas:arr];
     }];
@@ -166,7 +166,7 @@
         model.date = [NSString stringWithFormat:@"%@" , d[@"kDate"]];
         
         NSString *dayTime = [NSString stringWithFormat:@"%08zd%04zd" , [d[@"kDate"] integerValue] , [d[@"kTime"] integerValue]];
-        model.timeStamp = [BaseTool date2SstringStamp:dayTime format:@"yyyyMMddHHmm"];
+        model.timeStamp = [BaseTool date2StringStamp:dayTime format:@"yyyyMMddHHmm"];
         
         [self.fxView saveDatas:@[model]];
     }

@@ -49,6 +49,9 @@
         }
         
         CALayer *layer = [LayerMaker getCandlestickLine:self.baseConfig.showFrame total:self.baseConfig.currentShowNum top:self.baseConfig.topPrice bottom:self.baseConfig.bottomPrice models:models clrUp:[PWChartColors colorByKey:kChartColorKey_Rise] clrDown:[PWChartColors colorByKey:kChartColorKey_Fall] clrBal:[PWChartColors colorByKey:kChartColorKey_Stay] start:0 lineType:1];
+        
+        CALayer *textLayer = [LayerMaker getCandlestickLineTopAndBottomValue:self.baseConfig.showFrame total:self.baseConfig.currentShowNum top:self.baseConfig.topPrice bottom:self.baseConfig.bottomPrice models:models topColor:[PWChartColors colorByKey:kChartColorKey_Text] bottomColor:[PWChartColors colorByKey:kChartColorKey_Text] start:0 digit:fxConfig.baseConfig.digit font:[UIFont fontWithName:[ChartConfig shareConfig].fontName size:[ChartConfig shareConfig].fontSize]];
+        [layer addSublayer:textLayer];
         [self addSublayer:layer];
     }
 }

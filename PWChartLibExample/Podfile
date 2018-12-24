@@ -1,11 +1,32 @@
 source 'https://github.com/CocoaPods/Specs.git'
+use_modular_headers!
 platform :ios, '8.0'
 def pods
 
  pod 'PWChartLib', :path=> '../../PWChartLib'
- pod 'BaseUtils', :path => '/Users/wangning/Documents/shhcProject/BaseUtils'
- pod 'NetworkController', :path => '/Users/wangning/Documents/shhcProject/NetworkController'
+ pod 'BaseUtils', :path => '../../BaseUtils'
+ pod 'NetworkController', :path => '../../NetworkController'
 end
 target 'PWChartLibExample' do
     pods
+end
+
+post_install do |installer|
+    installer.pods_project.build_configurations.each do |config|
+        if config.name.include?('GoldTrading')
+            config.build_settings['GCC_OPTIMIZATION_LEVEL'] = '0'
+            config.build_settings['ONLY_ACTIVE_ARCH'] = 'YES'
+        end
+    end
+    
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            if config.name == 'Debug'
+                config.build_settings['OTHER_SWIFT_FLAGS'] = ['$(inherited)', '-Onone']
+                config.build_settings['SWIFT_OPTIMIZATION_LEVEL'] = '-Onone'
+                config.build_settings['SWIFT_COMPILATION_MODE'] = 'Incremental'
+                
+            end
+        end
+    end
 end

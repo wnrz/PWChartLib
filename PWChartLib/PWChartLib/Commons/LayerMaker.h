@@ -33,9 +33,11 @@
 + (CAGradientLayer *)drawGredientLayer:(CGRect)showFrame path:(CGPathRef)path fromColor:(UIColor *)fromColor toColor:(UIColor *)toColor;
 
 //lintType:0、蜡烛线  1、空心线  2、美国线
-+ (CALayer *)getCandlestickLine:(CGRect)showFrame total:(float)total top:(float)top bottom:(float)bottom models:(NSArray *)models clrUp:(UIColor *)clrUp clrDown:(UIColor *)clrDown clrBal:(UIColor *)clrBal start:(NSInteger)start lineType:(NSInteger)lintType;
++ (CALayer *)getCandlestickLine:(CGRect)showFrame total:(float)total top:(float)top bottom:(float)bottom models:(NSArray<CandlestickModel *> *)models clrUp:(UIColor *)clrUp clrDown:(UIColor *)clrDown clrBal:(UIColor *)clrBal start:(NSInteger)start lineType:(NSInteger)lintType;
 
-+ (CALayer *)getStickLine:(CGRect)showFrame total:(float)total top:(float)top bottom:(float)bottom models:(NSArray *)models start:(NSInteger)start lineWidth:(CGFloat)lineWidth;
++ (CALayer *)getCandlestickLineTopAndBottomValue:(CGRect)showFrame total:(float)total top:(float)top bottom:(float)bottom models:(NSArray<CandlestickModel *> *)models topColor:(UIColor *)topColor bottomColor:(UIColor *)bottomColor start:(NSInteger)start digit:(NSInteger)digit font:(UIFont *)font;
+
++ (CALayer *)getStickLine:(CGRect)showFrame total:(float)total top:(float)top bottom:(float)bottom models:(NSArray<StickModel *> *)models start:(NSInteger)start lineWidth:(CGFloat)lineWidth;
 
 + (CALayer *)drawImages:(CGRect)showFrame total:(float)total top:(float)top bottom:(float)bottom image:(UIImage *)image array:(NSArray *)array isBuy:(BOOL)isBuy;
 @end

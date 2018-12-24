@@ -10,6 +10,7 @@
 		8180E12E2342163F53B6D331 /* libPods-PWChartLibExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 076BC685355D3B25B43420DC /* libPods-PWChartLibExample.a */; };
 		9202A8E1211D3EED0014095B /* FSDataBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 9202A8E0211D3EED0014095B /* FSDataBridge.m */; };
 		9202A8E4212119ED0014095B /* FXDataBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 9202A8E3212119EC0014095B /* FXDataBridge.m */; };
+		9246B77921D07624001971AF /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9246B77821D07624001971AF /* test.swift */; };
 		92873319211AC7B100FB2771 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 92873318211AC7B100FB2771 /* AppDelegate.m */; };
 		9287331C211AC7B100FB2771 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9287331B211AC7B100FB2771 /* ViewController.m */; };
 		9287331F211AC7B100FB2771 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9287331D211AC7B100FB2771 /* Main.storyboard */; };
@@ -43,6 +44,7 @@
 		9202A8E0211D3EED0014095B /* FSDataBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = FSDataBridge.m; path = DataBridge/FSDataBridge.m; sourceTree = "<group>"; };
 		9202A8E2212119EB0014095B /* FXDataBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FXDataBridge.h; path = DataBridge/FXDataBridge.h; sourceTree = "<group>"; };
 		9202A8E3212119EC0014095B /* FXDataBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FXDataBridge.m; path = DataBridge/FXDataBridge.m; sourceTree = "<group>"; };
+		9246B77821D07624001971AF /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		92873314211AC7B100FB2771 /* PWChartLibExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PWChartLibExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92873317211AC7B100FB2771 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		92873318211AC7B100FB2771 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				9202A8E0211D3EED0014095B /* FSDataBridge.m */,
 				9202A8E2212119EB0014095B /* FXDataBridge.h */,
 				9202A8E3212119EC0014095B /* FXDataBridge.m */,
+				9246B77821D07624001971AF /* test.swift */,
 				9287331D211AC7B100FB2771 /* Main.storyboard */,
 				92873320211AC7B200FB2771 /* Assets.xcassets */,
 				92873322211AC7B200FB2771 /* LaunchScreen.storyboard */,
@@ -236,6 +239,7 @@
 				TargetAttributes = {
 					92873313211AC7B100FB2771 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1010;
 					};
 					9287332B211AC7B200FB2771 = {
 						CreatedOnToolsVersion = 9.4.1;
@@ -301,18 +305,20 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-PWChartLibExample/Pods-PWChartLibExample-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-PWChartLibExample/Pods-PWChartLibExample-frameworks.sh",
 				"${PODS_ROOT}/AliyunPlayer_iOS/AliyunPlayerSDK.framework",
 				"${PODS_ROOT}/AliyunPlayer_iOS/AliThirdparty.framework",
+				"${PODS_ROOT}/GRKOpenSSLFramework/OpenSSL-iOS/bin/openssl.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AliyunPlayerSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AliThirdparty.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PWChartLibExample/Pods-PWChartLibExample-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PWChartLibExample/Pods-PWChartLibExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		67B0026514DB3D0829C1FEAD /* [CP] Check Pods Manifest.lock */ = {
@@ -339,13 +345,14 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-PWChartLibExample/Pods-PWChartLibExample-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-PWChartLibExample/Pods-PWChartLibExample-resources.sh",
 				"${PODS_ROOT}/AliyunPlayer_iOS/AliyunLanguageSource.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/BaseUtils/BaseUtils.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/NetworkController/NetworkController.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/PWChartLib/PWChartLib.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/PWDataBridge/PWDataBridge.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/PWPagingTableView/PWPagingTableView.bundle",
 				"${PODS_ROOT}/UMCShare/UMShare/UMSocialUI/UMSocialSDKResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -356,11 +363,12 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/NetworkController.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PWChartLib.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PWDataBridge.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PWPagingTableView.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PWChartLibExample/Pods-PWChartLibExample-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PWChartLibExample/Pods-PWChartLibExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -371,6 +379,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9287331C211AC7B100FB2771 /* ViewController.m in Sources */,
+				9246B77921D07624001971AF /* test.swift in Sources */,
 				9202A8E1211D3EED0014095B /* FSDataBridge.m in Sources */,
 				9202A8E4212119ED0014095B /* FXDataBridge.m in Sources */,
 				92873327211AC7B200FB2771 /* main.m in Sources */,
@@ -544,6 +553,7 @@
 			baseConfigurationReference = AA623D390860B8A924CB05B9 /* Pods-PWChartLibExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B8W3QD4QS9;
 				INFOPLIST_FILE = PWChartLibExample/Info.plist;
@@ -554,6 +564,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = QuoBusiness.PWChartLibExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -563,6 +575,7 @@
 			baseConfigurationReference = F86156C96F2635311F068630 /* Pods-PWChartLibExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B8W3QD4QS9;
 				INFOPLIST_FILE = PWChartLibExample/Info.plist;
@@ -573,6 +586,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = QuoBusiness.PWChartLibExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -580,6 +594,7 @@
 		92873344211AC7B300FB2771 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = PWChartLibExampleTests/Info.plist;
@@ -598,6 +613,7 @@
 		92873345211AC7B300FB2771 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = PWChartLibExampleTests/Info.plist;
@@ -616,6 +632,7 @@
 		92873347211AC7B300FB2771 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = PWChartLibExampleUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -633,6 +650,7 @@
 		92873348211AC7B300FB2771 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = PWChartLibExampleUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

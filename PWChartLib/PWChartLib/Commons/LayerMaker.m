@@ -178,7 +178,7 @@ void processPathElement(void* info, const CGPathElement* element) {
     }
 }
 
-+ (CALayer *)getCandlestickLine:(CGRect)showFrame total:(float)total top:(float)top bottom:(float)bottom models:(NSArray *)models clrUp:(UIColor *)clrUp clrDown:(UIColor *)clrDown clrBal:(UIColor *)clrBal start:(NSInteger)start lineType:(NSInteger)lintType{
++ (CALayer *)getCandlestickLine:(CGRect)showFrame total:(float)total top:(float)top bottom:(float)bottom models:(NSArray<CandlestickModel *> *)models clrUp:(UIColor *)clrUp clrDown:(UIColor *)clrDown clrBal:(UIColor *)clrBal start:(NSInteger)start lineType:(NSInteger)lintType{
     CALayer *layer = [[CALayer alloc] init];
     CGFloat startX = [ChartTools getStartX:showFrame total:total];
     CGFloat width = (showFrame.size.width - 2 * startX) / total;
@@ -260,7 +260,75 @@ void processPathElement(void* info, const CGPathElement* element) {
     return layer;
 }
 
-+ (CALayer *)getStickLine:(CGRect)showFrame total:(float)total top:(float)top bottom:(float)bottom models:(NSArray *)models start:(NSInteger)start lineWidth:(CGFloat)lineWidth{
++ (CALayer *)getCandlestickLineTopAndBottomValue:(CGRect)showFrame total:(float)total top:(float)top bottom:(float)bottom models:(NSArray<CandlestickModel *> *)models topColor:(UIColor *)topColor bottomColor:(UIColor *)bottomColor start:(NSInteger)start digit:(NSInteger)digit font:(UIFont *)font{
+    CALayer *layer = [[CALayer alloc] init];
+    CGFloat startX = [ChartTools getStartX:showFrame total:total];
+    CGFloat width = (showFrame.size.width - 2 * startX) / total;
+    CGFloat height = showFrame.size.height;
+    CGFloat mid = fabs(top - bottom);
+    if (mid == 0) {
+        mid = 1;
+    }
+    __block CGFloat x = startX + width / 2;
+    __block CGPoint topPoint = CGPointMake(-MAXFLOAT, -MAXFLOAT);
+    __block CGPoint bottomPoint = CGPointMake(-MAXFLOAT, -MAXFLOAT);
+    __block CGFloat topValue = -MAXFLOAT;
+    __block CGFloat bottomValue = MAXFLOAT;
+    [models enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        x = showFrame.origin.x + startX + width / 2 + idx * width;
+        CandlestickModel *model = obj;
+        
+        CGFloat value = model.top - bottom;
+        CGFloat y = height * (1 - value / mid) + showFrame.origin.y;
+        CGPoint pointTop = CGPointMake(x, y);
+        
+        value = model.bottom - bottom;
+        y = height * (1 - value / mid) + showFrame.origin.y;
+        CGPoint pointBottom = CGPointMake(x, y);
+        
+        if (topValue < model.top) {
+            topValue = model.top;
+            topPoint = pointTop;
+        }
+        
+        if (bottomValue > model.bottom) {
+            bottomValue = model.bottom;
+            bottomPoint = pointBottom;
+        }
+    }];
+    for (int i = 0 ; i < 2; i++) {
+        CGPoint curPoint = i == 0 ? topPoint : bottomPoint;
+        CGPoint oldPoint = i == 0 ? topPoint : bottomPoint;
+        UIColor *color = i == 0 ? topColor : bottomColor;
+        BOOL isLeft = oldPoint.x < showFrame.size.width / 2 + showFrame.origin.x;
+        NSString *format = [NSString stringWithFormat:@"%%.%ldf" , (long)digit];
+        NSString *string = [NSString stringWithFormat:format , i == 0 ? topValue : bottomValue];
+        CGSize size = [ChartTools sizeWithText:string maxSize:CGSizeMake(1000, 1000) fontSize:font.pointSize];
+        if (i == 0){
+            curPoint.y = (curPoint.y - 5 - size.height / 2) < showFrame.origin.y ? showFrame.origin.y : (curPoint.y - 5 - size.height / 2);
+        }else{
+            curPoint.y = (curPoint.y + 5 + size.height / 2) > (showFrame.origin.y + showFrame.size.height) ? (showFrame.origin.y + showFrame.size.height - size.height / 2) : (curPoint.y + 5 - size.height / 2);
+        }
+        curPoint.x = isLeft ? (curPoint.x + 9) : (curPoint.x - size.width - 9);
+        CGRect frame = CGRectMake(curPoint.x , curPoint.y , size.width , size.height);
+        CATextLayer *textLayer = [LayerMaker getTextLayer:string point:curPoint font:font foregroundColor:color frame:frame];
+        [layer addSublayer:textLayer];
+        
+        curPoint.y = curPoint.y + size.height / 2;
+        curPoint.x = isLeft ? curPoint.x : (curPoint.x + size.width);
+        CAShapeLayer *lineLayer = [LayerMaker getLineLayer:oldPoint toPoint:curPoint isDot:NO];
+        lineLayer.strokeColor = color.CGColor;
+        [layer addSublayer:lineLayer];
+    }
+    
+    CAShapeLayer *maksLayer = [CAShapeLayer layer];
+    UIBezierPath *path = [UIBezierPath bezierPathWithRect:showFrame];
+    maksLayer.path = path.CGPath;
+    layer.mask = maksLayer;
+    return layer;
+}
+
++ (CALayer *)getStickLine:(CGRect)showFrame total:(float)total top:(float)top bottom:(float)bottom models:(NSArray<StickModel *> *)models start:(NSInteger)start lineWidth:(CGFloat)lineWidth{
     CALayer *layer = [[CALayer alloc] init];
     CGFloat startX = [ChartTools getStartX:showFrame total:total];
     CGFloat width = (showFrame.size.width - 2 * startX) / total;
