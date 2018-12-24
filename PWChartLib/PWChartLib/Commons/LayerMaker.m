@@ -8,6 +8,30 @@
 #import "LayerMaker.h"
 #import "ChartTools.h"
 
+@implementation LayerMakerLineModel
+
+@end
+
+@implementation LayerMakerDataModel
+
+@end
+
+@implementation LayerMakerLineChartDataModel
+
+@end
+
+@implementation LayerMakerCandlestickDataModel
+
+@end
+
+@implementation LayerMakerStickDataModel
+
+@end
+
+@implementation LayerMakerTextModel
+
+@end
+
 @implementation CandlestickModel
 
 @end
@@ -19,15 +43,15 @@
 @implementation LayerMaker
 
 
-+ (CAShapeLayer *)getLineLayer:(NSArray *)points isDot:(BOOL)isDot{
++ (CAShapeLayer *)getMultiplePointLineLayer:(LayerMakerLineModel *)lineModel{
     CAShapeLayer *layer = [CAShapeLayer layer];
-    if (points.count == 0) {
+    if (lineModel.points.count == 0) {
         return layer;
     }
     __block BOOL currentPoint = NO;
     UIBezierPath *linePath = [UIBezierPath bezierPath];
-    [points enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        CGPoint point = [points[idx] CGPointValue];
+    [lineModel.points enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        CGPoint point = [lineModel.points[idx] CGPointValue];
         if (!currentPoint) {
             currentPoint = YES;
             [linePath moveToPoint:point];
@@ -36,25 +60,29 @@
         }
     }];
     layer.path = linePath.CGPath;
-    if (isDot) {
+    if (lineModel.isDot) {
         layer.lineDashPattern = @[@5,@2];
     }
     return layer;
 }
 
-+ (CAShapeLayer *)getLineLayer:(CGPoint)startPoint toPoint:(CGPoint)endPoint isDot:(BOOL)isDot{
++ (CAShapeLayer *)getTwoPointLineLayer:(LayerMakerLineModel *)lineModel{
     CAShapeLayer *layer = [CAShapeLayer layer];
     UIBezierPath *linePath = [UIBezierPath bezierPath];
-    [linePath moveToPoint:startPoint];
-    [linePath addLineToPoint:endPoint];
+    [linePath moveToPoint:lineModel.startPoint];
+    [linePath addLineToPoint:lineModel.endPoint];
     layer.path = linePath.CGPath;
-    if (isDot) {
+    if (lineModel.isDot) {
         layer.lineDashPattern = @[@5,@2];
     }
     return layer;
 }
 
-+ (CATextLayer *)getTextLayer:(NSString *)text point:(CGPoint)point font:(UIFont *)font foregroundColor:(UIColor *)foregroundColor frame:(CGRect)frame{
++ (CATextLayer *)getTextLayer:(LayerMakerTextModel *)textModel{
+    NSString *text = textModel.text;
+    UIFont *font = textModel.font;
+    UIColor *foregroundColor = textModel.foregroundColor;
+    CGRect frame = textModel.frame;
     CATextLayer *layer = [CATextLayer layer];
     layer.foregroundColor = foregroundColor.CGColor;
     layer.string = text;
@@ -70,7 +98,15 @@
     return layer;
 }
 
-+ (CAShapeLayer *)getLineChartLayer:(CGRect)showFrame total:(float)total top:(float)top bottom:(float)bottom arr:(NSArray *)arr start:(NSInteger)start startX:(NSInteger)startX{
++ (CAShapeLayer *)getLineChartLayer:(LayerMakerLineChartDataModel *)lineChartDataModel{
+    CGRect showFrame = lineChartDataModel.showFrame;
+    float total = lineChartDataModel.total;
+    float top = lineChartDataModel.top;
+    float bottom = lineChartDataModel.bottom;
+    NSArray *arr = lineChartDataModel.lineChartDatas;
+    NSInteger start = lineChartDataModel.start;
+    NSInteger startX = lineChartDataModel.startX;
+    
     CAShapeLayer *layer = [CAShapeLayer layer];
     UIBezierPath *linePath = [UIBezierPath bezierPath];
     
@@ -178,7 +214,17 @@ void processPathElement(void* info, const CGPathElement* element) {
     }
 }
 
-+ (CALayer *)getCandlestickLine:(CGRect)showFrame total:(float)total top:(float)top bottom:(float)bottom models:(NSArray<CandlestickModel *> *)models clrUp:(UIColor *)clrUp clrDown:(UIColor *)clrDown clrBal:(UIColor *)clrBal start:(NSInteger)start lineType:(NSInteger)lintType{
++ (CALayer *)getCandlestickLine:(LayerMakerCandlestickDataModel *)candlestickDataModel{
+    CGRect showFrame = candlestickDataModel.showFrame;
+    float total = candlestickDataModel.total;
+    float top = candlestickDataModel.top;
+    float bottom = candlestickDataModel.bottom;
+    NSArray<CandlestickModel *> *models = candlestickDataModel.candlestickDatas;
+    UIColor *clrUp = candlestickDataModel.clrUp;
+    UIColor *clrDown = candlestickDataModel.clrDown;
+    UIColor *clrBal = candlestickDataModel.clrBal;
+    NSInteger lintType = candlestickDataModel.lineType;
+    
     CALayer *layer = [[CALayer alloc] init];
     CGFloat startX = [ChartTools getStartX:showFrame total:total];
     CGFloat width = (showFrame.size.width - 2 * startX) / total;
@@ -209,8 +255,11 @@ void processPathElement(void* info, const CGPathElement* element) {
         CGPoint pointBottom = CGPointMake(x, y);
         
         CGColorRef color = model.open < model.close ? clrUp.CGColor : model.open > model.close ? clrDown.CGColor : clrBal.CGColor;
-        
-        CAShapeLayer *topToBottomLayar = [self getLineLayer:pointTop toPoint:pointBottom isDot:NO];
+        LayerMakerLineModel *lineModel = [[LayerMakerLineModel alloc] init];
+        lineModel.startPoint = pointTop;
+        lineModel.endPoint = pointBottom;
+        lineModel.isDot = NO;
+        CAShapeLayer *topToBottomLayar = [self getTwoPointLineLayer:lineModel];
         topToBottomLayar.lineWidth = 1;
         
         topToBottomLayar.strokeColor = color;
@@ -218,7 +267,11 @@ void processPathElement(void* info, const CGPathElement* element) {
         [layer addSublayer:topToBottomLayar];
         
         if (lintType == 0 || (lintType == 1 && model.open > model.close)) {
-            CAShapeLayer *openToCloseLayer = [self getLineLayer:pointOpen toPoint:pointClose isDot:NO];
+            LayerMakerLineModel *lineModel = [[LayerMakerLineModel alloc] init];
+            lineModel.startPoint = pointOpen;
+            lineModel.endPoint = pointClose;
+            lineModel.isDot = NO;
+            CAShapeLayer *openToCloseLayer = [self getTwoPointLineLayer:lineModel];
             openToCloseLayer.lineWidth = width * .7;
             openToCloseLayer.strokeColor = color;
             [layer addSublayer:openToCloseLayer];
@@ -227,7 +280,10 @@ void processPathElement(void* info, const CGPathElement* element) {
             CGPoint point2 = CGPointMake(pointOpen.x + width *.7 / 2, pointOpen.y);
             CGPoint point3 = CGPointMake(pointOpen.x + width *.7 / 2, pointClose.y);
             CGPoint point4 = CGPointMake(pointOpen.x - width *.7 / 2, pointClose.y);
-            CAShapeLayer *openToCloseLayer = [self getLineLayer:@[@(point1) , @(point2) , @(point3) , @(point4) , @(point1)] isDot:NO];
+            LayerMakerLineModel *lineModel = [[LayerMakerLineModel alloc] init];
+            lineModel.points = @[@(point1) , @(point2) , @(point3) , @(point4) , @(point1)];
+            lineModel.isDot = NO;
+            CAShapeLayer *openToCloseLayer = [self getMultiplePointLineLayer:lineModel];
             openToCloseLayer.lineWidth = .5;
             openToCloseLayer.strokeColor = color;
             if ((lintType == 1 && model.open < model.close)) {
@@ -241,12 +297,18 @@ void processPathElement(void* info, const CGPathElement* element) {
             CGPoint point2 = CGPointMake(pointOpen.x, pointOpen.y);
             CGPoint point3 = CGPointMake(pointOpen.x + width / 2, pointClose.y);
             CGPoint point4 = CGPointMake(pointOpen.x, pointClose.y);
-            CAShapeLayer *openLayer = [self getLineLayer:@[@(point1) , @(point2)] isDot:NO];
+            LayerMakerLineModel *lineModel = [[LayerMakerLineModel alloc] init];
+            lineModel.points = @[@(point1) , @(point2)];
+            lineModel.isDot = NO;
+            CAShapeLayer *openLayer = [self getMultiplePointLineLayer:lineModel];
             openLayer.lineWidth = 1;
             openLayer.strokeColor = color;
             [layer addSublayer:openLayer];
             
-            CAShapeLayer *closeLayer = [self getLineLayer:@[@(point3) , @(point4)] isDot:NO];
+            lineModel = [[LayerMakerLineModel alloc] init];
+            lineModel.points = @[@(point3) , @(point4)];
+            lineModel.isDot = NO;
+            CAShapeLayer *closeLayer = [self getMultiplePointLineLayer:lineModel];
             closeLayer.lineWidth = 1;
             closeLayer.strokeColor = color;
             [layer addSublayer:closeLayer];
@@ -260,7 +322,17 @@ void processPathElement(void* info, const CGPathElement* element) {
     return layer;
 }
 
-+ (CALayer *)getCandlestickLineTopAndBottomValue:(CGRect)showFrame total:(float)total top:(float)top bottom:(float)bottom models:(NSArray<CandlestickModel *> *)models topColor:(UIColor *)topColor bottomColor:(UIColor *)bottomColor start:(NSInteger)start digit:(NSInteger)digit font:(UIFont *)font{
++ (CALayer *)getCandlestickLineTopAndBottomValue:(LayerMakerCandlestickDataModel *)candlestickDataModel textLayer:(LayerMakerTextModel *)textModel{
+    CGRect showFrame = candlestickDataModel.showFrame;
+    float total = candlestickDataModel.total;
+    float top = candlestickDataModel.top;
+    float bottom = candlestickDataModel.bottom;
+    NSArray<CandlestickModel *> *models = candlestickDataModel.candlestickDatas;
+    UIColor *topColor = candlestickDataModel.clrUp;
+    UIColor *bottomColor = candlestickDataModel.clrDown;
+    NSInteger digit = textModel.digit;
+    UIFont *font = textModel.font;
+    
     CALayer *layer = [[CALayer alloc] init];
     CGFloat startX = [ChartTools getStartX:showFrame total:total];
     CGFloat width = (showFrame.size.width - 2 * startX) / total;
@@ -311,12 +383,21 @@ void processPathElement(void* info, const CGPathElement* element) {
         }
         curPoint.x = isLeft ? (curPoint.x + 9) : (curPoint.x - size.width - 9);
         CGRect frame = CGRectMake(curPoint.x , curPoint.y , size.width , size.height);
-        CATextLayer *textLayer = [LayerMaker getTextLayer:string point:curPoint font:font foregroundColor:color frame:frame];
+        LayerMakerTextModel *textModel = [[LayerMakerTextModel alloc] init];
+        textModel.text = string;
+        textModel.font = font;
+        textModel.foregroundColor = color;
+        textModel.frame = frame;
+        CATextLayer *textLayer = [LayerMaker getTextLayer:textModel];
         [layer addSublayer:textLayer];
         
         curPoint.y = curPoint.y + size.height / 2;
         curPoint.x = isLeft ? curPoint.x : (curPoint.x + size.width);
-        CAShapeLayer *lineLayer = [LayerMaker getLineLayer:oldPoint toPoint:curPoint isDot:NO];
+        LayerMakerLineModel *lineModel = [[LayerMakerLineModel alloc] init];
+        lineModel.startPoint = oldPoint;
+        lineModel.endPoint = curPoint;
+        lineModel.isDot = NO;
+        CAShapeLayer *lineLayer = [LayerMaker getTwoPointLineLayer:lineModel];
         lineLayer.strokeColor = color.CGColor;
         [layer addSublayer:lineLayer];
     }
@@ -328,7 +409,13 @@ void processPathElement(void* info, const CGPathElement* element) {
     return layer;
 }
 
-+ (CALayer *)getStickLine:(CGRect)showFrame total:(float)total top:(float)top bottom:(float)bottom models:(NSArray<StickModel *> *)models start:(NSInteger)start lineWidth:(CGFloat)lineWidth{
++ (CALayer *)getStickLine:(LayerMakerStickDataModel *)stickDataModel{
+    CGRect showFrame = stickDataModel.showFrame;
+    float total = stickDataModel.total;
+    float top = stickDataModel.top;
+    float bottom = stickDataModel.bottom;
+    NSArray<StickModel *> *models = stickDataModel.stickDatas;
+    CGFloat lineWidth = stickDataModel.lineWidth;
     CALayer *layer = [[CALayer alloc] init];
     CGFloat startX = [ChartTools getStartX:showFrame total:total];
     CGFloat width = (showFrame.size.width - 2 * startX) / total;
@@ -352,7 +439,11 @@ void processPathElement(void* info, const CGPathElement* element) {
         
         CGColorRef color = model.color.CGColor;
         
-        CAShapeLayer *volLayer = [self getLineLayer:pointOpen toPoint:pointClose isDot:NO];
+        LayerMakerLineModel *lineModel = [[LayerMakerLineModel alloc] init];
+        lineModel.startPoint = pointOpen;
+        lineModel.endPoint = pointClose;
+        lineModel.isDot = NO;
+        CAShapeLayer *volLayer = [self getTwoPointLineLayer:lineModel];
         volLayer.lineWidth = lineWidth > 0 ? lineWidth : width *.7;
         volLayer.strokeColor = color;
         [layer addSublayer:volLayer];

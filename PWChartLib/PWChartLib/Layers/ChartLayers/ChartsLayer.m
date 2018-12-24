@@ -48,9 +48,25 @@
             }
         }
         
-        CALayer *layer = [LayerMaker getCandlestickLine:self.baseConfig.showFrame total:self.baseConfig.currentShowNum top:self.baseConfig.topPrice bottom:self.baseConfig.bottomPrice models:models clrUp:[PWChartColors colorByKey:kChartColorKey_Rise] clrDown:[PWChartColors colorByKey:kChartColorKey_Fall] clrBal:[PWChartColors colorByKey:kChartColorKey_Stay] start:0 lineType:1];
+        LayerMakerCandlestickDataModel *candlestickDataModel = [[LayerMakerCandlestickDataModel alloc] init];
+        candlestickDataModel.showFrame = self.baseConfig.showFrame;
+        candlestickDataModel.total = self.baseConfig.currentShowNum;
+        candlestickDataModel.top = self.baseConfig.topPrice;
+        candlestickDataModel.bottom = self.baseConfig.bottomPrice;
+        candlestickDataModel.candlestickDatas = models;
+        candlestickDataModel.clrUp = [PWChartColors colorByKey:kChartColorKey_Rise];
+        candlestickDataModel.clrDown = [PWChartColors colorByKey:kChartColorKey_Fall];
+        candlestickDataModel.clrBal = [PWChartColors colorByKey:kChartColorKey_Stay];
+        candlestickDataModel.start = 0;
+        candlestickDataModel.lineType = 1;
+        CALayer *layer = [LayerMaker getCandlestickLine:candlestickDataModel];
         
-        CALayer *textLayer = [LayerMaker getCandlestickLineTopAndBottomValue:self.baseConfig.showFrame total:self.baseConfig.currentShowNum top:self.baseConfig.topPrice bottom:self.baseConfig.bottomPrice models:models topColor:[PWChartColors colorByKey:kChartColorKey_Text] bottomColor:[PWChartColors colorByKey:kChartColorKey_Text] start:0 digit:fxConfig.baseConfig.digit font:[UIFont fontWithName:[ChartConfig shareConfig].fontName size:[ChartConfig shareConfig].fontSize]];
+        candlestickDataModel.clrUp = [PWChartColors colorByKey:kChartColorKey_Text];
+        candlestickDataModel.clrDown = [PWChartColors colorByKey:kChartColorKey_Text];
+        LayerMakerTextModel *textModel = [[LayerMakerTextModel alloc] init];
+        textModel.digit = fxConfig.baseConfig.digit;
+        textModel.font = [UIFont fontWithName:[ChartConfig shareConfig].fontName size:[ChartConfig shareConfig].fontSize];
+        CALayer *textLayer = [LayerMaker getCandlestickLineTopAndBottomValue:candlestickDataModel textLayer:textModel];
         [layer addSublayer:textLayer];
         [self addSublayer:layer];
     }
@@ -82,7 +98,15 @@
             top = [dict[@"top"] doubleValue];
             bottom = [dict[@"bottom"] doubleValue];
         }
-        CAShapeLayer *nowLayer = [LayerMaker getLineChartLayer:self.baseConfig.showFrame total:self.baseConfig.maxPointCount top:top bottom:bottom   arr:nowArray start:0 startX:0];
+        LayerMakerLineChartDataModel *lineChartDataModel = [[LayerMakerLineChartDataModel alloc] init];
+        lineChartDataModel.showFrame = self.baseConfig.showFrame;
+        lineChartDataModel.total = self.baseConfig.maxPointCount;
+        lineChartDataModel.top = top;
+        lineChartDataModel.bottom = bottom;
+        lineChartDataModel.lineChartDatas = nowArray;
+        lineChartDataModel.start = 0;
+        lineChartDataModel.startX = 0;
+        CAShapeLayer *nowLayer = [LayerMaker getLineChartLayer:lineChartDataModel];
         nowLayer.lineWidth = [ChartConfig shareConfig].chartLineWidth;
         nowLayer.strokeColor = [PWChartColors colorByKey:kChartColorKey_XJ].CGColor;
         [self addSublayer:nowLayer];
@@ -107,7 +131,15 @@
                 top = [dict[@"top"] doubleValue];
                 bottom = [dict[@"bottom"] doubleValue];
             }
-            CAShapeLayer *avgLayer = [LayerMaker getLineChartLayer:self.baseConfig.showFrame total:self.baseConfig.maxPointCount top:top bottom:bottom arr:avgArray start:0 startX:0];
+            LayerMakerLineChartDataModel *lineChartDataModel = [[LayerMakerLineChartDataModel alloc] init];
+            lineChartDataModel.showFrame = self.baseConfig.showFrame;
+            lineChartDataModel.total = self.baseConfig.maxPointCount;
+            lineChartDataModel.top = top;
+            lineChartDataModel.bottom = bottom;
+            lineChartDataModel.lineChartDatas = avgArray;
+            lineChartDataModel.start = 0;
+            lineChartDataModel.startX = 0;
+            CAShapeLayer *avgLayer = [LayerMaker getLineChartLayer:lineChartDataModel];
             avgLayer.lineWidth = [ChartConfig shareConfig].chartLineWidth;
             avgLayer.strokeColor = [PWChartColors colorByKey:kChartColorKey_JJ].CGColor;
             [self addSublayer:avgLayer];
@@ -122,7 +154,15 @@
                 top = [dict[@"top"] doubleValue];
                 bottom = [dict[@"bottom"] doubleValue];
             }
-            CAShapeLayer *avgLayer = [LayerMaker getLineChartLayer:self.baseConfig.showFrame total:self.baseConfig.maxPointCount top:top bottom:bottom arr:thirdArray start:0 startX:0];
+            LayerMakerLineChartDataModel *lineChartDataModel = [[LayerMakerLineChartDataModel alloc] init];
+            lineChartDataModel.showFrame = self.baseConfig.showFrame;
+            lineChartDataModel.total = self.baseConfig.maxPointCount;
+            lineChartDataModel.top = top;
+            lineChartDataModel.bottom = bottom;
+            lineChartDataModel.lineChartDatas = thirdArray;
+            lineChartDataModel.start = 0;
+            lineChartDataModel.startX = 0;
+            CAShapeLayer *avgLayer = [LayerMaker getLineChartLayer:lineChartDataModel];
             avgLayer.lineWidth = [ChartConfig shareConfig].chartLineWidth;
             avgLayer.strokeColor = [PWChartColors colorByKey:kChartColorKey_ThirdLine].CGColor;
             [self addSublayer:avgLayer];
@@ -164,10 +204,18 @@
             [volArray addObject:sModel];
         }];
         CALayer *volLayer;
+        LayerMakerStickDataModel *stickDataModel = [[LayerMakerStickDataModel alloc] init];
+        stickDataModel.showFrame = self.baseConfig.showFrame;
+        stickDataModel.total = self.baseConfig.currentShowNum;
+        stickDataModel.top = self.baseConfig.topPrice;
+        stickDataModel.bottom = self.baseConfig.bottomPrice;
+        stickDataModel.stickDatas = volArray;
+        stickDataModel.lineWidth = -1;
         if ([ztConfig isKindOfClass:[ChartFXViewModel class]]) {
-            volLayer = [LayerMaker getStickLine:self.baseConfig.showFrame total:self.baseConfig.currentShowNum top:self.baseConfig.topPrice bottom:self.baseConfig.bottomPrice models:volArray start:0 lineWidth:-1];
+            volLayer = [LayerMaker getStickLine:stickDataModel];
         }else if ([ztConfig isKindOfClass:[ChartFSViewModel class]]){
-            volLayer = [LayerMaker getStickLine:self.baseConfig.showFrame total:self.baseConfig.maxPointCount top:self.baseConfig.topPrice bottom:self.baseConfig.bottomPrice models:volArray start:0 lineWidth:-1];
+            stickDataModel.total = self.baseConfig.maxPointCount;
+            volLayer = [LayerMaker getStickLine:stickDataModel];
         }
         if (volLayer) {
             [self addSublayer:volLayer];

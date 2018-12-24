@@ -120,7 +120,12 @@
         
         frame.origin.x = frame.origin.x < self.baseConfig.showFrame.origin.x ? self.baseConfig.showFrame.origin.x : frame.origin.x + frame.size.width  > self.baseConfig.showFrame.origin.x + self.baseConfig.showFrame.size.width ? self.baseConfig.showFrame.origin.x + self.baseConfig.showFrame.size.width - frame.size.width : frame.origin.x;
         
-        CATextLayer *layer = [LayerMaker getTextLayer:string point:point font:[UIFont fontWithName:[ChartConfig shareConfig].fontName size:10] foregroundColor:[PWChartColors colorByKey:(isCross ? kChartColorKey_TextBorderText : kChartColorKey_Text)] frame:frame];
+        LayerMakerTextModel *textModel = [[LayerMakerTextModel alloc] init];
+        textModel.text = string;
+        textModel.font = [UIFont fontWithName:[ChartConfig shareConfig].fontName size:[ChartConfig shareConfig].fontSize];
+        textModel.foregroundColor = [PWChartColors colorByKey:(isCross ? kChartColorKey_TextBorderText : kChartColorKey_Text)];
+        textModel.frame = frame;
+        CATextLayer *layer = [LayerMaker getTextLayer:textModel];
         if (isCross) {
             layer.backgroundColor = [PWChartColors colorByKey:kChartColorKey_TextBorderBackground].CGColor;
             layer.borderColor = [PWChartColors colorByKey:kChartColorKey_TextBorder].CGColor;

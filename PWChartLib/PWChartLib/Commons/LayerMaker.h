@@ -20,24 +20,69 @@
 @property (nonatomic , assign) CGFloat value;
 @end
 
+@interface LayerMakerLineModel : NSObject
+@property (nonatomic , strong) NSArray *points;
+@property (nonatomic , assign) CGPoint startPoint;
+@property (nonatomic , assign) CGPoint endPoint;
+@property (nonatomic , assign) BOOL isDot;
+@end
+
+@interface LayerMakerDataModel : NSObject
+@property (nonatomic , assign) CGRect showFrame;
+@property (nonatomic , assign) CGFloat total;
+@property (nonatomic , assign) CGFloat top;
+@property (nonatomic , assign) CGFloat bottom;
+@property (nonatomic , assign) NSInteger start;
+
+@end
+
+@interface LayerMakerLineChartDataModel : LayerMakerDataModel
+@property (nonatomic , strong) NSArray *lineChartDatas;
+@property (nonatomic , assign) NSInteger startX;
+
+@end
+
+@interface LayerMakerCandlestickDataModel : LayerMakerDataModel
+@property (nonatomic , strong) NSArray<CandlestickModel *> *candlestickDatas;
+@property (nonatomic , strong) UIColor *clrUp;
+@property (nonatomic , strong) UIColor *clrDown;
+@property (nonatomic , strong) UIColor *clrBal;
+@property (nonatomic , assign) NSInteger lineType;
+
+@end
+
+@interface LayerMakerStickDataModel : LayerMakerDataModel
+@property (nonatomic , strong) NSArray<StickModel *> *stickDatas;
+@property (nonatomic , assign) CGFloat lineWidth;
+
+@end
+
+@interface LayerMakerTextModel : NSObject
+@property (nonatomic , strong) UIFont * font;
+@property (nonatomic , strong) UIColor * foregroundColor;
+@property (nonatomic , assign) CGRect frame;
+@property (nonatomic , copy) NSString *text;
+@property (nonatomic , assign) NSInteger digit;
+@end
+
 @interface LayerMaker : NSObject
 
-+ (CAShapeLayer *)getLineLayer:(NSArray *)points isDot:(BOOL)isDot;
++ (CAShapeLayer *)getMultiplePointLineLayer:(LayerMakerLineModel *)lineModel;
 
-+ (CAShapeLayer *)getLineLayer:(CGPoint)startPoint toPoint:(CGPoint)endPoint isDot:(BOOL)isDot;
++ (CAShapeLayer *)getTwoPointLineLayer:(LayerMakerLineModel *)lineModel;
 
-+ (CATextLayer *)getTextLayer:(NSString *)text point:(CGPoint)point font:(UIFont *)font foregroundColor:(UIColor *)foregroundColor frame:(CGRect)frame;
++ (CATextLayer *)getTextLayer:(LayerMakerTextModel *)textModel;
 
-+ (CAShapeLayer *)getLineChartLayer:(CGRect)showFrame total:(float)total top:(float)top bottom:(float)bottom arr:(NSArray *)arr start:(NSInteger)start startX:(NSInteger)startX;
++ (CAShapeLayer *)getLineChartLayer:(LayerMakerLineChartDataModel *)lineChartDataModel;
 
 + (CAGradientLayer *)drawGredientLayer:(CGRect)showFrame path:(CGPathRef)path fromColor:(UIColor *)fromColor toColor:(UIColor *)toColor;
 
 //lintType:0、蜡烛线  1、空心线  2、美国线
-+ (CALayer *)getCandlestickLine:(CGRect)showFrame total:(float)total top:(float)top bottom:(float)bottom models:(NSArray<CandlestickModel *> *)models clrUp:(UIColor *)clrUp clrDown:(UIColor *)clrDown clrBal:(UIColor *)clrBal start:(NSInteger)start lineType:(NSInteger)lintType;
++ (CALayer *)getCandlestickLine:(LayerMakerCandlestickDataModel *)candlestickDataModel;
 
-+ (CALayer *)getCandlestickLineTopAndBottomValue:(CGRect)showFrame total:(float)total top:(float)top bottom:(float)bottom models:(NSArray<CandlestickModel *> *)models topColor:(UIColor *)topColor bottomColor:(UIColor *)bottomColor start:(NSInteger)start digit:(NSInteger)digit font:(UIFont *)font;
++ (CALayer *)getCandlestickLineTopAndBottomValue:(LayerMakerCandlestickDataModel *)candlestickDataModel textLayer:(LayerMakerTextModel *)textModel;
 
-+ (CALayer *)getStickLine:(CGRect)showFrame total:(float)total top:(float)top bottom:(float)bottom models:(NSArray<StickModel *> *)models start:(NSInteger)start lineWidth:(CGFloat)lineWidth;
++ (CALayer *)getStickLine:(LayerMakerStickDataModel *)stickDataModel;
 
 + (CALayer *)drawImages:(CGRect)showFrame total:(float)total top:(float)top bottom:(float)bottom image:(UIImage *)image array:(NSArray *)array isBuy:(BOOL)isBuy;
 @end

@@ -43,7 +43,15 @@
                     CGFloat startX = [ChartTools getStartX:baseConfig.showFrame total:baseConfig.currentShowNum];
                     CGFloat width = baseConfig.showFrame.size.width - startX * 2;
                     width = width / baseConfig.currentShowNum;
-                    CAShapeLayer *lineLayer = [LayerMaker getLineChartLayer:baseConfig.showFrame total:baseConfig.currentShowNum top:baseConfig.topPrice bottom:baseConfig.bottomPrice arr:A start:after startX:startX + width / 2];
+                    LayerMakerLineChartDataModel *lineChartDataModel = [[LayerMakerLineChartDataModel alloc] init];
+                    lineChartDataModel.showFrame = baseConfig.showFrame;
+                    lineChartDataModel.total = baseConfig.currentShowNum;
+                    lineChartDataModel.top = baseConfig.topPrice;
+                    lineChartDataModel.bottom = baseConfig.bottomPrice;
+                    lineChartDataModel.lineChartDatas = A;
+                    lineChartDataModel.start = after;
+                    lineChartDataModel.startX = startX + width / 2;
+                    CAShapeLayer *lineLayer = [LayerMaker getLineChartLayer:lineChartDataModel];
                     lineLayer.lineWidth = [ChartConfig shareConfig].chartLineWidth;
                     lineLayer.strokeColor = [PWChartColors drawColorByIndex:idx].CGColor;
                     [self addSublayer:lineLayer];
@@ -62,7 +70,14 @@
                         sModel.color = sModel.value > 0 ? [PWChartColors colorByKey:kChartColorKey_Rise] : sModel.value < 0 ? [PWChartColors colorByKey:kChartColorKey_Fall] : [PWChartColors colorByKey:kChartColorKey_Stay];
                         [macdArray addObject:sModel];
                     }];
-                    CALayer *macdLayer = [LayerMaker getStickLine:self.baseConfig.showFrame total:self.baseConfig.currentShowNum top:self.baseConfig.topPrice bottom:self.baseConfig.bottomPrice models:macdArray start:0 lineWidth:1];
+                    LayerMakerStickDataModel *stickDataModel = [[LayerMakerStickDataModel alloc] init];
+                    stickDataModel.showFrame = self.baseConfig.showFrame;
+                    stickDataModel.total = self.baseConfig.currentShowNum;
+                    stickDataModel.top = self.baseConfig.topPrice;
+                    stickDataModel.bottom = self.baseConfig.bottomPrice;
+                    stickDataModel.stickDatas = macdArray;
+                    stickDataModel.lineWidth = 1;
+                    CALayer *macdLayer = [LayerMaker getStickLine:stickDataModel];
                     if (macdLayer) {
                         [self addSublayer:macdLayer];
                     }

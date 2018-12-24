@@ -54,7 +54,11 @@
         endPoint = CGPointMake(point.x, self.baseConfig.showFrame.origin.y + self.baseConfig.showFrame.size.height);
     }
     
-    CAShapeLayer *layer = [LayerMaker getLineLayer:startPoint toPoint:endPoint isDot:NO];
+    LayerMakerLineModel *lineModel = [[LayerMakerLineModel alloc] init];
+    lineModel.startPoint = startPoint;
+    lineModel.endPoint = endPoint;
+    lineModel.isDot = NO;
+    CAShapeLayer *layer = [LayerMaker getTwoPointLineLayer:lineModel];
     layer.strokeColor = self.lineColor.CGColor;
     layer.lineWidth = self.lineWidth;
     [self addSublayer:layer];
