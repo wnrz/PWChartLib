@@ -51,7 +51,7 @@
         [a enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx2, BOOL * _Nonnull stop) {
             if (after <= idx2 + start) {
                 CGFloat value = [obj doubleValue];
-                if (top == 0 && bottom == 0) {
+                if (top == 0 && bottom == 0 && !isnan(value) && !isinf(value)) {
                     top = value;
                     bottom = value;
                 }else {
