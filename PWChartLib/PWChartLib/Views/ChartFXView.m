@@ -103,6 +103,10 @@
         [zbView.baseConfig SyncParameter:self.baseConfig];
         [zbView startDraw];
     }];
+    if (self.baseConfig.showCrossLine) {
+        CGPoint crossLinePoint = [self correctCrossLinePoint:self.baseConfig.showCrossLinePoint];
+        self.baseConfig.showCrossLinePoint = crossLinePoint;
+    }
     [self.fxConfig getZBData];
     [self startDraw];
 }

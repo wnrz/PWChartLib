@@ -84,6 +84,7 @@
     if (datas.count == 0) {
         return;
     }
+    NSUInteger num = _fsConfig.fsDatas.count;
     [_fsConfig saveDatas:datas];
     NSArray *arr = [NSArray arrayWithArray:self.ftViews];
     [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -91,6 +92,15 @@
         [zbView.config getZBData];
         [zbView startDraw];
     }];
+    if (self.baseConfig.showCrossLine) {
+        CGPoint crossLinePoint = [self correctCrossLinePoint:self.baseConfig.showCrossLinePoint];
+        self.baseConfig.showCrossLinePoint = crossLinePoint;
+    }else{
+        if (num != _fsConfig.fsDatas.count){
+            self.baseConfig.showIndex = _fsConfig.fsDatas.count - num;
+        }
+        
+    }
     [self startDraw];
 }
 
