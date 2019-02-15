@@ -96,8 +96,8 @@
         CGPoint crossLinePoint = [self correctCrossLinePoint:self.baseConfig.showCrossLinePoint];
         self.baseConfig.showCrossLinePoint = crossLinePoint;
     }else{
-        if (num != _fsConfig.fsDatas.count){
-            self.baseConfig.showIndex = _fsConfig.fsDatas.count - num;
+        if (num!= 0 && num != _fsConfig.fsDatas.count){
+            self.baseConfig.showIndex = _fsConfig.fsDatas.count - 1;
         }
         
     }
