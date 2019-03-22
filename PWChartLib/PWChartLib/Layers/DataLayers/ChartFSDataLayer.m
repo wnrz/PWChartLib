@@ -95,8 +95,9 @@
                     string = [NSString stringWithFormat:@"%02ld:%02ld" , model.end % (60 * 24) / 60 , model.end % 60];
                 }else{
                     ChartFSTimeModel *model1 = self.fsConfig.times[index - 1];
-                    ChartFSTimeModel *model2 = self.fsConfig.times[index];
-                    string = [NSString stringWithFormat:@"%02ld:%02ld/%02ld:%02ld" , model1.end % (60 * 24) / 60 , model1.end % 60 , model2.start / 60 , model2.start % 60];
+//                    ChartFSTimeModel *model2 = self.fsConfig.times[index];
+//                    string = [NSString stringWithFormat:@"%02ld:%02ld/%02ld:%02ld" , model1.end % (60 * 24) / 60 , model1.end % 60 , model2.start / 60 , model2.start % 60];
+                    string = [NSString stringWithFormat:@"%02ld:%02ld" , model1.end % (60 * 24) / 60 , model1.end % 60];
                 }
             }else{
                 NSInteger idx = index * (self.fsConfig.fsDatas.count - 1);
@@ -114,7 +115,7 @@
         }
         
         CGSize size = [ChartTools sizeWithText:string maxSize:CGSizeMake(1000, 1000) fontSize:[ChartConfig shareConfig].fontSize];
-        point.x = point.x - size.width / (isCross ? 2 : 1);
+        point.x = point.x - size.width / 2;//(isCross ? 2 : 1);
 //        point.y = point.y - size.height;
         CGRect frame = CGRectMake(point.x, point.y, size.width, size.height);
         

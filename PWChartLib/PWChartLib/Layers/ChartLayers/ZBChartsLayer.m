@@ -53,7 +53,11 @@
                     lineChartDataModel.startX = startX + width / 2;
                     CAShapeLayer *lineLayer = [LayerMaker getLineChartLayer:lineChartDataModel];
                     lineLayer.lineWidth = [ChartConfig shareConfig].chartLineWidth;
-                    lineLayer.strokeColor = [PWChartColors drawColorByIndex:idx].CGColor;
+                    UIColor *color = dict[@"color"];
+                    if (!color){
+                        color = [PWChartColors drawColorByIndex:idx];
+                    }
+                    lineLayer.strokeColor = color.CGColor;
                     [self addSublayer:lineLayer];
                 }else if ([dict[@"type"] intValue] == 3) {
                     //画点 3

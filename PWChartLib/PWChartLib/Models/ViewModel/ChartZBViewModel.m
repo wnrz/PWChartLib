@@ -64,6 +64,7 @@
         ([ftZBName isEqualToString:@"ASI"]) ? self.zbType = PWFTZBFXASI : 0;
         ([ftZBName isEqualToString:@"ROC"]) ? self.zbType = PWFTZBFXROC : 0;
         ([ftZBName isEqualToString:@"PSY"]) ? self.zbType = PWFTZBFXPSY : 0;
+        ([ftZBName isEqualToString:@"多空能量线"]) ? self.zbType = PWFTZBFXDKNLX : 0;
     }
 }
 
@@ -85,6 +86,8 @@
         (self.zbType == PWFTZBFXASI) ? dict = [[PWFXZBParam shareFXZBParam] getASI2Result:array] : 0;
         (self.zbType == PWFTZBFXROC) ? dict = [[PWFXZBParam shareFXZBParam] getROCResult:array] : 0;
         (self.zbType == PWFTZBFXPSY) ? dict = [[PWFXZBParam shareFXZBParam] getPSYResult:array] : 0;
+        
+        (self.zbType == PWFTZBFXDKNLX) ? dict = [[PWFXZBParam shareFXZBParam] getDUOKONGResult:array] : 0;
     }
     self.zbDatas.datas = dict;
 }

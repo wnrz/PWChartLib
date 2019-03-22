@@ -72,6 +72,30 @@ float chartValid(float value) {
     return a;
 }
 
++ (NSMutableArray *)SMA:(NSArray *)array n:(NSInteger)n m:(NSInteger)m block:(double (^)(double num , NSInteger index))block{
+    NSMutableArray *a = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0 ; i < [array count]; i++) {
+        double f = [[array objectAtIndex:i]  doubleValue];
+        
+        double sma1 = 0;
+        double sma1Old = 0;
+        if (i > 0) {
+            sma1Old = [[a objectAtIndex:i - 1] doubleValue];
+            sma1 = (m * f + sma1Old * (n - m))/n;
+        }else{
+            //            ema1Old = f;
+        }
+        
+        double num = sma1;
+        if(block){
+            num = block(num , i);
+        }
+        [a addObject:@(num)];
+    }
+    
+    return a;
+}
+
 + (NSMutableArray *)MA:(NSArray *)array d:(NSInteger)d block:(double (^)(double num , NSInteger index))block{
     NSMutableArray *a = [[NSMutableArray alloc] init];
     NSMutableArray *b = [[NSMutableArray alloc] init];
@@ -143,6 +167,44 @@ float chartValid(float value) {
             result = block(result , i);
         }
         [arr addObject:result];
+    }
+    return arr;
+}
+
++ (NSMutableArray *)HHV:(NSArray *)array int:(NSInteger)num block:(double (^)(double num , NSInteger index))block{
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0 ; i < array.count ; i++) {
+        NSInteger loc = i >= num ? i - num + 1 : 0;
+        if (num == 0) {
+            loc = 0;
+        }
+        NSInteger len = i >= num ? num : i + 1;
+        NSArray *tArray = [array subarrayWithRange:NSMakeRange(loc, len)];
+        NSNumber *max = [tArray valueForKeyPath:@"@max.self"];
+        double hhv = max.doubleValue;
+        if (block) {
+            hhv = block(hhv , i);
+        }
+        [arr addObject:@(hhv)];
+    }
+    return arr;
+}
+
++ (NSMutableArray *)LLV:(NSArray *)array int:(NSInteger)num block:(double (^)(double num , NSInteger index))block{
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0 ; i < array.count ; i++) {
+        NSInteger loc = i >= num ? i - num + 1 : 0;
+        if (num == 0) {
+            loc = 0;
+        }
+        NSInteger len = i >= num ? num : i + 1;
+        NSArray *tArray = [array subarrayWithRange:NSMakeRange(loc, len)];
+        NSNumber *min = [tArray valueForKeyPath:@"@min.self"];
+        double llv = min.doubleValue;
+        if (block) {
+            llv = block(llv , i);
+        }
+        [arr addObject:@(llv)];
     }
     return arr;
 }

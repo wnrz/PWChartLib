@@ -1872,6 +1872,52 @@ static PWFXZBParam* shareZBP=nil;
     return result;
 }
 
+- (NSMutableDictionary *)getDUOKONGResult:(NSMutableArray *)array{
+    NSMutableDictionary *dict;
+    dict = [[NSMutableDictionary alloc] init];
+    
+    NSMutableArray *closes = [[NSMutableArray alloc] init];
+    NSMutableArray *tops = [[NSMutableArray alloc] init];
+    NSMutableArray *bottoms = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0 ; i < array.count; i++) {
+        ChartFXDataModel *model = [array objectAtIndex:i];
+        [closes addObject:model.closePrice];
+        [tops addObject:model.topPrice];
+        [bottoms addObject:model.bottomPrice];
+    }
+    NSMutableArray *LLVLow9 = [ChartTools LLV:bottoms int:9 block:nil];
+    NSMutableArray *HHVHigh9 = [ChartTools HHV:bottoms int:9 block:nil];
+    NSMutableArray *LLVLow36 = [ChartTools LLV:bottoms int:36 block:nil];
+    NSMutableArray *HHVHigh36 = [ChartTools HHV:bottoms int:36 block:nil];
+    NSMutableArray *arrayDuo = [[NSMutableArray alloc] init];
+    NSMutableArray *arrayKong = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0 ; i < closes.count; i++) {
+        double close = [closes[i] doubleValue];
+        double LLVLow9Num = [LLVLow9[i] doubleValue];
+        double HHVHigh9Num = [HHVHigh9[i] doubleValue];
+        double LLVLow36Num = [LLVLow36[i] doubleValue];
+        double HHVHigh36Num = [HHVHigh36[i] doubleValue];
+        double duoNum = (close - LLVLow9Num) / (HHVHigh9Num - LLVLow9Num) * 100;
+        double kongNum = (HHVHigh36Num - close) / (HHVHigh36Num - LLVLow36Num) * 100;
+        [arrayDuo addObject:@(duoNum)];
+        [arrayKong addObject:@(kongNum)];
+    }
+    
+    NSMutableArray *duo = [ChartTools SMA:arrayDuo n:5 m:1 block:^double(double num, NSInteger index) {
+        return num - 8;
+    }];
+    NSMutableArray *kong = [ChartTools SMA:arrayKong n:2 m:1 block:nil];
+    
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
+    [result setObject:@"" forKey:@"sName"];
+    [result setObject:@(array.count) forKey:@"nCount"];
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    [result setObject:arr forKey:@"linesArray"];
+    [arr addObject:[PWFXZBParam makeZBData:@0 sName:@"多" linesArray:duo start:@0 color:[PWChartColors colorByKey:kChartColorKey_Rise]]];
+    [arr addObject:[PWFXZBParam makeZBData:@0 sName:@"空" linesArray:kong start:@0 color:[PWChartColors colorByKey:kChartColorKey_Fall]]];
+    return result;
+}
+
 + (NSDictionary *)makeZBData:(NSNumber *)type sName:(NSString *)sName linesArray:(NSArray *)linesArray start:(NSNumber *)start color:(UIColor *)color{
     sName = sName ? sName : @"";
     linesArray = linesArray ? linesArray : @[];

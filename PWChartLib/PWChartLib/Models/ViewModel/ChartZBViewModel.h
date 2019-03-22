@@ -38,7 +38,8 @@ typedef enum{
     PWFTZBFXASI,
     PWFTZBFXROC,
     PWFTZBFXPSY,
-    PWFTZBFXTSZF0
+    PWFTZBFXTSZF0,
+    PWFTZBFXDKNLX
 } PWDrawFTZBType;  //幅图指标类型
 
 @interface ChartZBViewModel : NSObject
