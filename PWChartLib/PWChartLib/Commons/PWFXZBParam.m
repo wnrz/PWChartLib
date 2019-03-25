@@ -1886,9 +1886,9 @@ static PWFXZBParam* shareZBP=nil;
         [bottoms addObject:model.bottomPrice];
     }
     NSMutableArray *LLVLow9 = [ChartTools LLV:bottoms int:9 block:nil];
-    NSMutableArray *HHVHigh9 = [ChartTools HHV:bottoms int:9 block:nil];
+    NSMutableArray *HHVHigh9 = [ChartTools HHV:tops int:9 block:nil];
     NSMutableArray *LLVLow36 = [ChartTools LLV:bottoms int:36 block:nil];
-    NSMutableArray *HHVHigh36 = [ChartTools HHV:bottoms int:36 block:nil];
+    NSMutableArray *HHVHigh36 = [ChartTools HHV:tops int:36 block:nil];
     NSMutableArray *arrayDuo = [[NSMutableArray alloc] init];
     NSMutableArray *arrayKong = [[NSMutableArray alloc] init];
     for (NSInteger i = 0 ; i < closes.count; i++) {
@@ -1913,8 +1913,8 @@ static PWFXZBParam* shareZBP=nil;
     [result setObject:@(array.count) forKey:@"nCount"];
     NSMutableArray *arr = [[NSMutableArray alloc] init];
     [result setObject:arr forKey:@"linesArray"];
-    [arr addObject:[PWFXZBParam makeZBData:@0 sName:@"多" linesArray:duo start:@0 color:[PWChartColors colorByKey:kChartColorKey_Rise]]];
-    [arr addObject:[PWFXZBParam makeZBData:@0 sName:@"空" linesArray:kong start:@0 color:[PWChartColors colorByKey:kChartColorKey_Fall]]];
+    [arr addObject:[PWFXZBParam makeZBData:@0 sName:@"做多能量线" linesArray:duo start:@0 color:[PWChartColors colorByKey:kChartColorKey_Rise]]];
+    [arr addObject:[PWFXZBParam makeZBData:@0 sName:@"做空能量线" linesArray:kong start:@0 color:[PWChartColors colorByKey:kChartColorKey_Fall]]];
     return result;
 }
 
