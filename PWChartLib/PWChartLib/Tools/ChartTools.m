@@ -72,7 +72,7 @@ float chartValid(float value) {
     return a;
 }
 
-+ (NSMutableArray *)SMA:(NSArray *)array n:(NSInteger)n m:(NSInteger)m block:(double (^)(double num , NSInteger index))block{
++ (NSMutableArray *)SMA:(NSArray *)array n:(NSInteger)n m:(NSInteger)m block:(double (^)(double num , NSInteger index))block end:(double (^)(double num , NSInteger index))end{
     if (n < m){
         return [NSMutableArray arrayWithArray:array];
     }
@@ -86,7 +86,8 @@ float chartValid(float value) {
             sma1Old = [[a objectAtIndex:i - 1] doubleValue];
             sma1 = (m * f + sma1Old * (n - m))/n;
         }else{
-//            sma1Old = f;
+            sma1Old = f;
+            sma1 = f;
         }
         
         double num = sma1;
@@ -94,6 +95,14 @@ float chartValid(float value) {
             num = block(num , i);
         }
         [a addObject:@(num)];
+    }
+    if(end){
+        NSMutableArray *tmp = [NSMutableArray arrayWithArray:a];
+        [tmp enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            double num = [obj doubleValue];
+            num = end(num , idx);
+            [a replaceObjectAtIndex:idx withObject:@(num)];
+        }];
     }
     
     return a;

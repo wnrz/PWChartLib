@@ -15,7 +15,7 @@ float chartValid(float value);
 
 + (NSMutableArray *)SUM:(NSArray *)array d:(NSInteger)d block:(double (^)(double num , NSInteger index))block;
 + (NSMutableArray *)EMA:(NSArray *)array d:(NSInteger)d block:(double (^)(double num , NSInteger index))block;
-+ (NSMutableArray *)SMA:(NSArray *)array n:(NSInteger)n m:(NSInteger)m block:(double (^)(double num , NSInteger index))block;
++ (NSMutableArray *)SMA:(NSArray *)array n:(NSInteger)n m:(NSInteger)m block:(double (^)(double num , NSInteger index))block end:(double (^)(double num , NSInteger index))end;
 + (NSMutableArray *)MA:(NSArray *)array d:(NSInteger)d block:(double (^)(double num , NSInteger index))block;
 + (NSMutableArray *)Slope:(NSArray *)input para:(short)para block:(double (^)(double num , NSInteger index))block;
 + (NSMutableArray *)CROSS:(NSArray *)array1 array2:(NSArray *)array2 block:(id (^)(id result , NSInteger index))block;

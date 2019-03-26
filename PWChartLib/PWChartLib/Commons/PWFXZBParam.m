@@ -1903,10 +1903,10 @@ static PWFXZBParam* shareZBP=nil;
         [arrayKong addObject:@(kongNum)];
     }
     
-    NSMutableArray *duo = [ChartTools SMA:arrayDuo n:5 m:1 block:^double(double num, NSInteger index) {
+    NSMutableArray *duo = [ChartTools SMA:arrayDuo n:5 m:1 block:nil end:^double(double num, NSInteger index) {
         return num - 8;
     }];
-    NSMutableArray *kong = [ChartTools SMA:arrayKong n:2 m:1 block:nil];
+    NSMutableArray *kong = [ChartTools SMA:arrayKong n:2 m:1 block:nil end:nil];
     
     NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
     [result setObject:@"" forKey:@"sName"];
