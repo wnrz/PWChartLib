@@ -8,6 +8,7 @@
 
 #import "ChartBaseView.h"
 #import "ChartTools.h"
+#import "ChartConfig.h"
 
 @interface ChartBaseView (){
     
@@ -227,7 +228,7 @@
         CGPoint translatedPoint = [recognizer translationInView:self];
         
         NSString *className = NSStringFromClass([self class]);
-        float startX = [className isEqual:@"ChartFSView"] ? 0 : [ChartTools getStartX:self.showFrame total:self.baseConfig.currentShowNum];
+        float startX = [className isEqual:@"ChartFSView"] ? [ChartConfig shareConfig].chartLineWidth/2 : [ChartTools getStartX:self.showFrame total:self.baseConfig.currentShowNum];
         float width = (self.showFrame.size.width - startX)/self.baseConfig.currentShowNum;
         NSInteger num;
         if (translatedPoint.x*translatedPoint.x > width* width) {
@@ -401,7 +402,7 @@
     CGPoint translatedPoint = [recognizer locationInView:self];
     
     NSString *className = NSStringFromClass([self class]);
-    float startX = [className isEqual:@"ChartFSView"] ? 0 : [ChartTools getStartX:self.showFrame total:self.baseConfig.currentShowNum];
+    float startX = [className isEqual:@"ChartFSView"] ? [ChartConfig shareConfig].chartLineWidth/2 : [ChartTools getStartX:self.showFrame total:self.baseConfig.currentShowNum];
     self.baseConfig.showIndex = self.baseConfig.currentIndex + (translatedPoint.x - self.showFrame.origin.x - startX) / (self.showFrame.size.width - startX * 2) * self.baseConfig.currentShowNum;
     if (self.baseConfig.showIndex >= 0 && self.baseConfig.showIndex > [self dataNumber] - 1) {
         self.baseConfig.showIndex = (NSInteger)[self dataNumber] - 1;
@@ -479,7 +480,7 @@
     CGPoint point = crossLinePoint;
     
     NSString *className = NSStringFromClass([self class]);
-    float startX = [className isEqual:@"ChartFSView"] ? 0 : [ChartTools getStartX:self.showFrame total:self.baseConfig.currentShowNum];
+    float startX = [className isEqual:@"ChartFSView"] ? [ChartConfig shareConfig].chartLineWidth/2 : [ChartTools getStartX:self.showFrame total:self.baseConfig.currentShowNum];
     CGFloat num = self.baseConfig.showIndex - self.baseConfig.currentIndex;
     num = num >= 0 ? num : 0;
     num = num / self.baseConfig.currentShowNum;

@@ -35,19 +35,19 @@
                 NSInteger end = baseConfig.currentShowNum > (NSInteger)A.count - begin ? (NSInteger)A.count - begin : baseConfig.currentShowNum;
                 A = [NSMutableArray arrayWithArray:[A subarrayWithRange:NSMakeRange(begin, end)]];
             }
+            CGFloat xzh = (baseConfig.topPrice - baseConfig.bottomPrice)/baseConfig.showFrame.size.height;
             if (A) {
                 if ([dict[@"type"] intValue] == 0) {
                     //折线 0
 //                    [DrawCommonMethod drawMALine:drawView.showFrame total:drawView.drawDataCon.currentShowNum top:drawView.drawDataCon.topPrice bottom:drawView.drawDataCon.bottomPrice arr:A clr:[PWChartColors drawColorByIndex:idx] lineWidth:.5 lineDash:NO shadow:NO start:((drawView.drawDataCon.currentIndex >= num) ? 0 : num - drawView.drawDataCon.currentIndex)];
-                    
                     CGFloat startX = [ChartTools getStartX:baseConfig.showFrame total:baseConfig.currentShowNum];
                     CGFloat width = baseConfig.showFrame.size.width - startX * 2;
                     width = width / baseConfig.currentShowNum;
                     LayerMakerLineChartDataModel *lineChartDataModel = [[LayerMakerLineChartDataModel alloc] init];
                     lineChartDataModel.showFrame = baseConfig.showFrame;
                     lineChartDataModel.total = baseConfig.currentShowNum;
-                    lineChartDataModel.top = baseConfig.topPrice;
-                    lineChartDataModel.bottom = baseConfig.bottomPrice;
+                    lineChartDataModel.top = baseConfig.topPrice + xzh;
+                    lineChartDataModel.bottom = baseConfig.bottomPrice - xzh;
                     lineChartDataModel.lineChartDatas = A;
                     lineChartDataModel.start = after;
                     lineChartDataModel.startX = startX + width / 2;

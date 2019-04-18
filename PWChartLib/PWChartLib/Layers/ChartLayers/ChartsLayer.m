@@ -105,7 +105,7 @@
         lineChartDataModel.bottom = bottom;
         lineChartDataModel.lineChartDatas = nowArray;
         lineChartDataModel.start = 0;
-        lineChartDataModel.startX = 0;
+        lineChartDataModel.startX = [ChartConfig shareConfig].chartLineWidth/2;
         CAShapeLayer *nowLayer = [LayerMaker getLineChartLayer:lineChartDataModel];
         nowLayer.lineWidth = [ChartConfig shareConfig].chartLineWidth;
         nowLayer.strokeColor = [PWChartColors colorByKey:kChartColorKey_XJ].CGColor;
@@ -140,7 +140,7 @@
             lineChartDataModel.bottom = bottom;
             lineChartDataModel.lineChartDatas = avgArray;
             lineChartDataModel.start = 0;
-            lineChartDataModel.startX = 0;
+            lineChartDataModel.startX = [ChartConfig shareConfig].chartLineWidth/2;
             CAShapeLayer *avgLayer = [LayerMaker getLineChartLayer:lineChartDataModel];
             avgLayer.lineWidth = [ChartConfig shareConfig].chartLineWidth;
             avgLayer.strokeColor = [PWChartColors colorByKey:kChartColorKey_JJ].CGColor;
@@ -163,7 +163,7 @@
             lineChartDataModel.bottom = bottom;
             lineChartDataModel.lineChartDatas = thirdArray;
             lineChartDataModel.start = 0;
-            lineChartDataModel.startX = 0;
+            lineChartDataModel.startX = [ChartConfig shareConfig].chartLineWidth/2;
             CAShapeLayer *avgLayer = [LayerMaker getLineChartLayer:lineChartDataModel];
             avgLayer.lineWidth = [ChartConfig shareConfig].chartLineWidth;
             avgLayer.strokeColor = [PWChartColors colorByKey:kChartColorKey_ThirdLine].CGColor;
