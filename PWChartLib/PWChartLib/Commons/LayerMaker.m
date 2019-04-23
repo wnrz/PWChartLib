@@ -330,8 +330,8 @@ void processPathElement(void* info, const CGPathElement* element) {
     NSArray<CandlestickModel *> *models = candlestickDataModel.candlestickDatas;
     UIColor *topColor = candlestickDataModel.clrUp;
     UIColor *bottomColor = candlestickDataModel.clrDown;
-    NSInteger digit = textModel.digit;
-    UIFont *font = textModel.font;
+    NSInteger digit = textModel ? textModel.digit : 0;
+    UIFont *font = textModel ? textModel.font : nil;
     
     CALayer *layer = [[CALayer alloc] init];
     CGFloat startX = [ChartTools getStartX:showFrame total:total];
@@ -368,38 +368,40 @@ void processPathElement(void* info, const CGPathElement* element) {
             bottomPoint = pointBottom;
         }
     }];
-    for (int i = 0 ; i < 2; i++) {
-        CGPoint curPoint = i == 0 ? topPoint : bottomPoint;
-        CGPoint oldPoint = i == 0 ? topPoint : bottomPoint;
-        UIColor *color = i == 0 ? topColor : bottomColor;
-        BOOL isLeft = oldPoint.x < showFrame.size.width / 2 + showFrame.origin.x;
-        NSString *format = [NSString stringWithFormat:@"%%.%ldf" , (long)digit];
-        NSString *string = [NSString stringWithFormat:format , i == 0 ? topValue : bottomValue];
-        CGSize size = [ChartTools sizeWithText:string maxSize:CGSizeMake(1000, 1000) fontSize:font.pointSize];
-        if (i == 0){
-            curPoint.y = (curPoint.y - 5 - size.height / 2) < showFrame.origin.y ? showFrame.origin.y : (curPoint.y - 5 - size.height / 2);
-        }else{
-            curPoint.y = (curPoint.y + 5 + size.height / 2) > (showFrame.origin.y + showFrame.size.height) ? (showFrame.origin.y + showFrame.size.height - size.height / 2) : (curPoint.y + 5 - size.height / 2);
+    if (textModel != nil) {
+        for (int i = 0 ; i < 2; i++) {
+            CGPoint curPoint = i == 0 ? topPoint : bottomPoint;
+            CGPoint oldPoint = i == 0 ? topPoint : bottomPoint;
+            UIColor *color = i == 0 ? topColor : bottomColor;
+            BOOL isLeft = oldPoint.x < showFrame.size.width / 2 + showFrame.origin.x;
+            NSString *format = [NSString stringWithFormat:@"%%.%ldf" , (long)digit];
+            NSString *string = [NSString stringWithFormat:format , i == 0 ? topValue : bottomValue];
+            CGSize size = [ChartTools sizeWithText:string maxSize:CGSizeMake(1000, 1000) fontSize:font.pointSize];
+            if (i == 0){
+                curPoint.y = (curPoint.y - 5 - size.height / 2) < showFrame.origin.y ? showFrame.origin.y : (curPoint.y - 5 - size.height / 2);
+            }else{
+                curPoint.y = (curPoint.y + 5 + size.height / 2) > (showFrame.origin.y + showFrame.size.height) ? (showFrame.origin.y + showFrame.size.height - size.height / 2) : (curPoint.y + 5 - size.height / 2);
+            }
+            curPoint.x = isLeft ? (curPoint.x + 9) : (curPoint.x - size.width - 9);
+            CGRect frame = CGRectMake(curPoint.x , curPoint.y , size.width , size.height);
+            LayerMakerTextModel *textModel = [[LayerMakerTextModel alloc] init];
+            textModel.text = string;
+            textModel.font = font;
+            textModel.foregroundColor = color;
+            textModel.frame = frame;
+            CATextLayer *textLayer = [LayerMaker getTextLayer:textModel];
+            [layer addSublayer:textLayer];
+            
+            curPoint.y = curPoint.y + size.height / 2;
+            curPoint.x = isLeft ? curPoint.x : (curPoint.x + size.width);
+            LayerMakerLineModel *lineModel = [[LayerMakerLineModel alloc] init];
+            lineModel.startPoint = oldPoint;
+            lineModel.endPoint = curPoint;
+            lineModel.isDot = NO;
+            CAShapeLayer *lineLayer = [LayerMaker getTwoPointLineLayer:lineModel];
+            lineLayer.strokeColor = color.CGColor;
+            [layer addSublayer:lineLayer];
         }
-        curPoint.x = isLeft ? (curPoint.x + 9) : (curPoint.x - size.width - 9);
-        CGRect frame = CGRectMake(curPoint.x , curPoint.y , size.width , size.height);
-        LayerMakerTextModel *textModel = [[LayerMakerTextModel alloc] init];
-        textModel.text = string;
-        textModel.font = font;
-        textModel.foregroundColor = color;
-        textModel.frame = frame;
-        CATextLayer *textLayer = [LayerMaker getTextLayer:textModel];
-        [layer addSublayer:textLayer];
-        
-        curPoint.y = curPoint.y + size.height / 2;
-        curPoint.x = isLeft ? curPoint.x : (curPoint.x + size.width);
-        LayerMakerLineModel *lineModel = [[LayerMakerLineModel alloc] init];
-        lineModel.startPoint = oldPoint;
-        lineModel.endPoint = curPoint;
-        lineModel.isDot = NO;
-        CAShapeLayer *lineLayer = [LayerMaker getTwoPointLineLayer:lineModel];
-        lineLayer.strokeColor = color.CGColor;
-        [layer addSublayer:lineLayer];
     }
     
     CAShapeLayer *maksLayer = [CAShapeLayer layer];

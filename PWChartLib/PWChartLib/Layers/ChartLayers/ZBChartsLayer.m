@@ -24,7 +24,7 @@
             after = after >= 0 ? after : 0;
             NSMutableArray *A;
             NSInteger num = 0;
-            if (chartIsValidDic(dict) && chartIsValidArr(dict[@"linesArray"])) {
+            if (chartIsValidDic(dict) && (chartIsValidArr(dict[@"linesArray"]) || [dict[@"type"] intValue] == 7)) {
                 A = [NSMutableArray arrayWithArray:dict[@"linesArray"]];
                 A = [self correctArray:A];
                 num = (NSInteger)dataArr.count - (NSInteger)A.count;
@@ -84,6 +84,43 @@
                     CALayer *macdLayer = [LayerMaker getStickLine:stickDataModel];
                     if (macdLayer) {
                         [self addSublayer:macdLayer];
+                    }
+                }else if ([dict[@"type"] intValue] == 7) {
+                    //美国线 7
+                    ChartFXViewModel *fxC = self.fxConfig ? self.fxConfig : self.zbConfig.fxConfig ? self.zbConfig.fxConfig : nil;
+                    if (fxC && [fxC.fxDatas count] > 0) {
+                        __block NSMutableArray *models = [[NSMutableArray alloc] init];
+                        NSArray *arr = [NSArray arrayWithArray:fxC.fxDatas];
+                        for (NSInteger i = fxC.baseConfig.currentIndex; i < fxC.baseConfig.currentIndex + fxC.baseConfig.currentShowNum; i++) {
+                            if (i < fxC.fxDatas.count) {
+                                ChartFXDataModel *model = arr[i];
+                                CandlestickModel *cModel = [[CandlestickModel alloc] init];
+                                cModel.top = [model.topPrice floatValue];
+                                cModel.bottom = [model.bottomPrice floatValue];
+                                cModel.open = [model.openPrice floatValue];
+                                cModel.close = [model.closePrice floatValue];
+                                [models addObject:cModel];
+                            }
+                        }
+                        
+                        LayerMakerCandlestickDataModel *candlestickDataModel = [[LayerMakerCandlestickDataModel alloc] init];
+                        candlestickDataModel.showFrame = baseConfig.showFrame;
+                        candlestickDataModel.total = baseConfig.currentShowNum;
+                        candlestickDataModel.top = baseConfig.topPrice;
+                        candlestickDataModel.bottom = baseConfig.bottomPrice;
+                        candlestickDataModel.candlestickDatas = models;
+                        candlestickDataModel.clrUp = [PWChartColors colorByKey:kChartColorKey_Rise];
+                        candlestickDataModel.clrDown = [PWChartColors colorByKey:kChartColorKey_Fall];
+                        candlestickDataModel.clrBal = [PWChartColors colorByKey:kChartColorKey_Stay];
+                        candlestickDataModel.start = 0;
+                        candlestickDataModel.lineType = 1;
+                        CALayer *layer = [LayerMaker getCandlestickLine:candlestickDataModel];
+                        
+                        candlestickDataModel.clrUp = [PWChartColors colorByKey:kChartColorKey_Text];
+                        candlestickDataModel.clrDown = [PWChartColors colorByKey:kChartColorKey_Text];
+                        CALayer *textLayer = [LayerMaker getCandlestickLineTopAndBottomValue:candlestickDataModel textLayer:nil];
+                        [layer addSublayer:textLayer];
+                        [self addSublayer:layer];
                     }
                 }else if ([dict[@"type"] intValue] == -1) {
                     //特色战法

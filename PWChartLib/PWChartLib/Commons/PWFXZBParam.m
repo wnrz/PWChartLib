@@ -1787,7 +1787,17 @@ static PWFXZBParam* shareZBP=nil;
         [UB addObject:[NSNumber numberWithFloat:num / BOLL_M + 2 * sqrtf(num2 / BOLL_M)]];
         [LB addObject:[NSNumber numberWithFloat:num / BOLL_M - 2 * sqrtf(num2 / BOLL_M)]];
     }
-    return dict;
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
+    [result setObject:[NSString stringWithFormat:@"BOLL(%.0f)" , BOLL_M] forKey:@"sName"];
+    [result setObject:@(array.count) forKey:@"nCount"];
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    [result setObject:arr forKey:@"linesArray"];
+    [arr addObject:[PWFXZBParam makeZBData:@7 sName:@"" linesArray:nil start:@(0) color:nil]];
+    [arr addObject:[PWFXZBParam makeZBData:@0 sName:@"UB" linesArray:UB start:@(BOLL_M-1) color:[PWChartColors drawColorByIndex:0]]];
+    [arr addObject:[PWFXZBParam makeZBData:@0 sName:@"LB" linesArray:LB start:@(BOLL_M-1) color:[PWChartColors drawColorByIndex:2]]];
+    [arr addObject:[PWFXZBParam makeZBData:@0 sName:@"BOLL" linesArray:BOLL start:@(BOLL_M-1) color:[PWChartColors drawColorByIndex:1]]];
+    
+    return result;
 }
 
 @synthesize AROON_N;
@@ -1919,13 +1929,14 @@ static PWFXZBParam* shareZBP=nil;
 }
 
 + (NSDictionary *)makeZBData:(NSNumber *)type sName:(NSString *)sName linesArray:(NSArray *)linesArray start:(NSNumber *)start color:(UIColor *)color{
+    //type见ZBChartsLayer
     sName = sName ? sName : @"";
     linesArray = linesArray ? linesArray : @[];
     NSDictionary *dict = @{@"type":type,
-                           @"sName":sName,
+                           @"sName":sName ? sName : @"",
                            @"linesArray":linesArray,
                            @"start":start,
-                           @"color":color
+                           @"color":color ? color : [UIColor clearColor]
                            };
     return dict;
 }

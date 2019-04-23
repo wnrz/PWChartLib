@@ -65,6 +65,7 @@
         ([ftZBName isEqualToString:@"ROC"]) ? self.zbType = PWFTZBFXROC : 0;
         ([ftZBName isEqualToString:@"PSY"]) ? self.zbType = PWFTZBFXPSY : 0;
         ([ftZBName isEqualToString:@"多空能量线"]) ? self.zbType = PWFTZBFXDKNLX : 0;
+        ([ftZBName isEqualToString:@"BOLL"]) ? self.zbType = PWFTZBFXBOLL : 0;
     }
 }
 
@@ -88,6 +89,9 @@
         (self.zbType == PWFTZBFXPSY) ? dict = [[PWFXZBParam shareFXZBParam] getPSYResult:array] : 0;
         
         (self.zbType == PWFTZBFXDKNLX) ? dict = [[PWFXZBParam shareFXZBParam] getDUOKONGResult:array] : 0;
+        
+        (self.zbType == PWFTZBFXBOLL) ? dict = [[PWFXZBParam shareFXZBParam] getBOLLResult:array] : 0;
+        
     }
     self.zbDatas.datas = dict;
 }
@@ -131,6 +135,20 @@
     }
     if (isnan(self.baseConfig.topPrice)) {
         NSLog(@"");
+    }
+    if (self.zbType == PWFTZBFXBOLL) {
+        NSArray *arr = [dataArr subarrayWithRange:NSMakeRange(start, end - start)];
+        if (arr.count > 0) {
+            NSArray *array;
+            if (self.fxConfig) {
+                array = @[[arr valueForKeyPath:@"@max.topPrice.doubleValue"],
+                          [arr valueForKeyPath:@"@min.bottomPrice.doubleValue"]];
+            }
+            top = [[array valueForKeyPath:@"@max.self"] doubleValue];
+            bottom = [[array valueForKeyPath:@"@min.self"] doubleValue];
+            _baseConfig.topPrice = top;
+            _baseConfig.bottomPrice = bottom;
+        }
     }
     [self.zbDatas checkTopAndBottomPrice:_baseConfig];
     if (isnan(self.baseConfig.topPrice)) {
