@@ -85,6 +85,7 @@ static PWFXZBParam* shareZBP=nil;
             shareZBP.BIAS_N3 = 24;
             
             shareZBP.BOLL_M = 20.0f;
+            shareZBP.BOLL_N = 2.0f;
             
             shareZBP.AROON_N = 25.0f;
         }
@@ -1754,6 +1755,7 @@ static PWFXZBParam* shareZBP=nil;
 }
 
 @synthesize BOLL_M;
+@synthesize BOLL_N;
 - (NSMutableDictionary *)getBOLLResult:(NSMutableArray *)array{
     NSMutableDictionary *dict;
     dict = [[NSMutableDictionary alloc] init];
@@ -1784,8 +1786,8 @@ static PWFXZBParam* shareZBP=nil;
                 num2 = num2 + pow([model.closePrice doubleValue] - num / BOLL_M , 2);
             }
         }
-        [UB addObject:[NSNumber numberWithFloat:num / BOLL_M + 2 * sqrtf(num2 / BOLL_M)]];
-        [LB addObject:[NSNumber numberWithFloat:num / BOLL_M - 2 * sqrtf(num2 / BOLL_M)]];
+        [UB addObject:[NSNumber numberWithFloat:num / BOLL_M + BOLL_N * sqrtf(num2 / BOLL_M)]];
+        [LB addObject:[NSNumber numberWithFloat:num / BOLL_M - BOLL_N * sqrtf(num2 / BOLL_M)]];
     }
     NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
     [result setObject:[NSString stringWithFormat:@"BOLL(%.0f)" , BOLL_M] forKey:@"sName"];

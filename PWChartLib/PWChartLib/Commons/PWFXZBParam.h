@@ -164,6 +164,7 @@
 @property(nonatomic)float BIAS_N3;
 
 @property(nonatomic)float BOLL_M;
+@property(nonatomic)float BOLL_N;
 
 @property(nonatomic)float AROON_N;
 
