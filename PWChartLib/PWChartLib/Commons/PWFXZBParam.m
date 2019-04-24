@@ -1786,9 +1786,10 @@ static PWFXZBParam* shareZBP=nil;
                 num2 = num2 + pow([model.closePrice doubleValue] - num / BOLL_M , 2);
             }
         }
-        [UB addObject:[NSNumber numberWithFloat:num / BOLL_M + BOLL_N * sqrtf(num2 / BOLL_M)]];
-        [LB addObject:[NSNumber numberWithFloat:num / BOLL_M - BOLL_N * sqrtf(num2 / BOLL_M)]];
+        [UB addObject:[NSNumber numberWithFloat:num / BOLL_M + BOLL_N * sqrtf(num2 / (BOLL_M - 1))]];
+        [LB addObject:[NSNumber numberWithFloat:num / BOLL_M - BOLL_N * sqrtf(num2 / (BOLL_M - 1))]];
     }
+    
     NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
     [result setObject:[NSString stringWithFormat:@"BOLL(%.0f)" , BOLL_M] forKey:@"sName"];
     [result setObject:@(array.count) forKey:@"nCount"];
