@@ -1797,8 +1797,8 @@ static PWFXZBParam* shareZBP=nil;
     [result setObject:arr forKey:@"linesArray"];
     [arr addObject:[PWFXZBParam makeZBData:@7 sName:@"" linesArray:nil start:@(0) color:nil]];
     [arr addObject:[PWFXZBParam makeZBData:@0 sName:@"BOLL" linesArray:BOLL start:@(BOLL_M-1) color:[PWChartColors drawColorByIndex:1]]];
-    [arr addObject:[PWFXZBParam makeZBData:@0 sName:@"UB" linesArray:UB start:@(BOLL_M-1) color:[PWChartColors drawColorByIndex:0]]];
-    [arr addObject:[PWFXZBParam makeZBData:@0 sName:@"LB" linesArray:LB start:@(BOLL_M-1) color:[PWChartColors drawColorByIndex:2]]];
+    [arr addObject:[PWFXZBParam makeZBData:@0 sName:@"UPPER" linesArray:UB start:@(BOLL_M-1) color:[PWChartColors drawColorByIndex:0]]];
+    [arr addObject:[PWFXZBParam makeZBData:@0 sName:@"LOWER" linesArray:LB start:@(BOLL_M-1) color:[PWChartColors drawColorByIndex:2]]];
     
     return result;
 }
