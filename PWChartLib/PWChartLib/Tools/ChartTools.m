@@ -20,6 +20,9 @@ float chartValid(float value) {
     NSMutableArray *arr = [[NSMutableArray alloc] init];
     for (NSInteger i = 0; i < array.count; i++) {
         float f = [[array objectAtIndex:i] doubleValue];
+        if (isnan(f) || isinf(f)) {
+            f = 0;
+        }
         if (d == 0) {
             if (i > 0) {
                 f = f + [[arr lastObject] doubleValue];
@@ -27,6 +30,9 @@ float chartValid(float value) {
         }else{
             for (NSInteger j = (i - d + 1) >= 0 ? (i - d + 1) : 0; j < i; j++) {
                 float f0 = [[array objectAtIndex:j] doubleValue];
+                if (isnan(f0) || isinf(f0)) {
+                    f0 = 0;
+                }
                 f = f + f0;
             }
             //            if (i >= d - 1) {
@@ -52,6 +58,9 @@ float chartValid(float value) {
     NSMutableArray *a = [[NSMutableArray alloc] init];
     for (NSInteger i = 0 ; i < [array count]; i++) {
         double f = [[array objectAtIndex:i]  doubleValue];
+        if (isnan(f) || isinf(f)) {
+            f = 0;
+        }
         
         double ema1 = 0;
         double ema1Old = 0;
