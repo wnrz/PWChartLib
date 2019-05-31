@@ -1912,6 +1912,12 @@ static PWFXZBParam* shareZBP=nil;
         double HHVHigh36Num = [HHVHigh36[i] doubleValue];
         double duoNum = (close - LLVLow9Num) / (HHVHigh9Num - LLVLow9Num) * 100;
         double kongNum = (HHVHigh36Num - close) / (HHVHigh36Num - LLVLow36Num) * 100;
+        if (isnan(duoNum)||isinf(duoNum)){
+            duoNum = 0;
+        }
+        if (isnan(kongNum)||isinf(kongNum)){
+            kongNum = 0;
+        }
         [arrayDuo addObject:@(duoNum)];
         [arrayKong addObject:@(kongNum)];
     }

@@ -79,7 +79,9 @@ float chartValid(float value) {
     NSMutableArray *a = [[NSMutableArray alloc] init];
     for (NSInteger i = 0 ; i < [array count]; i++) {
         double f = [[array objectAtIndex:i]  doubleValue];
-        
+        if (isnan(f) || isinf(f)) {
+            f = 0;
+        }
         double sma1 = 0;
         double sma1Old = 0;
         if (i > 0) {
@@ -100,6 +102,9 @@ float chartValid(float value) {
         NSMutableArray *tmp = [NSMutableArray arrayWithArray:a];
         [tmp enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             double num = [obj doubleValue];
+            if (isnan(num) || isinf(num)) {
+                num = 0;
+            }
             num = end(num , idx);
             [a replaceObjectAtIndex:idx withObject:@(num)];
         }];
@@ -113,6 +118,9 @@ float chartValid(float value) {
     NSMutableArray *b = [[NSMutableArray alloc] init];
     for (NSInteger i = 0 ; i < [array count]; i++) {
         double f = [[array objectAtIndex:i]  doubleValue];
+        if (isnan(f) || isinf(f)) {
+            f = 0;
+        }
         
         [b addObject:@(f)];
         if (b.count > d) {
