@@ -1839,7 +1839,7 @@ static PWFXZBParam* shareZBP=nil;
     return dict;
 }
 
-- (NSMutableDictionary *)getTSZF0Result:(NSMutableArray *)array{
+- (NSMutableDictionary *)getTSZF0Result:(NSMutableArray *)array name:(NSString *)name{
     NSMutableDictionary *dict;
     dict = [[NSMutableDictionary alloc] init];
     
@@ -1873,9 +1873,11 @@ static PWFXZBParam* shareZBP=nil;
             return @(NAN);
         }
     }];
-    
+    if (!name) {
+        name = @"";
+    }
     NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
-    [result setObject:@"特色战法" forKey:@"sName"];
+    [result setObject:name forKey:@"sName"];
     [result setObject:@(array.count) forKey:@"nCount"];
     NSMutableArray *arr = [[NSMutableArray alloc] init];
     [result setObject:arr forKey:@"linesArray"];

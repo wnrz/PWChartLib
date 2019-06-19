@@ -220,7 +220,7 @@
 
 - (NSMutableDictionary*)getAROONResult:(NSMutableArray *)array;
 
-- (NSMutableDictionary *)getTSZF0Result:(NSMutableArray *)array; //天使魔鬼线
+- (NSMutableDictionary *)getTSZF0Result:(NSMutableArray *)array name:(NSString *)name; //天使魔鬼线
 
 - (NSMutableDictionary *)getDUOKONGResult:(NSMutableArray *)array; //多空能量线
 

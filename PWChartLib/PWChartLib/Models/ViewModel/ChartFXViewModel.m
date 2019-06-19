@@ -180,7 +180,7 @@
     NSMutableDictionary *dict;
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.fxDatas];
     (self.ztZBType == PWFXZTZBMA) ? dict = [[PWFXZBParam shareFXZBParam] getPriMAResult:array] : 0;
-    (self.ztZBType == PWFXZTZBTSZF) ? dict = [[PWFXZBParam shareFXZBParam] getTSZF0Result:array] : 0;
+    (self.ztZBType == PWFXZTZBTSZF) ? dict = [[PWFXZBParam shareFXZBParam] getTSZF0Result:array name:@"AI趋势"] : 0;
     self.zbDatas.datas = dict;
 }
 @end
