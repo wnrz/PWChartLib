@@ -5,7 +5,7 @@
 //  Created by 王宁 on 2018/9/16.
 //
 
-#import "PWBaseDataBridge.h"
+#import <PWDataBridge/PWBaseDataBridge.h>
 
 @interface ChartConfig : PWBaseDataBridge
 
