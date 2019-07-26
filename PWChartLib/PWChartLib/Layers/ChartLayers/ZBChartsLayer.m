@@ -33,7 +33,11 @@
                 }
                 NSInteger begin = baseConfig.currentIndex > (NSInteger)A.count ? (NSInteger)A.count - 1 : baseConfig.currentIndex;
                 NSInteger end = baseConfig.currentShowNum > (NSInteger)A.count - begin ? (NSInteger)A.count - begin : baseConfig.currentShowNum;
-                A = [NSMutableArray arrayWithArray:[A subarrayWithRange:NSMakeRange(begin, end)]];
+                if (A != nil && A.count >= (begin + end)){
+                    A = [NSMutableArray arrayWithArray:[A subarrayWithRange:NSMakeRange(begin, end)]];
+                }else{
+                    A = [NSMutableArray new];
+                }
             }
             CGFloat xzh = (baseConfig.topPrice - baseConfig.bottomPrice)/baseConfig.showFrame.size.height;
             if (A) {
