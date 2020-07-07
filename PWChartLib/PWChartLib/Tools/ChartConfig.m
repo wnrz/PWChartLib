@@ -29,6 +29,7 @@
     spreadLayer.bounds = CGRectMake(0,0, diameter, diameter);
     spreadLayer.cornerRadius = diameter/2; //设置圆角变为圆形
     //    spreadLayer.position = personImageButton.center;
+    spreadLayer.position = CGPointMake(5, 5);
     spreadLayer.backgroundColor = color.CGColor;
     CAMediaTimingFunction * defaultCurve = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
     CAAnimationGroup * animationGroup = [CAAnimationGroup animation];
