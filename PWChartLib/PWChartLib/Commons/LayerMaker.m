@@ -98,7 +98,11 @@
     return layer;
 }
 
-+ (CAShapeLayer *)getLineChartLayer:(LayerMakerLineChartDataModel *)lineChartDataModel{
++ (CAShapeLayer *)getLineChartLayer:(LayerMakerLineChartDataModel *)lineChartDataModel {
+    return [self getLineChartLayer:lineChartDataModel lastPointHandle:nil];
+}
+
++ (CAShapeLayer *)getLineChartLayer:(LayerMakerLineChartDataModel *)lineChartDataModel lastPointHandle:(void (^)(CGPoint point))lastPointHandle{
     CGRect showFrame = lineChartDataModel.showFrame;
     float total = lineChartDataModel.total;
     float top = lineChartDataModel.top;
@@ -113,6 +117,7 @@
     CGFloat width = showFrame.size.width - startX * 2;
     CGFloat height = showFrame.size.height;
     CGFloat mid = fabs(top - bottom);
+    __block CGPoint lastPoint = CGPointZero;
     if (mid != 0) {
         __block BOOL currentPoint = NO;
         __block CGFloat perValue = NAN;
@@ -142,9 +147,12 @@
                         [linePath addLineToPoint:point];
                     }
                 }
-                
+                lastPoint = point;
             }
         }];
+    }
+    if (lastPointHandle != nil){
+        lastPointHandle(lastPoint);
     }
     layer.fillColor = [UIColor clearColor].CGColor;
     layer.path = linePath.CGPath;
@@ -157,7 +165,7 @@
     return layer;
 }
 
-+ (CAGradientLayer *)drawGredientLayer:(CGRect)showFrame path:(CGPathRef)path fromColor:(UIColor *)fromColor toColor:(UIColor *)toColor{
++ (CAGradientLayer *)drawGredientLayer:(CGRect)showFrame path:(CGPathRef)path fromColor:(UIColor *)fromColor toColor:(UIColor *)toColor {
     NSMutableArray *bezierPoints = [NSMutableArray array];
     CGPathApply(path, (__bridge void *)(bezierPoints), processPathElement);
 

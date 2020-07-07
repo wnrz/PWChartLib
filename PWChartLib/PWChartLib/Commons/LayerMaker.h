@@ -75,6 +75,8 @@
 
 + (CAShapeLayer *)getLineChartLayer:(LayerMakerLineChartDataModel *)lineChartDataModel;
 
++ (CAShapeLayer *)getLineChartLayer:(LayerMakerLineChartDataModel *)lineChartDataModel lastPointHandle:(void (^)(CGPoint point))lastPointHandle;
+
 + (CAGradientLayer *)drawGredientLayer:(CGRect)showFrame path:(CGPathRef)path fromColor:(UIColor *)fromColor toColor:(UIColor *)toColor;
 
 //lintType:0、蜡烛线  1、空心线  2、美国线

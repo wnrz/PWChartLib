@@ -73,9 +73,10 @@
         if (isCross) {
             if (self.fsConfig.fsDatas.count != 0) {
                 NSInteger idx = num * self.baseConfig.maxPointCount;
-                if (idx >= self.fsConfig.fsDatas.count) {
-                    idx = _fsConfig.fsDatas.count - 1;
-                }
+//                if (idx >= self.fsConfig.fsDatas.count) {
+//                    idx = _fsConfig.fsDatas.count - 1;
+//                }
+                idx = self.baseConfig.showIndex;
                 ChartFSDataModel *model = _fsConfig.fsDatas[idx];
                 if (self.baseConfig.showBottomType == BottomDataType_DateAndTime) {
                     string = [NSString stringWithFormat:@"%@/%@ %@:%@" , [model.date substringWithRange:NSMakeRange(4, 2)] , [model.date substringWithRange:NSMakeRange(6, 2)] , [model.time substringToIndex:2] , [model.time substringFromIndex:2]];

@@ -16,5 +16,11 @@
 @property (nonatomic , strong)NSArray *lineColors;
 
 @property (nonatomic , assign) CGFloat chartLineWidth;
+
+
+@property (nonatomic , strong) CALayer * lastFSPointLayer;
 + (ChartConfig *)shareConfig;
+
+//+ (CABasicAnimation *)opacityForever_Animation:(float)time;
++ (CALayer *)flashPointLayer:(UIColor *)color;
 @end
