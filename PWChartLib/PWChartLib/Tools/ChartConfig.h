@@ -17,8 +17,7 @@
 
 @property (nonatomic , assign) CGFloat chartLineWidth;
 
-
-@property (nonatomic , strong) CALayer * lastFSPointLayer;
+@property (nonatomic, copy) CALayer * (^lastFSPointLayer)();
 + (ChartConfig *)shareConfig;
 
 //+ (CABasicAnimation *)opacityForever_Animation:(float)time;

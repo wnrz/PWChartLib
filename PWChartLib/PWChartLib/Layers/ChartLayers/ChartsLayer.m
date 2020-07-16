@@ -130,9 +130,10 @@
         
         if (!CGPointEqualToPoint(lastPoint, CGPointZero)){
             if ([ChartConfig shareConfig].lastFSPointLayer != nil){
-                CGRect rect = [ChartConfig shareConfig].lastFSPointLayer.bounds;
-                [ChartConfig shareConfig].lastFSPointLayer.frame = CGRectMake(lastPoint.x - rect.size.width / 2, lastPoint.y - rect.size.height / 2, rect.size.width, rect.size.height);
-                [self addSublayer:[ChartConfig shareConfig].lastFSPointLayer];
+                CALayer *lastFSPointLayer = [ChartConfig shareConfig].lastFSPointLayer();
+                CGRect rect = lastFSPointLayer.bounds;
+                lastFSPointLayer.frame = CGRectMake(lastPoint.x - rect.size.width / 2, lastPoint.y - rect.size.height / 2, rect.size.width, rect.size.height);
+                [self addSublayer:lastFSPointLayer];
             }
         }
         
